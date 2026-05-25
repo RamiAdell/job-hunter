@@ -58,7 +58,7 @@ Click **🌍 Manage Countries** in the filter panel. For each country you want t
 
 Common ones are already listed in the modal for reference (US, UK, DE, FR, NL, CA, AU, SG, JP, SA, AE, ES, PL, PT, EG).
 
-![alt text](/image.png)
+![alt text](Screenshots/image.png)
 
 ### 4 — Add keyword categories
 
