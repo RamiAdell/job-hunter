@@ -3,401 +3,305 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Job Hunter — LinkedIn Dashboard</title>
+<title>Job Hunter</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:       #f0ebe2;
-  --bg2:      #e8e1d6;
-  --surface:  #faf7f3;
-  --s2:       #f0ebe2;
-  --s3:       #e4dcd0;
-  --s4:       #d9d0c3;
-  --border:   rgba(130,100,78,0.18);
-  --borderH:  rgba(130,100,78,0.42);
-  --brown:    #6e4f38;
-  --brownL:   #9b7258;
-  --brownG:   rgba(110,79,56,0.10);
-  --sage:     #5a7d62;
-  --sageG:    rgba(90,125,98,0.13);
-  --slate:    #4f789e;
-  --slateG:   rgba(79,120,158,0.13);
-  --clay:     #a85c3e;
-  --clayG:    rgba(168,92,62,0.13);
-  --amber:    #b87c30;
-  --amberG:   rgba(184,124,48,0.12);
-  --rose:     #9e5060;
-  --roseG:    rgba(158,80,96,0.12);
-  --t1:       #241510;
-  --t2:       #5e4235;
-  --t3:       #9c826e;
-  --t4:       #c4b5a8;
-  --mono:     'JetBrains Mono', monospace;
-  --sans:     'DM Sans', sans-serif;
-  --display:  'Playfair Display', serif;
-  --r:        10px;
-  --rl:       14px;
-  --sh:       0 1px 3px rgba(110,79,56,0.07), 0 4px 14px rgba(110,79,56,0.05);
-  --shH:      0 2px 8px rgba(110,79,56,0.12), 0 8px 24px rgba(110,79,56,0.09);
+  --bg:#f0ebe2;--bg2:#e8e1d6;--surface:#faf7f3;--s2:#f0ebe2;--s3:#e4dcd0;--s4:#d9d0c3;
+  --border:rgba(130,100,78,0.18);--borderH:rgba(130,100,78,0.42);
+  --brown:#6e4f38;--brownL:#9b7258;--brownG:rgba(110,79,56,0.10);
+  --sage:#5a7d62;--sageG:rgba(90,125,98,0.13);
+  --slate:#4f789e;--slateG:rgba(79,120,158,0.13);
+  --clay:#a85c3e;--clayG:rgba(168,92,62,0.13);
+  --amber:#b87c30;--amberG:rgba(184,124,48,0.12);
+  --rose:#9e5060;--roseG:rgba(158,80,96,0.12);
+  --indigo:#5060a0;--indigoG:rgba(80,96,160,0.12);
+  --moss:#6a8a60;--mossG:rgba(106,138,96,0.12);
+  --t1:#241510;--t2:#5e4235;--t3:#9c826e;--t4:#c4b5a8;
+  --mono:'JetBrains Mono',monospace;--sans:'DM Sans',sans-serif;--display:'Playfair Display',serif;
+  --r:10px;--rl:14px;
+  --sh:0 1px 3px rgba(110,79,56,0.07),0 4px 14px rgba(110,79,56,0.05);
+  --shH:0 2px 8px rgba(110,79,56,0.12),0 8px 24px rgba(110,79,56,0.09);
 }
-*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  background: var(--bg);
-  background-image:
-    radial-gradient(ellipse 70% 50% at 5% 0%, rgba(110,79,56,0.06) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 95% 100%, rgba(90,125,98,0.06) 0%, transparent 50%);
-  color: var(--t1);
-  font-family: var(--sans);
-  min-height: 100vh;
-  padding-bottom: 110px;
-}
-.wrap { max-width:1180px; margin:0 auto; padding:0 22px; }
-input, select, button, textarea { font-family: var(--sans); }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);background-image:radial-gradient(ellipse 70% 50% at 5% 0%,rgba(110,79,56,0.06) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 95% 100%,rgba(90,125,98,0.06) 0%,transparent 50%);color:var(--t1);font-family:var(--sans);min-height:100vh;padding-bottom:120px;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px;}
+input,select,button,textarea{font-family:var(--sans);}
+.hidden{display:none!important;}
 
-/* ── HEADER ─────────────────────────────────────────────── */
-header {
-  padding: 26px 0 20px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 20px;
-}
-.hi { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; }
-.hl h1 {
-  font-family: var(--display);
-  font-size: 28px; font-weight: 800; letter-spacing: -0.3px;
-  color: var(--brown);
-}
-.hl p { color: var(--t3); font-size: 12.5px; margin-top: 4px; }
-.hstats { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:4px; }
-.sp {
-  background: var(--surface); border:1px solid var(--border);
-  border-radius:50px; padding:4px 12px; font-size:11px;
-  color:var(--t3); font-family:var(--mono);
-}
-.sp b { color:var(--brown); }
+/* ── HEADER ── */
+header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+.hi{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.hl{flex:1;min-width:200px;}
+.hl-title-wrap{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.hl h1{font-family:var(--display);font-size:28px;font-weight:800;letter-spacing:-0.3px;color:var(--brown);outline:none;border-bottom:2px solid transparent;transition:border-color .2s;}
+.hl h1:focus{border-bottom-color:var(--brownL);}
+.hl p{color:var(--t3);font-size:12.5px;outline:none;border-bottom:2px solid transparent;transition:border-color .2s;display:inline-block;}
+.hl p:focus{border-bottom-color:var(--brownL);}
+.edit-hint{font-size:10px;color:var(--t4);font-family:var(--mono);margin-top:3px;opacity:0;transition:opacity .2s;}
+.hl:hover .edit-hint{opacity:1;}
+.hstats{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px;}
+.sp{background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:4px 12px;font-size:11px;color:var(--t3);font-family:var(--mono);}
+.sp b{color:var(--brown);}
 
-/* ── TIP ─────────────────────────────────────────────────── */
-.tip {
-  background: linear-gradient(135deg, rgba(110,79,56,0.06), rgba(90,125,98,0.04));
-  border:1px solid rgba(110,79,56,0.22);
-  border-left: 3px solid var(--brownL);
-  border-radius:var(--r); padding:10px 14px;
-  margin-bottom:18px; display:flex; gap:10px; font-size:12.5px;
-  color:var(--t2); position:relative;
-}
-.tip b { color:var(--brown); }
-.tip-x {
-  position:absolute; top:8px; right:10px;
-  background:none; border:none; color:var(--t4); cursor:pointer;
-  font-size:14px; line-height:1; transition:color .2s;
-}
-.tip-x:hover { color:var(--t3); }
+/* ── TIP ── */
+.tip{background:linear-gradient(135deg,rgba(110,79,56,0.06),rgba(90,125,98,0.04));border:1px solid rgba(110,79,56,0.22);border-left:3px solid var(--brownL);border-radius:var(--r);padding:10px 14px;margin-bottom:18px;display:flex;gap:10px;font-size:12.5px;color:var(--t2);position:relative;}
+.tip b{color:var(--brown);}
+.tip-x{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--t4);cursor:pointer;font-size:14px;line-height:1;transition:color .2s;}
+.tip-x:hover{color:var(--t3);}
+.pw{display:none;background:rgba(168,92,62,0.07);border:1px solid rgba(168,92,62,0.3);border-radius:var(--r);padding:9px 13px;font-size:12px;color:var(--clay);margin-bottom:14px;gap:8px;align-items:flex-start;}
+.pw.show{display:flex;}
 
-/* ── POPUP WARNING ────────────────────────────────────────── */
-.pw {
-  display:none; background:rgba(168,92,62,0.07);
-  border:1px solid rgba(168,92,62,0.3); border-radius:var(--r);
-  padding:9px 13px; font-size:12px; color:var(--clay);
-  margin-bottom:14px; gap:8px; align-items:flex-start;
-}
-.pw.show { display:flex; }
+/* ── PILLS ── */
+.pills{display:flex;flex-wrap:wrap;gap:5px;}
+.pill{padding:5px 13px;border-radius:50px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--s2);color:var(--t3);transition:all .15s;user-select:none;white-space:nowrap;}
+.pill:hover{border-color:var(--borderH);color:var(--t1);background:var(--s3);}
+.pill.on{background:var(--brown);border-color:var(--brown);color:#fff;box-shadow:0 2px 8px var(--brownG);}
+.pill.on-slt{background:var(--slateG);border-color:var(--slate);color:var(--slate);}
+.pill.on-grn{background:var(--sageG);border-color:var(--sage);color:var(--sage);}
+.pill.on-amb{background:var(--amberG);border-color:var(--amber);color:var(--amber);}
 
-/* ── FILTER PANEL ────────────────────────────────────────── */
-.fp {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--rl);
-  padding: 18px 20px;
-  margin-bottom: 18px;
-  box-shadow: var(--sh);
-}
-.fp-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-@media(max-width:640px){ .fp-grid { grid-template-columns:1fr; } }
-.fp-sec { margin-bottom:14px; }
-.fp-sec:last-child { margin-bottom:0; }
-.fl {
-  font-size:9.5px; font-weight:700; letter-spacing:1.8px;
-  text-transform:uppercase; color:var(--t4); margin-bottom:7px;
-  font-family:var(--mono);
-}
-.pills { display:flex; flex-wrap:wrap; gap:5px; }
-.pill {
-  padding:5px 13px; border-radius:50px; font-size:12px; font-weight:500;
-  cursor:pointer; border:1px solid var(--border); background:var(--s2);
-  color:var(--t3); transition:all .15s; user-select:none; white-space:nowrap;
-}
-.pill:hover { border-color:var(--borderH); color:var(--t1); background:var(--s3); }
-.pill.on      { background:var(--brown);   border-color:var(--brown);   color:#fff; box-shadow:0 2px 8px var(--brownG); }
-.pill.on-sage { background:var(--sageG);   border-color:var(--sage);    color:var(--sage); }
-.pill.on-grn  { background:var(--sageG);   border-color:var(--sage);    color:var(--sage); }
-.pill.on-amb  { background:var(--amberG);  border-color:var(--amber);   color:var(--amber); }
-.pill.on-slt  { background:var(--slateG);  border-color:var(--slate);   color:var(--slate); }
-.pill.on-clay { background:var(--clayG);   border-color:var(--clay);    color:var(--clay); }
-.fp-div { height:1px; background:var(--border); margin:14px 0; }
+/* ── PANELS ── */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px;box-shadow:var(--sh);}
+.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:640px){.panel-grid{grid-template-columns:1fr;}}
+.fp-sec{margin-bottom:14px;}
+.fp-sec:last-child{margin-bottom:0;}
+.fl{font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--t4);margin-bottom:7px;font-family:var(--mono);}
 
-/* custom time input */
-.time-custom {
-  display:flex; align-items:center; gap:6px; margin-top:7px;
-}
-.time-custom input[type=number] {
-  width:68px; padding:5px 9px; border-radius:7px;
-  border:1px solid var(--border); background:var(--s2); color:var(--t1);
-  font-size:12px; font-family:var(--mono); outline:none;
-  transition:border-color .15s;
-}
-.time-custom input:focus { border-color:var(--brownL); }
-.time-custom select {
-  padding:5px 8px; border-radius:7px; border:1px solid var(--border);
-  background:var(--s2); color:var(--t2); font-size:12px; outline:none;
-  cursor:pointer; transition:border-color .15s;
-}
-.time-custom select:focus { border-color:var(--brownL); }
-.time-custom button {
-  padding:5px 12px; border-radius:7px; border:1px solid var(--border);
-  background:var(--s3); color:var(--t2); font-size:11.5px; font-weight:600;
-  cursor:pointer; transition:all .15s;
-}
-.time-custom button:hover { border-color:var(--brown); color:var(--brown); }
+/* custom time */
+.time-custom{display:flex;align-items:center;gap:6px;margin-top:7px;flex-wrap:wrap;}
+.time-custom input[type=number]{width:68px;padding:5px 9px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t1);font-size:12px;font-family:var(--mono);outline:none;transition:border-color .15s;}
+.time-custom input:focus{border-color:var(--brownL);}
+.time-custom select{padding:5px 8px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;}
+.time-custom button{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--s3);color:var(--t2);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;}
+.time-custom button:hover{border-color:var(--brown);color:var(--brown);}
 
 /* delay slider */
-.delay-row { display:flex; align-items:center; gap:10px; margin-top:2px; }
-.delay-row input[type=range] {
-  -webkit-appearance:none; appearance:none;
-  width:120px; height:4px; border-radius:2px;
-  background: linear-gradient(to right, var(--brownL) 0%, var(--brownL) var(--pct,40%), var(--s4) var(--pct,40%), var(--s4) 100%);
-  outline:none; cursor:pointer;
-}
-.delay-row input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance:none; appearance:none;
-  width:14px; height:14px; border-radius:50%;
-  background:var(--brown); border:2px solid var(--surface); cursor:pointer;
-  box-shadow:0 1px 4px rgba(0,0,0,.15);
-}
-.delay-label { font-size:11px; color:var(--t3); font-family:var(--mono); }
+.delay-row{display:flex;align-items:center;gap:10px;margin-top:2px;}
+.delay-row input[type=range]{-webkit-appearance:none;appearance:none;width:120px;height:4px;border-radius:2px;background:linear-gradient(to right,var(--brownL) 0%,var(--brownL) var(--pct,28%),var(--s4) var(--pct,28%),var(--s4) 100%);outline:none;cursor:pointer;}
+.delay-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:var(--brown);border:2px solid var(--surface);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15);}
+.delay-label{font-size:11px;color:var(--t3);font-family:var(--mono);}
 
-/* ── KEYWORD MANAGER ─────────────────────────────────────── */
-.km {
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:var(--rl); padding:18px 20px; margin-bottom:18px;
-  box-shadow:var(--sh);
-}
-.km-title {
-  font-size:13px; font-weight:700; color:var(--t1); margin-bottom:12px;
-  display:flex; align-items:center; gap:8px;
-}
-.km-title span { color:var(--t3); font-size:11px; font-weight:400; }
-.km-list { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; min-height:28px; }
-.kw-tag {
-  display:flex; align-items:center; gap:5px;
-  padding:5px 10px; border-radius:7px; font-size:12px; font-weight:500;
-  border:1px solid var(--border); background:var(--s2); color:var(--t2);
-  cursor:default;
-}
-.kw-tag.django    { background:var(--sageG);  border-color:var(--sage);  color:var(--sage);  }
-.kw-tag.python    { background:var(--slateG); border-color:var(--slate); color:var(--slate); }
-.kw-tag.python-dev{ background:var(--clayG);  border-color:var(--clay);  color:var(--clay);  }
-.kw-tag.fastapi   { background:var(--amberG); border-color:var(--amber); color:var(--amber); }
-.kw-tag.custom    { background:var(--brownG); border-color:var(--brownL);color:var(--brownL);}
-.kw-tag.default   { opacity:.7; cursor:default; }
-.kw-del {
-  background:none; border:none; cursor:pointer; color:inherit;
-  font-size:14px; line-height:1; opacity:.5; transition:opacity .15s; padding:0;
-}
-.kw-del:hover { opacity:1; }
-.km-add { display:flex; gap:7px; align-items:center; flex-wrap:wrap; }
-.km-add input[type=text] {
-  flex:1; min-width:180px; padding:7px 12px; border-radius:8px;
-  border:1px solid var(--border); background:var(--s2); color:var(--t1);
-  font-size:12.5px; outline:none; transition:border-color .15s;
-}
-.km-add input:focus { border-color:var(--brownL); }
-.km-add input::placeholder { color:var(--t4); }
-.km-add button {
-  padding:7px 15px; border-radius:8px; border:1px solid var(--border);
-  background:var(--brown); color:#fff; font-size:12px; font-weight:600;
-  cursor:pointer; transition:all .15s; white-space:nowrap;
-}
-.km-add button:hover { background:var(--brownL); }
-.km-note { font-size:11px; color:var(--t4); margin-top:8px; font-style:italic; }
+/* ── COUNTRY MANAGER ── */
+.cm-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;margin-top:8px;}
+.cm-btn:hover{border-color:var(--brownL);color:var(--brown);}
 
-/* ── ACTIVE FILTER TAGS ──────────────────────────────────── */
-.aft { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px; min-height:22px; }
-.ft {
-  background:rgba(110,79,56,0.09); border:1px solid rgba(110,79,56,0.25);
-  color:var(--brownL); font-size:11px; padding:2px 9px;
-  border-radius:20px; font-family:var(--mono);
-}
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(36,21,16,0.45);z-index:500;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.show{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;width:100%;max-width:600px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 12px 60px rgba(110,79,56,0.18);overflow:hidden;}
+.modal-hdr{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.modal-hdr h2{font-size:17px;font-weight:700;color:var(--t1);}
+.modal-hdr p{font-size:11.5px;color:var(--t3);margin-top:2px;}
+.modal-x{background:none;border:none;color:var(--t4);cursor:pointer;font-size:18px;line-height:1;transition:color .2s;padding:2px;}
+.modal-x:hover{color:var(--t2);}
+.modal-body{overflow-y:auto;padding:18px 22px;flex:1;}
+.modal-foot{padding:12px 22px;border-top:1px solid var(--border);flex-shrink:0;}
 
-/* ── SPECIAL CARD ────────────────────────────────────────── */
-.sc-wrap { margin-bottom:22px; }
-.sc {
-  background:linear-gradient(135deg, rgba(110,79,56,0.07), rgba(90,125,98,0.05));
-  border:1px solid rgba(110,79,56,0.28); border-radius:var(--r);
-  padding:12px 16px; display:flex; align-items:center; gap:13px; flex-wrap:wrap;
-  box-shadow:var(--sh);
-}
-.sc-badge {
-  background:var(--brown); color:#fff;
-  font-size:9px; font-weight:800; letter-spacing:1px;
-  text-transform:uppercase; padding:4px 9px; border-radius:4px; white-space:nowrap;
-}
-.sc-info strong { font-size:13px; font-weight:700; color:var(--t1); }
-.sc-info p { font-size:11px; color:var(--t3); margin-top:2px; }
-.sc-btn {
-  margin-left:auto; padding:7px 15px; border-radius:8px;
-  background:var(--brown); border:none; color:#fff;
-  font-size:12px; font-weight:700; cursor:pointer; transition:all .2s; white-space:nowrap;
-}
-.sc-btn:hover { background:var(--brownL); box-shadow:0 4px 16px var(--brownG); }
+/* country list items */
+.clist{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+.citem{display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;transition:border-color .15s;}
+.citem:hover{border-color:var(--borderH);}
+.citem-flag{font-size:22px;flex-shrink:0;width:30px;text-align:center;}
+.citem-info{flex:1;}
+.citem-name{font-size:13.5px;font-weight:700;color:var(--t1);}
+.citem-geo{font-size:10.5px;color:var(--t4);font-family:var(--mono);margin-top:1px;}
+.local-badge{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--sageG);border:1px solid rgba(90,125,98,.35);color:var(--sage);padding:2px 7px;border-radius:4px;}
+.del-btn{background:none;border:none;color:var(--t4);cursor:pointer;font-size:15px;transition:all .15s;padding:3px 6px;border-radius:5px;}
+.del-btn:hover{color:var(--clay);background:var(--clayG);}
 
-/* ── SECTION TITLE ───────────────────────────────────────── */
-.sec-t {
-  font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
-  color:var(--t4); font-family:var(--mono); margin-bottom:16px;
-  display:flex; align-items:center; gap:10px;
-}
-.sec-t::after { content:''; flex:1; height:1px; background:var(--border); }
+/* add country form */
+.add-form{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.add-form h3{font-size:11.5px;font-weight:700;color:var(--t2);margin-bottom:12px;letter-spacing:.5px;}
+.form-row{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px;}
+.form-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:120px;}
+.form-group label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t4);font-family:var(--mono);}
+.form-group input{padding:7px 11px;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--t1);font-size:12.5px;outline:none;transition:border-color .15s;width:100%;}
+.form-group input:focus{border-color:var(--brownL);}
+.form-group input.err{border-color:var(--clay);}
+.form-group .hint{font-size:10.5px;color:var(--t4);font-style:italic;}
+.geoid-help{font-size:11px;color:var(--slate);cursor:pointer;text-decoration:underline;text-decoration-style:dotted;margin-top:4px;display:inline-block;}
+.geo-help-box{background:rgba(79,120,158,0.07);border:1px solid rgba(79,120,158,0.25);border-radius:7px;padding:8px 11px;font-size:11px;color:var(--slate);margin-top:8px;line-height:1.5;display:none;}
+.geo-help-box.show{display:block;}
+.local-check{display:flex;align-items:center;gap:6px;margin-top:8px;cursor:pointer;font-size:12px;color:var(--t3);}
+.local-check input[type=checkbox]{accent-color:var(--sage);width:14px;height:14px;}
+.add-confirm{padding:7px 16px;border-radius:8px;background:var(--brown);border:none;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s;margin-top:2px;}
+.add-confirm:hover{background:var(--brownL);}
+.field-err{font-size:10.5px;color:var(--clay);margin-top:2px;}
 
-/* ── COUNTRY SECTION ─────────────────────────────────────── */
-.cs { margin-bottom:24px; animation:fadeUp .3s ease both; }
-.cs:nth-child(1){animation-delay:.03s} .cs:nth-child(2){animation-delay:.07s}
-.cs:nth-child(3){animation-delay:.11s} .cs:nth-child(4){animation-delay:.15s}
-.cs:nth-child(5){animation-delay:.19s} .cs:nth-child(6){animation-delay:.23s}
-.cs:nth-child(7){animation-delay:.27s}
-@keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-.ch {
-  display:flex; align-items:center; gap:10px; margin-bottom:10px;
-  padding-bottom:8px; border-bottom:1px solid var(--border);
-}
-.ch-flag { font-size:20px; }
-.ch-name { font-size:14.5px; font-weight:700; color:var(--t1); }
-.ch-cnt {
-  font-size:10px; color:var(--t4); font-family:var(--mono);
-  background:var(--s3); padding:2px 7px; border-radius:20px;
-}
-.ch-btn {
-  margin-left:auto; padding:4px 10px; border-radius:6px;
-  border:1px solid var(--border); background:var(--surface);
-  color:var(--t3); font-size:10.5px; font-weight:600; cursor:pointer; transition:all .15s;
-}
-.ch-btn:hover { border-color:var(--brownL); color:var(--brown); }
+/* ── KEYWORD MANAGER ── */
+.km-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.km-title span{color:var(--t3);font-size:11px;font-weight:400;}
+.km-divider{height:1px;background:var(--border);margin:14px 0;}
+.km-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:28px;}
+.kw-tag{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:7px;font-size:12px;font-weight:500;border:1px solid var(--border);background:var(--s2);color:var(--t2);}
+.kw-del{background:none;border:none;cursor:pointer;color:inherit;font-size:14px;line-height:1;opacity:.5;transition:opacity .15s;padding:0;}
+.kw-del:hover{opacity:1;}
+.km-add{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
+.km-add input[type=text]{flex:1;min-width:150px;padding:7px 12px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t1);font-size:12.5px;outline:none;transition:border-color .15s;}
+.km-add input:focus{border-color:var(--brownL);}
+.km-add input::placeholder{color:var(--t4);}
+.km-add select{padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;max-width:150px;}
+.km-add button{padding:7px 15px;border-radius:8px;border:1px solid var(--border);background:var(--brown);color:#fff;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.km-add button:hover{background:var(--brownL);}
+.km-note{font-size:11px;color:var(--t4);margin-top:8px;font-style:italic;}
 
-/* ── CARDS ───────────────────────────────────────────────── */
-.cg { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:8px; }
-.card {
-  background:var(--surface); border:1px solid var(--border); border-radius:var(--r);
-  padding:12px 14px; transition:all .15s; cursor:pointer; position:relative; overflow:hidden;
-  box-shadow:var(--sh);
-}
-.card:hover { border-color:var(--borderH); background:var(--s2); transform:translateY(-1px); box-shadow:var(--shH); }
-.card.sel { border-color:var(--brown); background:rgba(110,79,56,0.05); }
-.card.sel::before {
-  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
-  background:linear-gradient(to bottom, var(--brown), var(--brownL));
-  border-radius:var(--r) 0 0 var(--r);
-}
-.ct { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-.chk {
-  width:17px; height:17px; border-radius:4px; border:1.5px solid var(--t4);
-  flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all .15s;
-}
-.card.sel .chk { background:var(--brown); border-color:var(--brown); }
-.chk::after { content:'✓'; font-size:10px; color:#fff; opacity:0; transition:opacity .15s; font-weight:800; }
-.card.sel .chk::after { opacity:1; }
-.kbadge { font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:4px; }
-.kbadge.django    { background:var(--sageG);  color:var(--sage);  border:1px solid rgba(90,125,98,.3); }
-.kbadge.python    { background:var(--slateG); color:var(--slate); border:1px solid rgba(79,120,158,.3); }
-.kbadge.python-dev{ background:var(--clayG);  color:var(--clay);  border:1px solid rgba(168,92,62,.3); }
-.kbadge.fastapi   { background:var(--amberG); color:var(--amber); border:1px solid rgba(184,124,48,.3); }
-.kbadge.custom    { background:var(--brownG); color:var(--brownL);border:1px solid rgba(155,114,88,.3); }
-.local-tag { margin-left:auto; font-size:10px; color:var(--t4); font-family:var(--mono); }
-.curl {
-  font-family:var(--mono); font-size:9.5px; color:var(--t4); word-break:break-all;
-  line-height:1.5; margin-bottom:8px; background:var(--bg2); padding:6px 9px;
-  border-radius:6px; border:1px solid var(--border); transition:color .15s;
-}
-.card:hover .curl { color:var(--t3); }
-.ca { display:flex; gap:5px; }
-.cbtn {
-  flex:1; padding:5px 9px; border-radius:6px; border:1px solid var(--border);
-  background:var(--s2); color:var(--t3); font-size:11px; font-weight:600;
-  cursor:pointer; transition:all .15s; text-align:center;
-}
-.cbtn:hover { border-color:var(--brownL); color:var(--brown); background:var(--brownG); }
-.cbtn.cp:hover { border-color:var(--sage); color:var(--sage); background:var(--sageG); }
+/* ── TYPE MANAGER ── */
+.tm-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;min-height:24px;}
+.tm-tag{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;font-size:11.5px;font-weight:600;border:1px solid;cursor:default;}
+.tm-del{background:none;border:none;cursor:pointer;color:inherit;font-size:12px;line-height:1;opacity:.4;transition:opacity .15s;padding:0;margin-left:2px;}
+.tm-del:hover{opacity:1;}
+.tm-add-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
+.tm-add-row input{padding:6px 11px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t1);font-size:12px;outline:none;width:180px;transition:border-color .15s;}
+.tm-add-row input:focus{border-color:var(--brownL);}
+.tm-add-row button{padding:6px 13px;border-radius:7px;border:1px solid var(--borderH);background:var(--s3);color:var(--t2);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;}
+.tm-add-row button:hover{border-color:var(--brown);color:var(--brown);}
+.case-warn{display:none;background:rgba(184,124,48,0.1);border:1px solid rgba(184,124,48,0.4);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--amber);margin-top:6px;}
+.case-warn.show{display:block;}
 
-/* ── EMPTY STATE ─────────────────────────────────────────── */
-.empty { text-align:center; padding:48px 20px; color:var(--t4); }
-.empty-i { font-size:42px; margin-bottom:14px; }
+/* ── ACTIVE FILTER TAGS ── */
+.aft{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;min-height:22px;}
+.ft{background:rgba(110,79,56,0.09);border:1px solid rgba(110,79,56,0.25);color:var(--brownL);font-size:11px;padding:2px 9px;border-radius:20px;font-family:var(--mono);}
 
-/* ── PROGRESS TOAST (opening tabs) ──────────────────────── */
-.open-progress {
-  display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%);
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:10px; padding:10px 20px; box-shadow:var(--shH);
-  z-index:400; font-size:12.5px; color:var(--t1); white-space:nowrap; text-align:center;
-}
-.open-progress.show { display:block; }
-.prog-bar-wrap { height:3px; background:var(--s4); border-radius:2px; margin-top:7px; overflow:hidden; }
-.prog-bar { height:100%; background:var(--brown); border-radius:2px; transition:width .3s; }
+/* ── SECTION TITLE ── */
+.sec-t{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t4);font-family:var(--mono);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.sec-t::after{content:'';flex:1;height:1px;background:var(--border);}
 
-/* ── TOAST ───────────────────────────────────────────────── */
-.toast {
-  position:fixed; bottom:90px; right:20px;
-  background:var(--surface); border:1px solid var(--sage); color:var(--sage);
-  padding:9px 15px; border-radius:8px; font-size:12.5px; font-weight:600;
-  z-index:300; opacity:0; transform:translateY(6px);
-  transition:all .25s; pointer-events:none; box-shadow:var(--sh);
-}
-.toast.show { opacity:1; transform:translateY(0); }
+/* ── COUNTRY SECTION ── */
+.cs{margin-bottom:24px;animation:fadeUp .3s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.ch{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.ch-flag{font-size:20px;}
+.ch-name{font-size:14.5px;font-weight:700;color:var(--t1);}
+.ch-cnt{font-size:10px;color:var(--t4);font-family:var(--mono);background:var(--s3);padding:2px 7px;border-radius:20px;}
+.ch-btn{margin-left:auto;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--t3);font-size:10.5px;font-weight:600;cursor:pointer;transition:all .15s;}
+.ch-btn:hover{border-color:var(--brownL);color:var(--brown);}
 
-/* ── STICKY ACTION BAR ───────────────────────────────────── */
-.ab {
-  position:fixed; bottom:0; left:0; right:0;
-  background:rgba(250,247,243,0.97); backdrop-filter:blur(18px);
-  border-top:1px solid var(--border); padding:11px 22px; z-index:100;
-  box-shadow:0 -2px 12px rgba(110,79,56,0.08);
-}
-.ab-in {
-  max-width:1180px; margin:0 auto;
-  display:flex; align-items:center; gap:9px; flex-wrap:wrap;
-}
-.abl { display:flex; align-items:center; gap:8px; }
-.sm-btn {
-  padding:5px 12px; border-radius:7px; border:1px solid var(--border);
-  background:var(--s2); color:var(--t3); font-size:11.5px; font-weight:600;
-  cursor:pointer; transition:all .15s;
-}
-.sm-btn:hover { border-color:var(--brownL); color:var(--t1); }
-.sel-info { font-family:var(--mono); font-size:11.5px; color:var(--t3); }
-.sel-info b { color:var(--brown); }
-.abr { margin-left:auto; display:flex; gap:7px; flex-wrap:wrap; }
-.abtn {
-  padding:7px 15px; border-radius:8px; font-size:12.5px; font-weight:700;
-  cursor:pointer; transition:all .15s; border:none;
-}
-.abtn.sec { background:var(--s2); border:1px solid var(--border); color:var(--t2); }
-.abtn.sec:hover { border-color:var(--brownL); color:var(--t1); }
-.abtn.pri { background:var(--brown); color:#fff; box-shadow:0 2px 8px var(--brownG); }
-.abtn.pri:hover { background:var(--brownL); }
-.abtn.pri:disabled { opacity:.35; cursor:not-allowed; box-shadow:none; }
-.abtn.pri2 { background:var(--sage); color:#fff; }
-.abtn.pri2:hover { opacity:.88; }
-.abtn.bat { background:var(--amberG); border:1px solid var(--amber); color:var(--amber); }
-.abtn.bat:hover { background:rgba(184,124,48,.22); }
-.abtn.bat:disabled { opacity:.35; cursor:not-allowed; }
-.abtn.save { background:var(--roseG); border:1px solid var(--rose); color:var(--rose); }
-.abtn.save:hover { background:rgba(158,80,96,.22); }
+/* ── CARDS ── */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:8px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;transition:all .15s;cursor:pointer;position:relative;overflow:hidden;box-shadow:var(--sh);}
+.card:hover{border-color:var(--borderH);background:var(--s2);transform:translateY(-1px);box-shadow:var(--shH);}
+.card.sel{border-color:var(--brown);background:rgba(110,79,56,0.05);}
+.card.sel::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--brown),var(--brownL));border-radius:var(--r) 0 0 var(--r);}
+.ct{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.chk{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--t4);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.card.sel .chk{background:var(--brown);border-color:var(--brown);}
+.chk::after{content:'✓';font-size:10px;color:#fff;opacity:0;transition:opacity .15s;font-weight:800;}
+.card.sel .chk::after{opacity:1;}
+.kbadge{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:4px;border:1px solid transparent;}
+.local-tag{margin-left:auto;font-size:10px;color:var(--t4);font-family:var(--mono);}
+.curl{font-family:var(--mono);font-size:9.5px;color:var(--t4);word-break:break-all;line-height:1.5;margin-bottom:8px;background:var(--bg2);padding:6px 9px;border-radius:6px;border:1px solid var(--border);transition:color .15s;}
+.card:hover .curl{color:var(--t3);}
+.ca{display:flex;gap:5px;}
+.cbtn{flex:1;padding:5px 9px;border-radius:6px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;}
+.cbtn:hover{border-color:var(--brownL);color:var(--brown);background:var(--brownG);}
+.cbtn.cp:hover{border-color:var(--sage);color:var(--sage);background:var(--sageG);}
 
-/* scrollbar */
-::-webkit-scrollbar { width:5px; }
-::-webkit-scrollbar-track { background:var(--bg); }
-::-webkit-scrollbar-thumb { background:var(--s4); border-radius:3px; }
-::-webkit-scrollbar-thumb:hover { background:var(--t4); }
+/* ── EMPTY STATES ── */
+.empty{text-align:center;padding:48px 20px;color:var(--t4);}
+.empty-i{font-size:42px;margin-bottom:14px;}
+.onboard{background:linear-gradient(135deg,rgba(110,79,56,0.05),rgba(90,125,98,0.04));border:1px dashed rgba(110,79,56,0.3);border-radius:var(--rl);padding:28px 24px;text-align:center;margin-bottom:24px;}
+.onboard h3{font-size:15px;font-weight:700;color:var(--t2);margin-bottom:8px;}
+.onboard p{font-size:12.5px;color:var(--t3);margin-bottom:14px;line-height:1.6;}
+.onboard-steps{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;}
+.ost{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--t2);display:flex;align-items:center;gap:8px;}
+.ost-num{width:20px;height:20px;border-radius:50%;background:var(--brown);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ob-btn{padding:8px 18px;border-radius:8px;background:var(--brown);border:none;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s;margin:0 5px;}
+.ob-btn:hover{background:var(--brownL);}
+
+/* ── PROGRESS TOAST ── */
+.open-progress{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;box-shadow:var(--shH);z-index:400;font-size:12.5px;color:var(--t1);white-space:nowrap;text-align:center;}
+.open-progress.show{display:block;}
+.prog-bar-wrap{height:3px;background:var(--s4);border-radius:2px;margin-top:7px;overflow:hidden;}
+.prog-bar{height:100%;background:var(--brown);border-radius:2px;transition:width .3s;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:90px;right:20px;background:var(--surface);border:1px solid var(--sage);color:var(--sage);padding:9px 15px;border-radius:8px;font-size:12.5px;font-weight:600;z-index:300;opacity:0;transform:translateY(6px);transition:all .25s;pointer-events:none;box-shadow:var(--sh);max-width:340px;}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* ── ACTION BAR ── */
+.ab{position:fixed;bottom:0;left:0;right:0;background:rgba(250,247,243,0.97);backdrop-filter:blur(18px);border-top:1px solid var(--border);padding:11px 22px;z-index:100;box-shadow:0 -2px 12px rgba(110,79,56,0.08);}
+.ab-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.abl{display:flex;align-items:center;gap:8px;}
+.sm-btn{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;}
+.sm-btn:hover{border-color:var(--brownL);color:var(--t1);}
+.sel-info{font-family:var(--mono);font-size:11.5px;color:var(--t3);}
+.sel-info b{color:var(--brown);}
+.abr{margin-left:auto;display:flex;gap:7px;flex-wrap:wrap;}
+.abtn{padding:7px 15px;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s;border:none;}
+.abtn.sec{background:var(--s2);border:1px solid var(--border);color:var(--t2);}
+.abtn.sec:hover{border-color:var(--brownL);color:var(--t1);}
+.abtn.pri{background:var(--brown);color:#fff;box-shadow:0 2px 8px var(--brownG);}
+.abtn.pri:hover{background:var(--brownL);}
+.abtn.pri:disabled{opacity:.35;cursor:not-allowed;box-shadow:none;}
+.abtn.pri2{background:var(--sage);color:#fff;}
+.abtn.pri2:hover{opacity:.88;}
+.abtn.bat{background:var(--amberG);border:1px solid var(--amber);color:var(--amber);}
+.abtn.bat:hover{background:rgba(184,124,48,.22);}
+.abtn.bat:disabled{opacity:.35;cursor:not-allowed;}
+.abtn.save{background:var(--roseG);border:1px solid var(--rose);color:var(--rose);}
+.abtn.save:hover{background:rgba(158,80,96,.22);}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--s4);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--t4);}
 </style>
 </head>
 <body>
 
+<!-- ── COUNTRY MANAGER MODAL ── -->
+<div class="modal-overlay" id="country-modal" onclick="if(event.target===this)closeCountryModal()">
+  <div class="modal">
+    <div class="modal-hdr">
+      <div>
+        <h2>🌍 Manage Countries</h2>
+        <p>Add, remove, or reorder countries for your search</p>
+      </div>
+      <button class="modal-x" onclick="closeCountryModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="clist-wrap" class="clist"></div>
+      <div class="add-form">
+        <h3>ADD NEW COUNTRY</h3>
+        <div class="form-row">
+          <div class="form-group" style="max-width:72px">
+            <label>Flag</label>
+            <input type="text" id="nf-flag" placeholder="🇺🇸" maxlength="4">
+            <span class="hint">Emoji</span>
+          </div>
+          <div class="form-group" style="flex:2">
+            <label>Country Name</label>
+            <input type="text" id="nf-name" placeholder="e.g. France" maxlength="60">
+          </div>
+          <div class="form-group" style="flex:1.5">
+            <label>GeoId <span style="color:var(--clay)">*required</span></label>
+            <input type="text" id="nf-geo" placeholder="e.g. 105015875" maxlength="20" pattern="[0-9]+">
+            <span id="geo-err" class="field-err hidden">Numeric GeoId required</span>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">
+          <span class="geoid-help" onclick="toggleGeoHelp()">❓ How to find a LinkedIn GeoId?</span>
+          <div id="geo-help-box" class="geo-help-box">
+            <strong>Method 1:</strong> Visit <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">linkedin.com/jobs/search/</code>, filter by location (type the country name). Check the URL — it will contain <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">geoId=XXXXXXX</code>. Copy that number.<br><br>
+            <strong>Method 2:</strong> Common GeoIds — 🇺🇸 US: 103644278 · 🇬🇧 UK: 101165590 · 🇩🇪 DE: 101282230 · 🇫🇷 FR: 105015875 · 🇳🇱 NL: 102890719 · 🇨🇦 CA: 101174742 · 🇦🇺 AU: 101452733 · 🇸🇬 SG: 102454443 · 🇯🇵 JP: 101355337 · 🇸🇦 SA: 102571527 · 🇦🇪 AE: 104305776 · 🇪🇸 ES: 105646813 · 🇵🇱 PL: 105072130 · 🇵🇹 PT: 100364837 · 🇪🇬 EG: 106155005
+          </div>
+        </div>
+        <label class="local-check">
+          <input type="checkbox" id="nf-local"> Mark as local / home country
+        </label>
+      </div>
+    </div>
+    <div class="modal-foot" style="display:flex;gap:8px;justify-content:flex-end;">
+      <button class="abtn sec" onclick="closeCountryModal()">Done</button>
+      <button class="add-confirm" onclick="addCountry()">+ Add Country</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROGRESS / TOAST ── -->
 <div class="open-progress" id="op">
   <div id="op-text">Opening tab 1 of 1...</div>
   <div class="prog-bar-wrap"><div class="prog-bar" id="op-bar" style="width:0%"></div></div>
@@ -406,36 +310,32 @@ header {
 
 <div class="wrap">
 
+<!-- ── HEADER ── -->
 <header>
   <div class="hi">
-    <div class="hl">
-      <h1>Job Hunter</h1>
-      <p>Python &amp; Django Opportunity Radar — Egypt → Europe</p>
+    <div class="hl" id="header-hl">
+      <div class="hl-title-wrap">
+        <h1 id="site-title" contenteditable="true" spellcheck="false" title="Click to edit title"></h1>
+      </div>
+      <p id="site-sub" contenteditable="true" spellcheck="false" title="Click to edit subtitle"></p>
+      <div class="edit-hint">✏️ Click title or subtitle to edit · changes auto-save</div>
     </div>
     <div class="hstats">
       <div class="sp"><b id="total-count">0</b> searches</div>
-      <div class="sp"><b>7</b> countries</div>
+      <div class="sp"><b id="country-count">0</b> countries</div>
       <div class="sp" id="af-stat">No filters</div>
     </div>
   </div>
 </header>
 
-<div class="tip" id="tip">
-  <div>💡 <b>Tab opening fixed:</b> tabs now open one-by-one with a delay — adjust speed in the <b>Tab Speed</b> control below.
-  If tabs still get blocked, use <b> .bat</b> (most reliable on Windows).
-  <b>Visa Mode</b> adds "visa sponsorship" to every keyword.
-  Custom keywords are <b>saved in your browser</b> — use <b> Save to File</b> to bake them into the HTML.</div>
-  <button class="tip-x" onclick="this.closest('.tip').remove()">✕</button>
-</div>
-
 <div class="pw" id="pw">
   <span>⚠️</span>
-  <span>Some tabs may still be blocked. Go to your browser address bar → click the popup icon → Allow. Or use <b>📥 .bat</b> below.</span>
+  <span>Some tabs may still be blocked. Click the popup icon in your address bar → Allow. Or use <b>📥 .bat</b> below.</span>
 </div>
 
-<!-- ── FILTERS ──────────────────────────────────────────── -->
-<div class="fp">
-  <div class="fp-grid">
+<!-- ── FILTER PANEL ── -->
+<div class="panel">
+  <div class="panel-grid">
     <div>
       <div class="fp-sec">
         <div class="fl">⏱ Time Range</div>
@@ -476,58 +376,66 @@ header {
         </div>
       </div>
       <div class="fp-sec">
-        <div class="fl">Tab Speed <span style="font-size:10px;font-family:var(--mono);color:var(--t4)">(delay between tabs)</span></div>
+        <div class="fl">Tab Speed</div>
         <div class="delay-row">
-          <input type="range" id="delay-slider" min="200" max="2000" step="100" value="500"
-            oninput="updateDelay(this.value)">
+          <input type="range" id="delay-slider" min="200" max="2000" step="100" value="500" oninput="updateDelay(this.value)">
           <span class="delay-label" id="delay-label">500ms</span>
           <span style="font-size:10.5px;color:var(--t4)">← faster / safer →</span>
         </div>
       </div>
       <div class="fp-sec">
-        <div class="fl">Countries</div>
+        <div class="fl">Filter by Country</div>
         <div class="pills" id="cf"></div>
+        <button class="cm-btn" onclick="openCountryModal()">🌍 Manage Countries</button>
       </div>
       <div class="fp-sec">
-        <div class="fl">Keyword Filter</div>
+        <div class="fl">Filter by Keyword Type</div>
         <div class="pills" id="kfp"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ── KEYWORD MANAGER ──────────────────────────────────── -->
-<div class="km">
+<!-- ── KEYWORD MANAGER ── -->
+<div class="panel">
   <div class="km-title">
-     Keywords
-    <span>— applied to all 7 countries · custom ones saved in browser</span>
+    Keywords
+    <span id="km-title-sub">— applied to all countries</span>
   </div>
-  <div class="km-list" id="km-list"></div>
+
+  <!-- Type Manager -->
+  <div class="fp-sec">
+    <div class="fl">Keyword Categories (Types)</div>
+    <div class="tm-list" id="tm-list"></div>
+    <div class="tm-add-row">
+      <input type="text" id="tm-input" placeholder="New category, e.g. Backend" maxlength="40"
+        oninput="checkTypeCase()" onkeydown="if(event.key==='Enter')addType()">
+      <button onclick="addType()">+ Add Type</button>
+    </div>
+    <div class="case-warn" id="case-warn"></div>
+  </div>
+
+  <div class="km-divider"></div>
+
+  <!-- Keyword list -->
+  <div class="fp-sec">
+    <div class="fl">All Keywords</div>
+    <div class="km-list" id="km-list"></div>
+  </div>
   <div class="km-add">
-    <input type="text" id="kw-input" placeholder="Add keyword: e.g. FastAPI, Flask Developer, Senior Python..." maxlength="80"
+    <input type="text" id="kw-input" placeholder="Add keyword: e.g. React Developer, Data Analyst..." maxlength="80"
       onkeydown="if(event.key==='Enter')addKW()">
+    <select id="kw-type-sel" style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;"></select>
     <button onclick="addKW()">+ Add Keyword</button>
   </div>
-  <div class="km-note" id="km-note">Custom keywords live in your browser's localStorage. Click "Save to File" in the action bar to bake them into the HTML file permanently.</div>
+  <div class="km-note" id="km-note">Custom keywords & types are saved in your browser. Click <b>Save to File</b> in the action bar to bake them into the HTML permanently.</div>
 </div>
 
-<!-- ── ACTIVE FILTER TAGS ──────────────────────────────── -->
+<!-- ── ACTIVE FILTER TAGS ── -->
 <div class="aft" id="aft"></div>
 
-<!-- ── EASY APPLY COLLECTION ──────────────────────────── -->
-<div class="sc-wrap">
-  <div class="sc">
-    <div class="sc-badge">⚡ Featured</div>
-    <div class="sc-info">
-      <strong>LinkedIn Easy Apply — Curated Collection</strong>
-      <p>LinkedIn's personalized Easy Apply jobs feed · Refreshed daily</p>
-    </div>
-    <button class="sc-btn" onclick="window.open('https://www.linkedin.com/jobs/collections/easy-apply/?discover=true','_blank')">Open Feed ↗</button>
-  </div>
-</div>
-
+<!-- ── RESULTS ── -->
 <div class="sec-t">Your Searches</div>
-
 <div id="lc"></div>
 <div class="empty hidden" id="es">
   <div class="empty-i">🔍</div>
@@ -536,7 +444,7 @@ header {
 
 </div><!-- .wrap -->
 
-<!-- ── ACTION BAR ─────────────────────────────────────── -->
+<!-- ── ACTION BAR ── -->
 <div class="ab">
   <div class="ab-in">
     <div class="abl">
@@ -545,114 +453,121 @@ header {
       <div class="sel-info">Selected: <b id="sc2">0</b> / <span id="tv">0</span></div>
     </div>
     <div class="abr">
-      <button class="abtn bat" id="bat-sel" disabled onclick="dlBat('sel')"> .bat (Sel)</button>
-      <button class="abtn bat" onclick="dlBat('all')"> .bat (All)</button>
+      <button class="abtn bat" id="bat-sel" disabled onclick="dlBat('sel')">📥 .bat (Sel)</button>
+      <button class="abtn bat" onclick="dlBat('all')">📥 .bat (All)</button>
       <button class="abtn pri" id="op-sel" disabled onclick="doOpen('sel')">Open Selected ↗</button>
       <button class="abtn pri2" onclick="doOpen('all')">Open All ↗</button>
-      <button class="abtn save" onclick="saveToFile()"> Save to File</button>
+      <button class="abtn save" onclick="saveToFile()">Save to File</button>
     </div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════════
-// DATA
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// BAKED DATA — replaced wholesale on "Save to File"
+// BAKED_START
+const BAKED = {
+  settings: {title:"Job Hunter",subtitle:"LinkedIn Opportunity Radar"},
+  countries: [
+    {country:"Spain",flag:"🇪🇸",geoId:"105646813",local:false},
+    {country:"Egypt",flag:"🇪🇬",geoId:"106155005",local:true},
+    {country:"Germany",flag:"🇩🇪",geoId:"101282230",local:false},
+    {country:"Netherlands",flag:"🇳🇱",geoId:"102890719",local:false},
+    {country:"United Kingdom",flag:"🇬🇧",geoId:"101165590",local:false},
+    {country:"Poland",flag:"🇵🇱",geoId:"105072130",local:false},
+    {country:"Portugal",flag:"🇵🇹",geoId:"100364837",local:false}
+  ],
+  customKws: [],
+  kwTypes: ["Backend","Frontend","Full Stack","DevOps","Data","Custom"]
+};
+// BAKED_END
 
-const COUNTRIES = [
-  { country:'Spain',          flag:'🇪🇸', geoId:'105646813' },
-  { country:'Egypt',          flag:'🇪🇬', geoId:'106155005', local:true },
-  { country:'Germany',        flag:'🇩🇪', geoId:'101282230' },
-  { country:'Netherlands',    flag:'🇳🇱', geoId:'102890719' },
-  { country:'United Kingdom', flag:'🇬🇧', geoId:'101165590' },
-  { country:'Poland',         flag:'🇵🇱', geoId:'105072130' },
-  { country:'Portugal',       flag:'🇵🇹', geoId:'100364837' },
+// ═══════════════════════════════════════════════════════════
+// COLOR PALETTE  — cycles by type index
+// ═══════════════════════════════════════════════════════════
+const TYPE_PALETTE = [
+  {bg:'rgba(90,125,98,0.13)',  border:'#5a7d62', text:'#5a7d62'},
+  {bg:'rgba(79,120,158,0.13)', border:'#4f789e', text:'#4f789e'},
+  {bg:'rgba(184,124,48,0.12)',  border:'#b87c30', text:'#b87c30'},
+  {bg:'rgba(168,92,62,0.13)',  border:'#a85c3e', text:'#a85c3e'},
+  {bg:'rgba(110,79,56,0.10)',  border:'#9b7258', text:'#9b7258'},
+  {bg:'rgba(158,80,96,0.12)',  border:'#9e5060', text:'#9e5060'},
+  {bg:'rgba(80,96,160,0.12)',  border:'#5060a0', text:'#5060a0'},
+  {bg:'rgba(106,138,96,0.12)', border:'#6a8a60', text:'#6a8a60'},
 ];
 
-// Default keywords — always present
-const DEFAULT_KWS = [
-  'Django',
-  'Python',
-  'Python Developer',
-  'Django Developer',
-  'Backend Developer Python',
-  'Software Engineer Python',
-];
-
-// These get saved/loaded from localStorage (and baked into file on export)
-// BAKED_KEYWORDS_START
-const BAKED_KEYWORDS = [];
-// BAKED_KEYWORDS_END
-
-function kwType(kw) {
-  const l = kw.toLowerCase();
-  if (l.includes('django'))   return 'django';
-  if (l.includes('fastapi') || l.includes('fast api')) return 'fastapi';
-  if (l.includes('flask'))    return 'fastapi'; // amber
-  if (l.includes('python'))   return 'python';
-  return 'custom';
+function typeColor(typeLabel) {
+  const idx = S.kwTypes.indexOf(typeLabel);
+  return TYPE_PALETTE[(idx < 0 ? S.kwTypes.length : idx) % TYPE_PALETTE.length];
 }
 
-// ══════════════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════════════
+function typeStyle(typeLabel) {
+  const c = typeColor(typeLabel);
+  return `background:${c.bg};border-color:${c.border};color:${c.text};`;
+}
 
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
 const S = {
-  time: '',
-  wt: new Set(),
-  ea: false,
-  vm: false,
-  countries: new Set(),
-  kws: new Set(),      // keyword TYPE filter
-  sel: new Set(),
-  tabDelay: 500,
-  customKws: [],       // [{kw, type}]  — user-added keywords
+  time: '', wt: new Set(), ea: false, vm: false,
+  countryFilter: new Set(), typeFilter: new Set(),
+  sel: new Set(), tabDelay: 500,
+  // data (loaded from BAKED then possibly localStorage)
+  settings: {title:'', subtitle:''},
+  countries: [],   // [{country,flag,geoId,local}]
+  customKws: [],   // [{kw, typeLabel}]
+  kwTypes: [],     // string[]
 };
 
-// ══════════════════════════════════════════════════════════
-// KEYWORD STORAGE
-// ══════════════════════════════════════════════════════════
-
-function loadCustomKws() {
+// ═══════════════════════════════════════════════════════════
+// PERSISTENCE
+// ═══════════════════════════════════════════════════════════
+function persist() {
   try {
-    const stored = localStorage.getItem('jh_kws_v2');
-    if (stored) return JSON.parse(stored);
-    if (BAKED_KEYWORDS.length) return BAKED_KEYWORDS.map(kw => ({kw, type:kwType(kw)}));
-    return [];
-  } catch { return []; }
+    localStorage.setItem('jh_settings', JSON.stringify(S.settings));
+    localStorage.setItem('jh_countries', JSON.stringify(S.countries));
+    localStorage.setItem('jh_kwTypes', JSON.stringify(S.kwTypes));
+    localStorage.setItem('jh_customKws', JSON.stringify(S.customKws));
+  } catch(e) {}
 }
 
-function saveCustomKws() {
-  try { localStorage.setItem('jh_kws_v2', JSON.stringify(S.customKws)); } catch {}
+function loadState() {
+  // Start from BAKED
+  S.settings  = {...BAKED.settings};
+  S.countries = BAKED.countries.map(c=>({...c}));
+  S.kwTypes   = [...BAKED.kwTypes];
+  S.customKws = BAKED.customKws.map(k=>({...k}));
+  // Override with localStorage if present
+  try {
+    const ls = localStorage.getItem('jh_settings');
+    const lc = localStorage.getItem('jh_countries');
+    const lt = localStorage.getItem('jh_kwTypes');
+    const lk = localStorage.getItem('jh_customKws');
+    if (ls) S.settings  = JSON.parse(ls);
+    if (lc) S.countries = JSON.parse(lc);
+    if (lt) S.kwTypes   = JSON.parse(lt);
+    if (lk) S.customKws = JSON.parse(lk);
+  } catch(e) {}
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // LINK GENERATION
-// ══════════════════════════════════════════════════════════
-
+// ═══════════════════════════════════════════════════════════
 function getAllLinks() {
   const out = [];
   let id = 0;
-  const allKws = [
-    ...DEFAULT_KWS.map(kw => ({kw, type:kwType(kw), def:true})),
-    ...S.customKws.map(k => ({kw:k.kw, type:k.type, def:false}))
-  ];
-  COUNTRIES.forEach(c => {
-    allKws.forEach(k => {
+  S.countries.forEach(c => {
+    S.customKws.forEach(k => {
       out.push({
-        id: id++,
-        country: c.country, flag: c.flag, geoId: c.geoId,
-        local: c.local || false,
-        kw: k.kw, type: k.type, def: k.def
+        id: id++, country: c.country, flag: c.flag,
+        geoId: c.geoId, local: c.local||false,
+        kw: k.kw, typeLabel: k.typeLabel
       });
     });
   });
   return out;
 }
-
-// ══════════════════════════════════════════════════════════
-// URL BUILDER
-// ══════════════════════════════════════════════════════════
 
 function buildURL(link) {
   const p = new URLSearchParams();
@@ -661,69 +576,102 @@ function buildURL(link) {
   let kw = link.kw;
   if (S.vm) kw += ' visa sponsorship';
   p.set('keywords', kw);
-  if (S.time)       p.set('f_TPR', S.time);
-  if (S.ea)         p.set('f_LF',  'f_AL');
-  if (S.wt.size>0)  p.set('f_WT',  [...S.wt].join(','));
+  if (S.time) p.set('f_TPR', S.time);
+  if (S.ea)   p.set('f_LF', 'f_AL');
+  if (S.wt.size > 0) p.set('f_WT', [...S.wt].join(','));
   return 'https://www.linkedin.com/jobs/search/?' + p.toString();
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // FILTER
-// ══════════════════════════════════════════════════════════
-
+// ═══════════════════════════════════════════════════════════
 function visible() {
-  const all = getAllLinks();
-  return all.filter(l => {
-    if (S.countries.size > 0 && !S.countries.has(l.country)) return false;
-    if (S.kws.size > 0      && !S.kws.has(l.type))           return false;
+  return getAllLinks().filter(l => {
+    if (S.countryFilter.size > 0 && !S.countryFilter.has(l.country)) return false;
+    if (S.typeFilter.size > 0 && !S.typeFilter.has(l.typeLabel)) return false;
     return true;
   });
 }
 
-// ══════════════════════════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════════════════════════
-
+// ═══════════════════════════════════════════════════════════
+// RENDER — MAIN
+// ═══════════════════════════════════════════════════════════
 function render() {
   const vis = visible();
   const lc  = document.getElementById('lc');
   const es  = document.getElementById('es');
 
-  if (!vis.length) { lc.innerHTML=''; es.classList.remove('hidden'); }
-  else             { es.classList.add('hidden'); }
+  // Update header
+  document.getElementById('site-title').textContent  = S.settings.title   || 'Job Hunter';
+  document.getElementById('site-sub').textContent    = S.settings.subtitle || 'LinkedIn Opportunity Radar';
+  document.title = S.settings.title || 'Job Hunter';
 
-  const grp = {};
-  vis.forEach(l => {
-    if (!grp[l.country]) grp[l.country] = { flag:l.flag, items:[] };
-    grp[l.country].items.push(l);
-  });
-
-  lc.innerHTML = Object.entries(grp).map(([c, d]) => `
-    <div class="cs">
-      <div class="ch">
-        <span class="ch-flag">${d.flag}</span>
-        <span class="ch-name">${c}</span>
-        <span class="ch-cnt">${d.items.length} search${d.items.length>1?'es':''}</span>
-        <button class="ch-btn" onclick="openCountry('${c}')">Open All ${d.flag} ↗</button>
+  // Empty / onboard state
+  if (S.countries.length === 0 || S.customKws.length === 0) {
+    lc.innerHTML = renderOnboard();
+    es.classList.add('hidden');
+  } else if (!vis.length) {
+    lc.innerHTML = '';
+    es.classList.remove('hidden');
+  } else {
+    es.classList.add('hidden');
+    const grp = {};
+    vis.forEach(l => {
+      if (!grp[l.country]) grp[l.country] = {flag:l.flag, items:[]};
+      grp[l.country].items.push(l);
+    });
+    lc.innerHTML = Object.entries(grp).map(([c, d], i) => `
+      <div class="cs" style="animation-delay:${i*0.04}s">
+        <div class="ch">
+          <span class="ch-flag">${d.flag}</span>
+          <span class="ch-name">${c}</span>
+          <span class="ch-cnt">${d.items.length} search${d.items.length>1?'es':''}</span>
+          <button class="ch-btn" onclick="openCountryGroup('${escQ(c)}')">Open All ${d.flag} ↗</button>
+        </div>
+        <div class="cg">${d.items.map(l=>card(l)).join('')}</div>
       </div>
-      <div class="cg">${d.items.map(l=>card(l)).join('')}</div>
-    </div>
-  `).join('');
+    `).join('');
+  }
 
   renderKwManager();
-  updateKwFilterPills();
+  renderTypeManager();
+  renderCountryFilterPills();
+  renderTypePills();
+  renderCountryModal();
   updateStats();
   updateTags();
+  updateKwTypeSelect();
+}
+
+function renderOnboard() {
+  const noCountry = S.countries.length === 0;
+  const noKw = S.customKws.length === 0;
+  return `
+    <div class="onboard">
+      <h3>🚀 Welcome! Set up your Job Hunter in 2 steps</h3>
+      <p>This tool generates LinkedIn job search URLs for any role and country — fully customized to your search.</p>
+      <div class="onboard-steps">
+        ${noCountry
+          ? `<div class="ost"><div class="ost-num">1</div> Add countries to search in</div>`
+          : `<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.countries.length} countr${S.countries.length>1?'ies':'y'} added</div>`}
+        ${noKw
+          ? `<div class="ost"><div class="ost-num">2</div> Add keywords / job titles</div>`
+          : `<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.customKws.length} keyword${S.customKws.length>1?'s':''} added</div>`}
+      </div>
+      ${noCountry ? `<button class="ob-btn" onclick="openCountryModal()">🌍 Add Countries</button>` : ''}
+      ${noKw ? `<button class="ob-btn" onclick="document.getElementById('kw-input').focus()">🏷 Add Keywords</button>` : ''}
+    </div>`;
 }
 
 function card(l) {
-  const url = buildURL(l);
-  const short = url.length>92 ? url.slice(0,92)+'…' : url;
+  const url   = buildURL(l);
+  const short = url.length > 94 ? url.slice(0,94)+'…' : url;
+  const c     = typeColor(l.typeLabel);
   return `
     <div class="card${S.sel.has(l.id)?' sel':''}" onclick="toggleSel(${l.id})" id="card-${l.id}">
       <div class="ct">
         <div class="chk"></div>
-        <span class="kbadge ${l.type}">${l.kw}</span>
+        <span class="kbadge" style="${typeStyle(l.typeLabel)}">${l.kw}</span>
         ${l.local?'<span class="local-tag">local</span>':''}
       </div>
       <div class="curl" title="${url}">${short}</div>
@@ -737,85 +685,122 @@ function card(l) {
 // ── Keyword Manager ──────────────────────────────────────
 function renderKwManager() {
   const list = document.getElementById('km-list');
-  const allKws = [
-    ...DEFAULT_KWS.map(kw=>({kw, type:kwType(kw), def:true})),
-    ...S.customKws.map(k=>({...k, def:false}))
-  ];
-  list.innerHTML = allKws.map((k,i) => `
-    <div class="kw-tag ${k.type}${k.def?' default':''}">
-      ${k.kw}
-      ${k.def ? '' : `<button class="kw-del" title="Remove" onclick="removeKW(${i-DEFAULT_KWS.length})">✕</button>`}
-    </div>
-  `).join('');
-}
-
-// ── Keyword filter pills ────────────────────────────────
-function updateKwFilterPills() {
-  const allTypes = [...new Set(getAllLinks().map(l=>l.type))];
-  const typeLabels = {
-    'django':'Django','python':'Python','python-dev':'Python Dev',
-    'fastapi':'FastAPI','custom':'Custom'
-  };
-  // Don't re-render if already built — just update classes
-  const container = document.getElementById('kfp');
-  if (container.children.length !== allTypes.length) {
-    container.innerHTML = allTypes.map(t => `
-      <div class="pill${S.kws.has(t)?' on':''}" data-kt="${t}" onclick="toggleKT(this,'${t}')">${typeLabels[t]||t}</div>
-    `).join('');
-  } else {
-    container.querySelectorAll('.pill').forEach(p => {
-      const t = p.dataset.kt;
-      p.classList.toggle('on', S.kws.has(t));
-    });
+  if (!S.customKws.length) {
+    list.innerHTML = '<span style="font-size:12px;color:var(--t4);font-style:italic;">No keywords yet — add some below</span>';
+    return;
   }
+  list.innerHTML = S.customKws.map((k, i) => {
+    const style = typeStyle(k.typeLabel);
+    return `<div class="kw-tag" style="${style}" title="${k.typeLabel}">
+      ${k.kw}
+      <button class="kw-del" title="Remove" onclick="removeKW(${i})">✕</button>
+    </div>`;
+  }).join('');
+  document.getElementById('km-title-sub').textContent =
+    `— applied to all ${S.countries.length} countr${S.countries.length!==1?'ies':'y'} · ${getAllLinks().length} total searches`;
 }
 
-// ── Stats & Tags ────────────────────────────────────────
+// ── Type Manager ─────────────────────────────────────────
+function renderTypeManager() {
+  const list = document.getElementById('tm-list');
+  if (!S.kwTypes.length) {
+    list.innerHTML = '<span style="font-size:12px;color:var(--t4);font-style:italic;">No types yet</span>';
+    return;
+  }
+  list.innerHTML = S.kwTypes.map((t, i) => {
+    const c = TYPE_PALETTE[i % TYPE_PALETTE.length];
+    return `<div class="tm-tag" style="background:${c.bg};border-color:${c.border};color:${c.text}">
+      ${t}<button class="tm-del" onclick="removeType(${i})" title="Remove '${t}'">✕</button>
+    </div>`;
+  }).join('');
+}
+
+// ── Country filter pills ─────────────────────────────────
+function renderCountryFilterPills() {
+  document.getElementById('cf').innerHTML = S.countries.map(c =>
+    `<div class="pill${S.countryFilter.has(c.country)?' on-slt':''}" onclick="toggleCF('${escQ(c.country)}',this)">${c.flag} ${c.country}</div>`
+  ).join('');
+}
+
+// ── Type filter pills ────────────────────────────────────
+function renderTypePills() {
+  document.getElementById('kfp').innerHTML = S.kwTypes.map(t =>
+    `<div class="pill${S.typeFilter.has(t)?' on':''}" onclick="toggleTypeFilter('${escQ(t)}')">${t}</div>`
+  ).join('');
+}
+
+// ── Country Modal ────────────────────────────────────────
+function renderCountryModal() {
+  document.getElementById('clist-wrap').innerHTML = S.countries.length === 0
+    ? '<div style="text-align:center;padding:16px;color:var(--t4);font-size:12.5px;">No countries added yet</div>'
+    : S.countries.map((c, i) => `
+      <div class="citem">
+        <span class="citem-flag">${c.flag||'🌐'}</span>
+        <div class="citem-info">
+          <div class="citem-name">${c.country}${c.local?' <span class="local-badge">LOCAL</span>':''}</div>
+          <div class="citem-geo">GeoId: ${c.geoId}</div>
+        </div>
+        <button class="del-btn" onclick="removeCountry(${i})" title="Remove ${c.country}">✕</button>
+      </div>`).join('');
+}
+
+// ── Keyword type select ──────────────────────────────────
+function updateKwTypeSelect() {
+  const sel = document.getElementById('kw-type-sel');
+  const prev = sel.value;
+  sel.innerHTML = S.kwTypes.length
+    ? S.kwTypes.map(t => `<option value="${t}"${t===prev?' selected':''}>${t}</option>`).join('')
+    : '<option value="Custom">Custom</option>';
+}
+
+// ── Stats & Tags ─────────────────────────────────────────
 function updateStats() {
-  const vis = visible();
-  const selV = vis.filter(l=>S.sel.has(l.id));
-  document.getElementById('tv').textContent  = vis.length;
-  document.getElementById('sc2').textContent = selV.length;
-  document.getElementById('total-count').textContent = getAllLinks().length;
-  const has = selV.length>0;
-  const os = document.getElementById('op-sel');
-  const bs = document.getElementById('bat-sel');
+  const vis   = visible();
+  const selV  = vis.filter(l => S.sel.has(l.id));
+  document.getElementById('tv').textContent           = vis.length;
+  document.getElementById('sc2').textContent          = selV.length;
+  document.getElementById('total-count').textContent  = getAllLinks().length;
+  document.getElementById('country-count').textContent = S.countries.length;
+
+  const has = selV.length > 0;
+  const os  = document.getElementById('op-sel');
+  const bs  = document.getElementById('bat-sel');
   os.disabled = !has;
   bs.disabled = !has;
   os.textContent = has ? `Open Sel. (${selV.length}) ↗` : 'Open Selected ↗';
-  let n=0;
-  if(S.time)n++;
-  S.wt.forEach(()=>n++);
-  if(S.ea)n++;
-  if(S.vm)n++;
+
+  let n = 0;
+  if (S.time) n++;
+  S.wt.forEach(() => n++);
+  if (S.ea) n++;
+  if (S.vm) n++;
   const af = document.getElementById('af-stat');
-  af.innerHTML = n>0 ? `<b>${n}</b> filter${n>1?'s':''} active` : 'No filters';
+  af.innerHTML = n > 0 ? `<b>${n}</b> filter${n>1?'s':''} active` : 'No filters';
 }
 
-const TL={r86400:'Today',r259200:'Last 3 Days',r604800:'This Week',r2592000:'This Month'};
-const WL={'1':'On-site','2':'Remote','3':'Hybrid'};
+const TL = {r86400:'Today',r259200:'Last 3 Days',r604800:'This Week',r2592000:'This Month'};
+const WL = {'1':'On-site','2':'Remote','3':'Hybrid'};
 
 function updateTags() {
-  const tags=[];
-  if(S.time) tags.push(TL[S.time]||S.time);
-  if(S.ea)   tags.push('Easy Apply');
-  if(S.vm)   tags.push('+ Visa Sponsorship');
-  S.wt.forEach(w=>tags.push(WL[w]));
-  if(S.countries.size>0) tags.push([...S.countries].join(' · '));
-  if(S.kws.size>0) tags.push([...S.kws].join(' · '));
-  document.getElementById('aft').innerHTML = tags.map(t=>`<span class="ft">${t}</span>`).join('');
+  const tags = [];
+  if (S.time)            tags.push(TL[S.time] || S.time);
+  if (S.ea)              tags.push('Easy Apply');
+  if (S.vm)              tags.push('+ Visa Sponsorship');
+  S.wt.forEach(w =>     tags.push(WL[w]));
+  if (S.countryFilter.size > 0) tags.push([...S.countryFilter].join(' · '));
+  if (S.typeFilter.size > 0)    tags.push('Type: ' + [...S.typeFilter].join(' · '));
+  document.getElementById('aft').innerHTML = tags.map(t => `<span class="ft">${t}</span>`).join('');
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // FILTER CONTROLS
-// ══════════════════════════════════════════════════════════
-
+// ═══════════════════════════════════════════════════════════
 function setTime(el) {
   S.time = el.dataset.v;
-  document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('#tf .pill').forEach(p => p.classList.remove('on'));
   el.classList.add('on');
-  document.getElementById('tc-val').value='';
-  document.getElementById('tc-preview').textContent='';
+  document.getElementById('tc-val').value = '';
+  document.getElementById('tc-preview').textContent = '';
   render();
 }
 
@@ -824,144 +809,233 @@ function customTimePreview() {
   const u = parseInt(document.getElementById('tc-unit').value);
   if (!v) { document.getElementById('tc-preview').textContent=''; return; }
   const secs = v*u;
-  const mins = Math.round(secs/60);
-  const hrs  = (secs/3600).toFixed(1);
-  const days = (secs/86400).toFixed(1);
-  let label = secs<3600 ? `${mins}min` : secs<86400 ? `${hrs}h` : `${days}d`;
+  const label = secs < 3600 ? `${Math.round(secs/60)}min` : secs < 86400 ? `${(secs/3600).toFixed(1)}h` : `${(secs/86400).toFixed(1)}d`;
   document.getElementById('tc-preview').textContent = `= ${label}`;
 }
 
 function applyCustomTime() {
   const v = parseInt(document.getElementById('tc-val').value)||0;
   const u = parseInt(document.getElementById('tc-unit').value);
-  if (!v||v<1) { toast('⚠️ Enter a number first'); return; }
-  const secs = v*u;
-  S.time = `r${secs}`;
-  document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
-  toast(`✅ Time filter: last ${v} ${document.getElementById('tc-unit').options[document.getElementById('tc-unit').selectedIndex].text}`);
+  if (!v || v < 1) { toast('⚠️ Enter a number first'); return; }
+  S.time = `r${v*u}`;
+  document.querySelectorAll('#tf .pill').forEach(p => p.classList.remove('on'));
+  toast(`✅ Time filter set`);
   render();
 }
 
 function toggleWT(el) {
-  const v=el.dataset.v;
-  if(S.wt.has(v)){S.wt.delete(v);el.classList.remove('on-sage');}
-  else           {S.wt.add(v);   el.classList.add('on-sage');}
+  const v = el.dataset.v;
+  if (S.wt.has(v)) { S.wt.delete(v); el.classList.remove('on-grn'); }
+  else             { S.wt.add(v);    el.classList.add('on-grn'); }
   render();
 }
 
 function toggleEA() {
-  S.ea=!S.ea;
-  document.getElementById('ea-pill').classList.toggle('on-grn',S.ea);
+  S.ea = !S.ea;
+  document.getElementById('ea-pill').classList.toggle('on-grn', S.ea);
   render();
 }
 
 function toggleVM() {
-  S.vm=!S.vm;
-  document.getElementById('vm-pill').classList.toggle('on-amb',S.vm);
+  S.vm = !S.vm;
+  document.getElementById('vm-pill').classList.toggle('on-amb', S.vm);
   render();
 }
 
 function updateDelay(v) {
   S.tabDelay = parseInt(v);
-  document.getElementById('delay-label').textContent = v+'ms';
-  const slider = document.getElementById('delay-slider');
+  document.getElementById('delay-label').textContent = v + 'ms';
   const pct = ((v-200)/(2000-200)*100).toFixed(1);
-  slider.style.setProperty('--pct', pct+'%');
-}
-
-// Country chips
-function initCF() {
-  document.getElementById('cf').innerHTML = COUNTRIES.map(c => `
-    <div class="pill" onclick="toggleCF('${c.country}',this)">${c.flag} ${c.country}</div>
-  `).join('');
+  document.getElementById('delay-slider').style.setProperty('--pct', pct+'%');
 }
 
 function toggleCF(c, el) {
-  if(S.countries.has(c)){S.countries.delete(c);el.classList.remove('on-slt');}
-  else                  {S.countries.add(c);   el.classList.add('on-slt');}
+  if (S.countryFilter.has(c)) { S.countryFilter.delete(c); el.classList.remove('on-slt'); }
+  else                        { S.countryFilter.add(c);    el.classList.add('on-slt'); }
   render();
 }
 
-function toggleKT(el, t) {
-  if(S.kws.has(t)){S.kws.delete(t);el.classList.remove('on');}
-  else            {S.kws.add(t);   el.classList.add('on');}
+function toggleTypeFilter(t) {
+  if (S.typeFilter.has(t)) S.typeFilter.delete(t);
+  else                     S.typeFilter.add(t);
   render();
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// COUNTRY MANAGEMENT
+// ═══════════════════════════════════════════════════════════
+function openCountryModal() {
+  renderCountryModal();
+  document.getElementById('country-modal').classList.add('show');
+}
+
+function closeCountryModal() {
+  document.getElementById('country-modal').classList.remove('show');
+  document.getElementById('nf-flag').value = '';
+  document.getElementById('nf-name').value = '';
+  document.getElementById('nf-geo').value  = '';
+  document.getElementById('nf-local').checked = false;
+  document.getElementById('geo-err').classList.add('hidden');
+  render();
+}
+
+function addCountry() {
+  const flag  = document.getElementById('nf-flag').value.trim() || '🌐';
+  const name  = document.getElementById('nf-name').value.trim();
+  const geo   = document.getElementById('nf-geo').value.trim().replace(/\D/g,'');
+  const local = document.getElementById('nf-local').checked;
+  const errEl = document.getElementById('geo-err');
+
+  if (!name) { toast('⚠️ Country name is required'); return; }
+  if (!geo)  { errEl.classList.remove('hidden'); document.getElementById('nf-geo').classList.add('err'); return; }
+  errEl.classList.add('hidden');
+  document.getElementById('nf-geo').classList.remove('err');
+
+  if (S.countries.some(c => c.country.toLowerCase() === name.toLowerCase())) {
+    toast('⚠️ Country already exists'); return;
+  }
+  S.countries.push({country:name, flag, geoId:geo, local});
+  persist();
+  renderCountryModal();
+  document.getElementById('nf-flag').value = '';
+  document.getElementById('nf-name').value = '';
+  document.getElementById('nf-geo').value  = '';
+  document.getElementById('nf-local').checked = false;
+  toast(`✅ Added: ${flag} ${name}`);
+  updateStats();
+  renderCountryFilterPills();
+}
+
+function removeCountry(idx) {
+  const c = S.countries[idx];
+  if (!c) return;
+  // Remove from filter if active
+  S.countryFilter.delete(c.country);
+  S.countries.splice(idx, 1);
+  persist();
+  renderCountryModal();
+  toast(`🗑 Removed: ${c.flag} ${c.country}`);
+  updateStats();
+  renderCountryFilterPills();
+}
+
+function toggleGeoHelp() {
+  document.getElementById('geo-help-box').classList.toggle('show');
+}
+
+// ═══════════════════════════════════════════════════════════
+// KEYWORD TYPE MANAGEMENT
+// ═══════════════════════════════════════════════════════════
+function checkTypeCase() {
+  const raw = document.getElementById('tm-input').value.trim();
+  const warn = document.getElementById('case-warn');
+  if (!raw) { warn.classList.remove('show'); return; }
+  const match = S.kwTypes.find(t =>
+    t.toLowerCase() === raw.toLowerCase() && t !== raw
+  );
+  if (match) {
+    warn.textContent = `⚠ Similar type "${match}" already exists (different case). Using both will create separate filter pills — are you sure?`;
+    warn.classList.add('show');
+  } else {
+    warn.classList.remove('show');
+  }
+}
+
+function addType() {
+  const raw = document.getElementById('tm-input').value.trim();
+  if (!raw) { toast('⚠️ Type a category name first'); return; }
+  if (S.kwTypes.includes(raw)) { toast(`⚠️ "${raw}" already exists`); return; }
+  S.kwTypes.push(raw);
+  document.getElementById('tm-input').value = '';
+  document.getElementById('case-warn').classList.remove('show');
+  persist();
+  render();
+  toast(`✅ Added type: "${raw}"`);
+}
+
+function removeType(idx) {
+  const label = S.kwTypes[idx];
+  const affected = S.customKws.filter(k => k.typeLabel === label).length;
+  if (affected > 0) {
+    const fallback = S.kwTypes.find((t,i) => i !== idx) || 'Custom';
+    if (!confirm(`"${label}" is used by ${affected} keyword${affected>1?'s':''}. They will be moved to "${fallback}". Continue?`)) return;
+    S.customKws.forEach(k => { if (k.typeLabel === label) k.typeLabel = fallback; });
+  }
+  S.kwTypes.splice(idx, 1);
+  S.typeFilter.delete(label);
+  persist();
+  render();
+  toast(`🗑 Removed type: "${label}"`);
+}
+
+// ═══════════════════════════════════════════════════════════
 // KEYWORD MANAGEMENT
-// ══════════════════════════════════════════════════════════
-
+// ═══════════════════════════════════════════════════════════
 function addKW() {
-  const inp = document.getElementById('kw-input');
-  const raw = inp.value.trim();
+  const inp  = document.getElementById('kw-input');
+  const tsel = document.getElementById('kw-type-sel');
+  const raw  = inp.value.trim();
+  const type = tsel.value || (S.kwTypes[0] || 'Custom');
   if (!raw) { toast('⚠️ Type a keyword first'); return; }
-  const already = [
-    ...DEFAULT_KWS.map(k=>k.toLowerCase()),
-    ...S.customKws.map(k=>k.kw.toLowerCase())
-  ];
-  if (already.includes(raw.toLowerCase())) { toast('⚠️ Keyword already exists'); return; }
-  S.customKws.push({ kw:raw, type:kwType(raw) });
-  saveCustomKws();
+  if (S.customKws.some(k => k.kw.toLowerCase() === raw.toLowerCase())) {
+    toast('⚠️ Keyword already exists'); return;
+  }
+  if (S.kwTypes.length === 0) { toast('⚠️ Add at least one category/type first'); return; }
+  S.customKws.push({kw: raw, typeLabel: type});
+  persist();
   inp.value = '';
   render();
-  toast(`✅ Added: "${raw}" to all ${COUNTRIES.length} countries`);
+  toast(`✅ Added "${raw}" as ${type}`);
 }
 
 function removeKW(idx) {
-  if (idx<0 || idx>=S.customKws.length) return;
+  if (idx < 0 || idx >= S.customKws.length) return;
   const removed = S.customKws[idx].kw;
-  S.customKws.splice(idx,1);
-  saveCustomKws();
+  S.customKws.splice(idx, 1);
+  persist();
   render();
   toast(`🗑 Removed: "${removed}"`);
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // SELECTION
-// ══════════════════════════════════════════════════════════
-
+// ═══════════════════════════════════════════════════════════
 function toggleSel(id) {
-  if(S.sel.has(id))S.sel.delete(id); else S.sel.add(id);
-  const c=document.getElementById(`card-${id}`);
-  if(c) c.classList.toggle('sel',S.sel.has(id));
+  if (S.sel.has(id)) S.sel.delete(id); else S.sel.add(id);
+  const c = document.getElementById(`card-${id}`);
+  if (c) c.classList.toggle('sel', S.sel.has(id));
   updateStats();
 }
 
 function selAll() {
-  const vis=visible();
-  const allSel=vis.every(l=>S.sel.has(l.id));
-  vis.forEach(l=>allSel?S.sel.delete(l.id):S.sel.add(l.id));
+  const vis    = visible();
+  const allSel = vis.every(l => S.sel.has(l.id));
+  vis.forEach(l => allSel ? S.sel.delete(l.id) : S.sel.add(l.id));
   render();
 }
 
 function clearSel() { S.sel.clear(); render(); }
 
-// ══════════════════════════════════════════════════════════
-// OPEN TABS  — THE FIX: sequential with delay
-// ══════════════════════════════════════════════════════════
-
-let _openQueue = [];
-let _openIdx   = 0;
-let _openTotal = 0;
-let _openTimer = null;
+// ═══════════════════════════════════════════════════════════
+// OPEN TABS — sequential with delay
+// ═══════════════════════════════════════════════════════════
+let _openQueue = [], _openIdx = 0, _openTotal = 0, _openTimer = null;
 
 function doOpen(which) {
   const vis = visible();
-  const arr = which==='sel' ? vis.filter(l=>S.sel.has(l.id)) : vis;
+  const arr = which==='sel' ? vis.filter(l => S.sel.has(l.id)) : vis;
   if (!arr.length) return;
-  startOpenQueue(arr.map(l=>({url:buildURL(l),label:`${l.flag} ${l.country} — ${l.kw}`})));
+  startOpenQueue(arr.map(l => ({url: buildURL(l), label:`${l.flag} ${l.country} — ${l.kw}`})));
 }
 
-function openCountry(c) {
-  const arr = visible().filter(l=>l.country===c);
-  startOpenQueue(arr.map(l=>({url:buildURL(l),label:`${l.flag} ${l.country} — ${l.kw}`})));
+function openCountryGroup(c) {
+  const arr = visible().filter(l => l.country === c);
+  startOpenQueue(arr.map(l => ({url: buildURL(l), label:`${l.flag} ${l.country} — ${l.kw}`})));
 }
 
 function openOne(id) {
-  const all = getAllLinks();
-  const l = all.find(x=>x.id===id);
-  if(l) window.open(buildURL(l),'_blank');
+  const l = getAllLinks().find(x => x.id === id);
+  if (l) window.open(buildURL(l), '_blank');
 }
 
 function startOpenQueue(items) {
@@ -969,148 +1043,150 @@ function startOpenQueue(items) {
   _openQueue = items;
   _openIdx   = 0;
   _openTotal = items.length;
-
-  const prog = document.getElementById('op');
-  prog.classList.add('show');
-
-  // Show popup warning if opening more than 2
-  if (items.length > 2) {
-    document.getElementById('pw').classList.add('show');
-  }
-
+  document.getElementById('op').classList.add('show');
+  if (items.length > 2) document.getElementById('pw').classList.add('show');
   nextTab();
 }
 
 function nextTab() {
   if (_openIdx >= _openTotal) {
-    setTimeout(()=>document.getElementById('op').classList.remove('show'), 1200);
+    setTimeout(() => document.getElementById('op').classList.remove('show'), 1200);
     toast(`✅ Opened ${_openTotal} tab${_openTotal>1?'s':''}`);
     return;
   }
-
   const item = _openQueue[_openIdx];
-  const n = _openIdx + 1;
+  const n    = _openIdx + 1;
   document.getElementById('op-text').textContent = `Opening tab ${n} of ${_openTotal}: ${item.label}`;
-  document.getElementById('op-bar').style.width  = Math.round((n/_openTotal)*100)+'%';
-
-  // Use anchor click — more browser-friendly than window.open in some contexts
+  document.getElementById('op-bar').style.width  = Math.round((n/_openTotal)*100) + '%';
   const a = document.createElement('a');
-  a.href = item.url;
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-
+  a.href = item.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   _openIdx++;
   if (_openIdx < _openTotal) {
     _openTimer = setTimeout(nextTab, S.tabDelay);
   } else {
-    setTimeout(()=>document.getElementById('op').classList.remove('show'), 1200);
+    setTimeout(() => document.getElementById('op').classList.remove('show'), 1200);
     toast(`✅ Opened ${_openTotal} tab${_openTotal>1?'s':''}`);
   }
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // COPY
-// ══════════════════════════════════════════════════════════
-
+// ═══════════════════════════════════════════════════════════
 function copyU(id) {
-  const all=getAllLinks();
-  const l=all.find(x=>x.id===id);
-  if(!l)return;
-  navigator.clipboard.writeText(buildURL(l)).then(()=>{
-    const btn=document.getElementById(`cp-${id}`);
-    btn.textContent='✓ Copied!';
-    btn.style.cssText='color:var(--sage);border-color:var(--sage)';
-    setTimeout(()=>{btn.textContent='Copy URL';btn.style.cssText='';},1600);
+  const l = getAllLinks().find(x => x.id === id);
+  if (!l) return;
+  navigator.clipboard.writeText(buildURL(l)).then(() => {
+    const btn = document.getElementById(`cp-${id}`);
+    btn.textContent = '✓ Copied!';
+    btn.style.cssText = 'color:var(--sage);border-color:var(--sage)';
+    setTimeout(() => { btn.textContent = 'Copy URL'; btn.style.cssText = ''; }, 1600);
   });
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // DOWNLOAD .BAT
-// ══════════════════════════════════════════════════════════
-
+// ═══════════════════════════════════════════════════════════
 function dlBat(which) {
-  const vis=visible();
-  const arr=which==='sel'?vis.filter(l=>S.sel.has(l.id)):vis;
-  if(!arr.length)return;
-  const filters=[];
-  if(S.time)  filters.push(TL[S.time]||S.time);
-  if(S.ea)    filters.push('Easy Apply');
-  if(S.vm)    filters.push('Visa Sponsorship');
-  S.wt.forEach(w=>filters.push(WL[w]));
-  const lines=[
-    '@echo off','title LinkedIn Job Search Opener',
-    'echo.','echo  ================================================',
-    'echo    LinkedIn Job Search Opener','echo    Job Hunter Dashboard',
+  const vis = visible();
+  const arr = which==='sel' ? vis.filter(l => S.sel.has(l.id)) : vis;
+  if (!arr.length) return;
+  const filters = [];
+  if (S.time) filters.push(TL[S.time]||S.time);
+  if (S.ea)   filters.push('Easy Apply');
+  if (S.vm)   filters.push('Visa Sponsorship');
+  S.wt.forEach(w => filters.push(WL[w]));
+  const lines = [
+    '@echo off','title LinkedIn Job Search Opener','echo.',
+    'echo  ================================================',
+    `echo    ${S.settings.title||'Job Hunter'} — LinkedIn Opener`,
     'echo  ================================================','echo.',
     `echo   Searches : ${arr.length}`,
     `echo   Filters  : ${filters.length?filters.join(', '):'None'}`,
-    'echo.','echo  Press any key to start opening tabs...','echo.',
-    'pause > nul','echo.',''
+    'echo.','echo  Press any key to start...','pause > nul',''
   ];
-  arr.forEach((l,i)=>{
-    const n=String(i+1).padStart(2,'0');
+  arr.forEach((l, i) => {
+    const n = String(i+1).padStart(2,'0');
     lines.push(`echo  [${n}/${arr.length}] ${l.flag} ${l.country} — ${l.kw}`);
     lines.push(`start "" "${buildURL(l)}"`);
-    lines.push('timeout /t 2 /nobreak > nul');
-    lines.push('');
+    lines.push('timeout /t 2 /nobreak > nul','');
   });
-  lines.push('echo.','echo  ================================================');
-  lines.push('echo    Done! Good luck! 🎯','echo  ================================================');
-  lines.push('echo.','pause');
-  const blob=new Blob([lines.join('\r\n')],{type:'text/plain;charset=utf-8'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=`linkedin_${which}.bat`;
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  lines.push('echo.','echo  Done! Good luck!','echo.','pause');
+  const blob = new Blob([lines.join('\r\n')], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'linkedin_search.bat';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   toast(`📥 .bat downloaded — ${arr.length} links`);
 }
 
-// ══════════════════════════════════════════════════════════
-// SAVE TO FILE (bake custom keywords into HTML)
-// ══════════════════════════════════════════════════════════
-
-async function saveToFile() {
+// ═══════════════════════════════════════════════════════════
+// SAVE TO FILE — bakes all state into a new HTML
+// ═══════════════════════════════════════════════════════════
+function saveToFile() {
   try {
-    // Read the current HTML from the DOM — no network request needed
     const src = document.documentElement.outerHTML;
-    const kwJson = JSON.stringify(S.customKws.map(k => k.kw));
-    const updated = src.replace(
-      /\/\/ BAKED_KEYWORDS_START[\s\S]*?\/\/ BAKED_KEYWORDS_END/,
-      `// BAKED_KEYWORDS_START\nconst BAKED_KEYWORDS = ${kwJson};\n// BAKED_KEYWORDS_END`
-    );
-    const blob = new Blob([updated], { type: 'text/html;charset=utf-8' });
+    const bakedData = {
+      settings:   S.settings,
+      countries:  S.countries,
+      customKws:  S.customKws,
+      kwTypes:    S.kwTypes,
+    };
+    const newBaked = `// BAKED_START\nconst BAKED = ${JSON.stringify(bakedData, null, 2)};\n// BAKED_END`;
+    const updated  = src.replace(/\/\/ BAKED_START[\s\S]*?\/\/ BAKED_END/, newBaked);
+    const blob = new Blob([updated], {type:'text/html;charset=utf-8'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'job_hunter.html';
+    a.download = (S.settings.title || 'job_hunter').toLowerCase().replace(/\s+/g,'_') + '.html';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    toast('Saved! Open the downloaded file to use your keywords anywhere.');
+    toast('Saved! The downloaded file includes all your settings, countries & keywords.');
   } catch(e) {
     toast('⚠️ Could not save: ' + e.message);
   }
 }
 
-// ══════════════════════════════════════════════════════════
-// TOAST
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// HEADER EDITABLE
+// ═══════════════════════════════════════════════════════════
+function initEditableHeader() {
+  const title = document.getElementById('site-title');
+  const sub   = document.getElementById('site-sub');
 
-function toast(msg) {
-  const el=document.getElementById('toast');
-  el.textContent=msg;
-  el.classList.add('show');
-  clearTimeout(el._t);
-  el._t=setTimeout(()=>el.classList.remove('show'),2800);
+  title.addEventListener('blur', () => {
+    S.settings.title = title.textContent.trim() || 'Job Hunter';
+    title.textContent = S.settings.title;
+    document.title = S.settings.title;
+    persist();
+  });
+  sub.addEventListener('blur', () => {
+    S.settings.subtitle = sub.textContent.trim() || 'LinkedIn Opportunity Radar';
+    sub.textContent = S.settings.subtitle;
+    persist();
+  });
+  [title, sub].forEach(el => {
+    el.addEventListener('keydown', e => { if (e.key==='Enter'){ e.preventDefault(); el.blur(); }});
+  });
 }
 
-// ══════════════════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// UTILITY
+// ═══════════════════════════════════════════════════════════
+function escQ(s) { return s.replace(/'/g,"\\'"); }
 
-S.customKws = loadCustomKws();
-initCF();
-updateDelay(500); // init slider visual
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// ═══════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════
+loadState();
+updateDelay(500);
+initEditableHeader();
 render();
 </script>
 </body>
