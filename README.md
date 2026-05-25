@@ -58,13 +58,13 @@ Click **🌍 Manage Countries** in the filter panel. For each country you want t
 
 Common ones are already listed in the modal for reference (US, UK, DE, FR, NL, CA, AU, SG, JP, SA, AE, ES, PL, PT, EG).
 
-![alt text](screenshots/image.png)
+![alt text](/image.png)
 
 ### 4 — Add keyword categories
 
 In the **Keywords** panel, scroll to *Keyword Categories*. Type a category name like `Backend` or `Data Science` and click **+ Add Type**. Add as many as you need.
 
-![alt text](screenshots/image-1.png)
+![alt text](Screenshots/image-1.png)
 
 ### 5 — Add your keywords
 
@@ -72,13 +72,13 @@ Type a job title in the keyword input, select its category from the dropdown, an
 
 Examples: `Senior React Developer`, `Data Analyst`, `DevOps Engineer`, `Product Manager`
 
-![alt text](screenshots/image-2.png)
+![alt text](Screenshots/image-2.png)
 
 ### 6 — Set your filters and open
 
 Pick a time range, choose remote/hybrid/on-site, toggle Easy Apply if you want it — then hit **Open All ↗** or select specific cards and click **Open Selected**.
 
-![alt text](screenshots/image-3.png)
+![alt text](Screenshots/image-3.png)
 
 ---
 
@@ -91,7 +91,7 @@ When you open many tabs at once, browsers block them by default. Here's how to f
 2. Click it → select **"Always allow popups from this site"**
 3. Click **Open All** again
 
-![alt text](screenshots/image-4.png)
+![alt text](Screenshots/image-4.png)
 
 ### Firefox
 1. A yellow bar appears at the top of the page — click **Options** → **Allow popups for this page**
