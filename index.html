@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Hunter — LinkedIn Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #f0ebe2;
+  --bg2:      #e8e1d6;
+  --surface:  #faf7f3;
+  --s2:       #f0ebe2;
+  --s3:       #e4dcd0;
+  --s4:       #d9d0c3;
+  --border:   rgba(130,100,78,0.18);
+  --borderH:  rgba(130,100,78,0.42);
+  --brown:    #6e4f38;
+  --brownL:   #9b7258;
+  --brownG:   rgba(110,79,56,0.10);
+  --sage:     #5a7d62;
+  --sageG:    rgba(90,125,98,0.13);
+  --slate:    #4f789e;
+  --slateG:   rgba(79,120,158,0.13);
+  --clay:     #a85c3e;
+  --clayG:    rgba(168,92,62,0.13);
+  --amber:    #b87c30;
+  --amberG:   rgba(184,124,48,0.12);
+  --rose:     #9e5060;
+  --roseG:    rgba(158,80,96,0.12);
+  --t1:       #241510;
+  --t2:       #5e4235;
+  --t3:       #9c826e;
+  --t4:       #c4b5a8;
+  --mono:     'JetBrains Mono', monospace;
+  --sans:     'DM Sans', sans-serif;
+  --display:  'Playfair Display', serif;
+  --r:        10px;
+  --rl:       14px;
+  --sh:       0 1px 3px rgba(110,79,56,0.07), 0 4px 14px rgba(110,79,56,0.05);
+  --shH:      0 2px 8px rgba(110,79,56,0.12), 0 8px 24px rgba(110,79,56,0.09);
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 5% 0%, rgba(110,79,56,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 95% 100%, rgba(90,125,98,0.06) 0%, transparent 50%);
+  color: var(--t1);
+  font-family: var(--sans);
+  min-height: 100vh;
+  padding-bottom: 110px;
+}
+.wrap { max-width:1180px; margin:0 auto; padding:0 22px; }
+input, select, button, textarea { font-family: var(--sans); }
+
+/* ── HEADER ─────────────────────────────────────────────── */
+header {
+  padding: 26px 0 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.hi { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.hl h1 {
+  font-family: var(--display);
+  font-size: 28px; font-weight: 800; letter-spacing: -0.3px;
+  color: var(--brown);
+}
+.hl p { color: var(--t3); font-size: 12.5px; margin-top: 4px; }
+.hstats { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:4px; }
+.sp {
+  background: var(--surface); border:1px solid var(--border);
+  border-radius:50px; padding:4px 12px; font-size:11px;
+  color:var(--t3); font-family:var(--mono);
+}
+.sp b { color:var(--brown); }
+
+/* ── TIP ─────────────────────────────────────────────────── */
+.tip {
+  background: linear-gradient(135deg, rgba(110,79,56,0.06), rgba(90,125,98,0.04));
+  border:1px solid rgba(110,79,56,0.22);
+  border-left: 3px solid var(--brownL);
+  border-radius:var(--r); padding:10px 14px;
+  margin-bottom:18px; display:flex; gap:10px; font-size:12.5px;
+  color:var(--t2); position:relative;
+}
+.tip b { color:var(--brown); }
+.tip-x {
+  position:absolute; top:8px; right:10px;
+  background:none; border:none; color:var(--t4); cursor:pointer;
+  font-size:14px; line-height:1; transition:color .2s;
+}
+.tip-x:hover { color:var(--t3); }
+
+/* ── POPUP WARNING ────────────────────────────────────────── */
+.pw {
+  display:none; background:rgba(168,92,62,0.07);
+  border:1px solid rgba(168,92,62,0.3); border-radius:var(--r);
+  padding:9px 13px; font-size:12px; color:var(--clay);
+  margin-bottom:14px; gap:8px; align-items:flex-start;
+}
+.pw.show { display:flex; }
+
+/* ── FILTER PANEL ────────────────────────────────────────── */
+.fp {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--rl);
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--sh);
+}
+.fp-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+@media(max-width:640px){ .fp-grid { grid-template-columns:1fr; } }
+.fp-sec { margin-bottom:14px; }
+.fp-sec:last-child { margin-bottom:0; }
+.fl {
+  font-size:9.5px; font-weight:700; letter-spacing:1.8px;
+  text-transform:uppercase; color:var(--t4); margin-bottom:7px;
+  font-family:var(--mono);
+}
+.pills { display:flex; flex-wrap:wrap; gap:5px; }
+.pill {
+  padding:5px 13px; border-radius:50px; font-size:12px; font-weight:500;
+  cursor:pointer; border:1px solid var(--border); background:var(--s2);
+  color:var(--t3); transition:all .15s; user-select:none; white-space:nowrap;
+}
+.pill:hover { border-color:var(--borderH); color:var(--t1); background:var(--s3); }
+.pill.on      { background:var(--brown);   border-color:var(--brown);   color:#fff; box-shadow:0 2px 8px var(--brownG); }
+.pill.on-sage { background:var(--sageG);   border-color:var(--sage);    color:var(--sage); }
+.pill.on-grn  { background:var(--sageG);   border-color:var(--sage);    color:var(--sage); }
+.pill.on-amb  { background:var(--amberG);  border-color:var(--amber);   color:var(--amber); }
+.pill.on-slt  { background:var(--slateG);  border-color:var(--slate);   color:var(--slate); }
+.pill.on-clay { background:var(--clayG);   border-color:var(--clay);    color:var(--clay); }
+.fp-div { height:1px; background:var(--border); margin:14px 0; }
+
+/* custom time input */
+.time-custom {
+  display:flex; align-items:center; gap:6px; margin-top:7px;
+}
+.time-custom input[type=number] {
+  width:68px; padding:5px 9px; border-radius:7px;
+  border:1px solid var(--border); background:var(--s2); color:var(--t1);
+  font-size:12px; font-family:var(--mono); outline:none;
+  transition:border-color .15s;
+}
+.time-custom input:focus { border-color:var(--brownL); }
+.time-custom select {
+  padding:5px 8px; border-radius:7px; border:1px solid var(--border);
+  background:var(--s2); color:var(--t2); font-size:12px; outline:none;
+  cursor:pointer; transition:border-color .15s;
+}
+.time-custom select:focus { border-color:var(--brownL); }
+.time-custom button {
+  padding:5px 12px; border-radius:7px; border:1px solid var(--border);
+  background:var(--s3); color:var(--t2); font-size:11.5px; font-weight:600;
+  cursor:pointer; transition:all .15s;
+}
+.time-custom button:hover { border-color:var(--brown); color:var(--brown); }
+
+/* delay slider */
+.delay-row { display:flex; align-items:center; gap:10px; margin-top:2px; }
+.delay-row input[type=range] {
+  -webkit-appearance:none; appearance:none;
+  width:120px; height:4px; border-radius:2px;
+  background: linear-gradient(to right, var(--brownL) 0%, var(--brownL) var(--pct,40%), var(--s4) var(--pct,40%), var(--s4) 100%);
+  outline:none; cursor:pointer;
+}
+.delay-row input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance:none; appearance:none;
+  width:14px; height:14px; border-radius:50%;
+  background:var(--brown); border:2px solid var(--surface); cursor:pointer;
+  box-shadow:0 1px 4px rgba(0,0,0,.15);
+}
+.delay-label { font-size:11px; color:var(--t3); font-family:var(--mono); }
+
+/* ── KEYWORD MANAGER ─────────────────────────────────────── */
+.km {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--rl); padding:18px 20px; margin-bottom:18px;
+  box-shadow:var(--sh);
+}
+.km-title {
+  font-size:13px; font-weight:700; color:var(--t1); margin-bottom:12px;
+  display:flex; align-items:center; gap:8px;
+}
+.km-title span { color:var(--t3); font-size:11px; font-weight:400; }
+.km-list { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; min-height:28px; }
+.kw-tag {
+  display:flex; align-items:center; gap:5px;
+  padding:5px 10px; border-radius:7px; font-size:12px; font-weight:500;
+  border:1px solid var(--border); background:var(--s2); color:var(--t2);
+  cursor:default;
+}
+.kw-tag.django    { background:var(--sageG);  border-color:var(--sage);  color:var(--sage);  }
+.kw-tag.python    { background:var(--slateG); border-color:var(--slate); color:var(--slate); }
+.kw-tag.python-dev{ background:var(--clayG);  border-color:var(--clay);  color:var(--clay);  }
+.kw-tag.fastapi   { background:var(--amberG); border-color:var(--amber); color:var(--amber); }
+.kw-tag.custom    { background:var(--brownG); border-color:var(--brownL);color:var(--brownL);}
+.kw-tag.default   { opacity:.7; cursor:default; }
+.kw-del {
+  background:none; border:none; cursor:pointer; color:inherit;
+  font-size:14px; line-height:1; opacity:.5; transition:opacity .15s; padding:0;
+}
+.kw-del:hover { opacity:1; }
+.km-add { display:flex; gap:7px; align-items:center; flex-wrap:wrap; }
+.km-add input[type=text] {
+  flex:1; min-width:180px; padding:7px 12px; border-radius:8px;
+  border:1px solid var(--border); background:var(--s2); color:var(--t1);
+  font-size:12.5px; outline:none; transition:border-color .15s;
+}
+.km-add input:focus { border-color:var(--brownL); }
+.km-add input::placeholder { color:var(--t4); }
+.km-add button {
+  padding:7px 15px; border-radius:8px; border:1px solid var(--border);
+  background:var(--brown); color:#fff; font-size:12px; font-weight:600;
+  cursor:pointer; transition:all .15s; white-space:nowrap;
+}
+.km-add button:hover { background:var(--brownL); }
+.km-note { font-size:11px; color:var(--t4); margin-top:8px; font-style:italic; }
+
+/* ── ACTIVE FILTER TAGS ──────────────────────────────────── */
+.aft { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:14px; min-height:22px; }
+.ft {
+  background:rgba(110,79,56,0.09); border:1px solid rgba(110,79,56,0.25);
+  color:var(--brownL); font-size:11px; padding:2px 9px;
+  border-radius:20px; font-family:var(--mono);
+}
+
+/* ── SPECIAL CARD ────────────────────────────────────────── */
+.sc-wrap { margin-bottom:22px; }
+.sc {
+  background:linear-gradient(135deg, rgba(110,79,56,0.07), rgba(90,125,98,0.05));
+  border:1px solid rgba(110,79,56,0.28); border-radius:var(--r);
+  padding:12px 16px; display:flex; align-items:center; gap:13px; flex-wrap:wrap;
+  box-shadow:var(--sh);
+}
+.sc-badge {
+  background:var(--brown); color:#fff;
+  font-size:9px; font-weight:800; letter-spacing:1px;
+  text-transform:uppercase; padding:4px 9px; border-radius:4px; white-space:nowrap;
+}
+.sc-info strong { font-size:13px; font-weight:700; color:var(--t1); }
+.sc-info p { font-size:11px; color:var(--t3); margin-top:2px; }
+.sc-btn {
+  margin-left:auto; padding:7px 15px; border-radius:8px;
+  background:var(--brown); border:none; color:#fff;
+  font-size:12px; font-weight:700; cursor:pointer; transition:all .2s; white-space:nowrap;
+}
+.sc-btn:hover { background:var(--brownL); box-shadow:0 4px 16px var(--brownG); }
+
+/* ── SECTION TITLE ───────────────────────────────────────── */
+.sec-t {
+  font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  color:var(--t4); font-family:var(--mono); margin-bottom:16px;
+  display:flex; align-items:center; gap:10px;
+}
+.sec-t::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ── COUNTRY SECTION ─────────────────────────────────────── */
+.cs { margin-bottom:24px; animation:fadeUp .3s ease both; }
+.cs:nth-child(1){animation-delay:.03s} .cs:nth-child(2){animation-delay:.07s}
+.cs:nth-child(3){animation-delay:.11s} .cs:nth-child(4){animation-delay:.15s}
+.cs:nth-child(5){animation-delay:.19s} .cs:nth-child(6){animation-delay:.23s}
+.cs:nth-child(7){animation-delay:.27s}
+@keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+.ch {
+  display:flex; align-items:center; gap:10px; margin-bottom:10px;
+  padding-bottom:8px; border-bottom:1px solid var(--border);
+}
+.ch-flag { font-size:20px; }
+.ch-name { font-size:14.5px; font-weight:700; color:var(--t1); }
+.ch-cnt {
+  font-size:10px; color:var(--t4); font-family:var(--mono);
+  background:var(--s3); padding:2px 7px; border-radius:20px;
+}
+.ch-btn {
+  margin-left:auto; padding:4px 10px; border-radius:6px;
+  border:1px solid var(--border); background:var(--surface);
+  color:var(--t3); font-size:10.5px; font-weight:600; cursor:pointer; transition:all .15s;
+}
+.ch-btn:hover { border-color:var(--brownL); color:var(--brown); }
+
+/* ── CARDS ───────────────────────────────────────────────── */
+.cg { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:8px; }
+.card {
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--r);
+  padding:12px 14px; transition:all .15s; cursor:pointer; position:relative; overflow:hidden;
+  box-shadow:var(--sh);
+}
+.card:hover { border-color:var(--borderH); background:var(--s2); transform:translateY(-1px); box-shadow:var(--shH); }
+.card.sel { border-color:var(--brown); background:rgba(110,79,56,0.05); }
+.card.sel::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background:linear-gradient(to bottom, var(--brown), var(--brownL));
+  border-radius:var(--r) 0 0 var(--r);
+}
+.ct { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.chk {
+  width:17px; height:17px; border-radius:4px; border:1.5px solid var(--t4);
+  flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all .15s;
+}
+.card.sel .chk { background:var(--brown); border-color:var(--brown); }
+.chk::after { content:'✓'; font-size:10px; color:#fff; opacity:0; transition:opacity .15s; font-weight:800; }
+.card.sel .chk::after { opacity:1; }
+.kbadge { font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:4px; }
+.kbadge.django    { background:var(--sageG);  color:var(--sage);  border:1px solid rgba(90,125,98,.3); }
+.kbadge.python    { background:var(--slateG); color:var(--slate); border:1px solid rgba(79,120,158,.3); }
+.kbadge.python-dev{ background:var(--clayG);  color:var(--clay);  border:1px solid rgba(168,92,62,.3); }
+.kbadge.fastapi   { background:var(--amberG); color:var(--amber); border:1px solid rgba(184,124,48,.3); }
+.kbadge.custom    { background:var(--brownG); color:var(--brownL);border:1px solid rgba(155,114,88,.3); }
+.local-tag { margin-left:auto; font-size:10px; color:var(--t4); font-family:var(--mono); }
+.curl {
+  font-family:var(--mono); font-size:9.5px; color:var(--t4); word-break:break-all;
+  line-height:1.5; margin-bottom:8px; background:var(--bg2); padding:6px 9px;
+  border-radius:6px; border:1px solid var(--border); transition:color .15s;
+}
+.card:hover .curl { color:var(--t3); }
+.ca { display:flex; gap:5px; }
+.cbtn {
+  flex:1; padding:5px 9px; border-radius:6px; border:1px solid var(--border);
+  background:var(--s2); color:var(--t3); font-size:11px; font-weight:600;
+  cursor:pointer; transition:all .15s; text-align:center;
+}
+.cbtn:hover { border-color:var(--brownL); color:var(--brown); background:var(--brownG); }
+.cbtn.cp:hover { border-color:var(--sage); color:var(--sage); background:var(--sageG); }
+
+/* ── EMPTY STATE ─────────────────────────────────────────── */
+.empty { text-align:center; padding:48px 20px; color:var(--t4); }
+.empty-i { font-size:42px; margin-bottom:14px; }
+
+/* ── PROGRESS TOAST (opening tabs) ──────────────────────── */
+.open-progress {
+  display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%);
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:10px; padding:10px 20px; box-shadow:var(--shH);
+  z-index:400; font-size:12.5px; color:var(--t1); white-space:nowrap; text-align:center;
+}
+.open-progress.show { display:block; }
+.prog-bar-wrap { height:3px; background:var(--s4); border-radius:2px; margin-top:7px; overflow:hidden; }
+.prog-bar { height:100%; background:var(--brown); border-radius:2px; transition:width .3s; }
+
+/* ── TOAST ───────────────────────────────────────────────── */
+.toast {
+  position:fixed; bottom:90px; right:20px;
+  background:var(--surface); border:1px solid var(--sage); color:var(--sage);
+  padding:9px 15px; border-radius:8px; font-size:12.5px; font-weight:600;
+  z-index:300; opacity:0; transform:translateY(6px);
+  transition:all .25s; pointer-events:none; box-shadow:var(--sh);
+}
+.toast.show { opacity:1; transform:translateY(0); }
+
+/* ── STICKY ACTION BAR ───────────────────────────────────── */
+.ab {
+  position:fixed; bottom:0; left:0; right:0;
+  background:rgba(250,247,243,0.97); backdrop-filter:blur(18px);
+  border-top:1px solid var(--border); padding:11px 22px; z-index:100;
+  box-shadow:0 -2px 12px rgba(110,79,56,0.08);
+}
+.ab-in {
+  max-width:1180px; margin:0 auto;
+  display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+}
+.abl { display:flex; align-items:center; gap:8px; }
+.sm-btn {
+  padding:5px 12px; border-radius:7px; border:1px solid var(--border);
+  background:var(--s2); color:var(--t3); font-size:11.5px; font-weight:600;
+  cursor:pointer; transition:all .15s;
+}
+.sm-btn:hover { border-color:var(--brownL); color:var(--t1); }
+.sel-info { font-family:var(--mono); font-size:11.5px; color:var(--t3); }
+.sel-info b { color:var(--brown); }
+.abr { margin-left:auto; display:flex; gap:7px; flex-wrap:wrap; }
+.abtn {
+  padding:7px 15px; border-radius:8px; font-size:12.5px; font-weight:700;
+  cursor:pointer; transition:all .15s; border:none;
+}
+.abtn.sec { background:var(--s2); border:1px solid var(--border); color:var(--t2); }
+.abtn.sec:hover { border-color:var(--brownL); color:var(--t1); }
+.abtn.pri { background:var(--brown); color:#fff; box-shadow:0 2px 8px var(--brownG); }
+.abtn.pri:hover { background:var(--brownL); }
+.abtn.pri:disabled { opacity:.35; cursor:not-allowed; box-shadow:none; }
+.abtn.pri2 { background:var(--sage); color:#fff; }
+.abtn.pri2:hover { opacity:.88; }
+.abtn.bat { background:var(--amberG); border:1px solid var(--amber); color:var(--amber); }
+.abtn.bat:hover { background:rgba(184,124,48,.22); }
+.abtn.bat:disabled { opacity:.35; cursor:not-allowed; }
+.abtn.save { background:var(--roseG); border:1px solid var(--rose); color:var(--rose); }
+.abtn.save:hover { background:rgba(158,80,96,.22); }
+
+/* scrollbar */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--s4); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:var(--t4); }
+</style>
+</head>
+<body>
+
+<div class="open-progress" id="op">
+  <div id="op-text">Opening tab 1 of 1...</div>
+  <div class="prog-bar-wrap"><div class="prog-bar" id="op-bar" style="width:0%"></div></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="wrap">
+
+<header>
+  <div class="hi">
+    <div class="hl">
+      <h1>Job Hunter</h1>
+      <p>Python &amp; Django Opportunity Radar — Egypt → Europe</p>
+    </div>
+    <div class="hstats">
+      <div class="sp"><b id="total-count">0</b> searches</div>
+      <div class="sp"><b>7</b> countries</div>
+      <div class="sp" id="af-stat">No filters</div>
+    </div>
+  </div>
+</header>
+
+<div class="tip" id="tip">
+  <div>💡 <b>Tab opening fixed:</b> tabs now open one-by-one with a delay — adjust speed in the <b>Tab Speed</b> control below.
+  If tabs still get blocked, use <b> .bat</b> (most reliable on Windows).
+  <b>Visa Mode</b> adds "visa sponsorship" to every keyword.
+  Custom keywords are <b>saved in your browser</b> — use <b> Save to File</b> to bake them into the HTML.</div>
+  <button class="tip-x" onclick="this.closest('.tip').remove()">✕</button>
+</div>
+
+<div class="pw" id="pw">
+  <span>⚠️</span>
+  <span>Some tabs may still be blocked. Go to your browser address bar → click the popup icon → Allow. Or use <b>📥 .bat</b> below.</span>
+</div>
+
+<!-- ── FILTERS ──────────────────────────────────────────── -->
+<div class="fp">
+  <div class="fp-grid">
+    <div>
+      <div class="fp-sec">
+        <div class="fl">⏱ Time Range</div>
+        <div class="pills" id="tf">
+          <div class="pill on" data-v="" onclick="setTime(this)">Any Time</div>
+          <div class="pill" data-v="r86400" onclick="setTime(this)">Today</div>
+          <div class="pill" data-v="r259200" onclick="setTime(this)">3 Days</div>
+          <div class="pill" data-v="r604800" onclick="setTime(this)">This Week</div>
+          <div class="pill" data-v="r2592000" onclick="setTime(this)">This Month</div>
+        </div>
+        <div class="time-custom">
+          <input type="number" id="tc-val" placeholder="e.g. 2" min="1" max="999" oninput="customTimePreview()">
+          <select id="tc-unit" onchange="customTimePreview()">
+            <option value="60">minutes</option>
+            <option value="3600" selected>hours</option>
+            <option value="86400">days</option>
+            <option value="604800">weeks</option>
+          </select>
+          <button onclick="applyCustomTime()">Apply</button>
+          <span id="tc-preview" style="font-size:10.5px;color:var(--t4);font-family:var(--mono);"></span>
+        </div>
+      </div>
+      <div class="fp-sec">
+        <div class="fl">Work Type</div>
+        <div class="pills" id="wf">
+          <div class="pill" data-v="2" onclick="toggleWT(this)">Remote</div>
+          <div class="pill" data-v="3" onclick="toggleWT(this)">Hybrid</div>
+          <div class="pill" data-v="1" onclick="toggleWT(this)">On-site</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="fp-sec">
+        <div class="fl">✨ Extras</div>
+        <div class="pills">
+          <div class="pill" id="ea-pill" onclick="toggleEA()">⚡ Easy Apply</div>
+          <div class="pill" id="vm-pill" onclick="toggleVM()">🌍 Visa Mode</div>
+        </div>
+      </div>
+      <div class="fp-sec">
+        <div class="fl">Tab Speed <span style="font-size:10px;font-family:var(--mono);color:var(--t4)">(delay between tabs)</span></div>
+        <div class="delay-row">
+          <input type="range" id="delay-slider" min="200" max="2000" step="100" value="500"
+            oninput="updateDelay(this.value)">
+          <span class="delay-label" id="delay-label">500ms</span>
+          <span style="font-size:10.5px;color:var(--t4)">← faster / safer →</span>
+        </div>
+      </div>
+      <div class="fp-sec">
+        <div class="fl">Countries</div>
+        <div class="pills" id="cf"></div>
+      </div>
+      <div class="fp-sec">
+        <div class="fl">Keyword Filter</div>
+        <div class="pills" id="kfp"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── KEYWORD MANAGER ──────────────────────────────────── -->
+<div class="km">
+  <div class="km-title">
+     Keywords
+    <span>— applied to all 7 countries · custom ones saved in browser</span>
+  </div>
+  <div class="km-list" id="km-list"></div>
+  <div class="km-add">
+    <input type="text" id="kw-input" placeholder="Add keyword: e.g. FastAPI, Flask Developer, Senior Python..." maxlength="80"
+      onkeydown="if(event.key==='Enter')addKW()">
+    <button onclick="addKW()">+ Add Keyword</button>
+  </div>
+  <div class="km-note" id="km-note">Custom keywords live in your browser's localStorage. Click "Save to File" in the action bar to bake them into the HTML file permanently.</div>
+</div>
+
+<!-- ── ACTIVE FILTER TAGS ──────────────────────────────── -->
+<div class="aft" id="aft"></div>
+
+<!-- ── EASY APPLY COLLECTION ──────────────────────────── -->
+<div class="sc-wrap">
+  <div class="sc">
+    <div class="sc-badge">⚡ Featured</div>
+    <div class="sc-info">
+      <strong>LinkedIn Easy Apply — Curated Collection</strong>
+      <p>LinkedIn's personalized Easy Apply jobs feed · Refreshed daily</p>
+    </div>
+    <button class="sc-btn" onclick="window.open('https://www.linkedin.com/jobs/collections/easy-apply/?discover=true','_blank')">Open Feed ↗</button>
+  </div>
+</div>
+
+<div class="sec-t">Your Searches</div>
+
+<div id="lc"></div>
+<div class="empty hidden" id="es">
+  <div class="empty-i">🔍</div>
+  <p style="color:var(--t3);font-size:13px;">No searches match your filters.<br>Try adjusting country or keyword filters.</p>
+</div>
+
+</div><!-- .wrap -->
+
+<!-- ── ACTION BAR ─────────────────────────────────────── -->
+<div class="ab">
+  <div class="ab-in">
+    <div class="abl">
+      <button class="sm-btn" onclick="selAll()">Select All</button>
+      <button class="sm-btn" onclick="clearSel()">Clear</button>
+      <div class="sel-info">Selected: <b id="sc2">0</b> / <span id="tv">0</span></div>
+    </div>
+    <div class="abr">
+      <button class="abtn bat" id="bat-sel" disabled onclick="dlBat('sel')"> .bat (Sel)</button>
+      <button class="abtn bat" onclick="dlBat('all')"> .bat (All)</button>
+      <button class="abtn pri" id="op-sel" disabled onclick="doOpen('sel')">Open Selected ↗</button>
+      <button class="abtn pri2" onclick="doOpen('all')">Open All ↗</button>
+      <button class="abtn save" onclick="saveToFile()"> Save to File</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════════════
+
+const COUNTRIES = [
+  { country:'Spain',          flag:'🇪🇸', geoId:'105646813' },
+  { country:'Egypt',          flag:'🇪🇬', geoId:'106155005', local:true },
+  { country:'Germany',        flag:'🇩🇪', geoId:'101282230' },
+  { country:'Netherlands',    flag:'🇳🇱', geoId:'102890719' },
+  { country:'United Kingdom', flag:'🇬🇧', geoId:'101165590' },
+  { country:'Poland',         flag:'🇵🇱', geoId:'105072130' },
+  { country:'Portugal',       flag:'🇵🇹', geoId:'100364837' },
+];
+
+// Default keywords — always present
+const DEFAULT_KWS = [
+  'Django',
+  'Python',
+  'Python Developer',
+  'Django Developer',
+  'Backend Developer Python',
+  'Software Engineer Python',
+];
+
+// These get saved/loaded from localStorage (and baked into file on export)
+// BAKED_KEYWORDS_START
+const BAKED_KEYWORDS = [];
+// BAKED_KEYWORDS_END
+
+function kwType(kw) {
+  const l = kw.toLowerCase();
+  if (l.includes('django'))   return 'django';
+  if (l.includes('fastapi') || l.includes('fast api')) return 'fastapi';
+  if (l.includes('flask'))    return 'fastapi'; // amber
+  if (l.includes('python'))   return 'python';
+  return 'custom';
+}
+
+// ══════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════
+
+const S = {
+  time: '',
+  wt: new Set(),
+  ea: false,
+  vm: false,
+  countries: new Set(),
+  kws: new Set(),      // keyword TYPE filter
+  sel: new Set(),
+  tabDelay: 500,
+  customKws: [],       // [{kw, type}]  — user-added keywords
+};
+
+// ══════════════════════════════════════════════════════════
+// KEYWORD STORAGE
+// ══════════════════════════════════════════════════════════
+
+function loadCustomKws() {
+  try {
+    const stored = localStorage.getItem('jh_kws_v2');
+    if (stored) return JSON.parse(stored);
+    if (BAKED_KEYWORDS.length) return BAKED_KEYWORDS.map(kw => ({kw, type:kwType(kw)}));
+    return [];
+  } catch { return []; }
+}
+
+function saveCustomKws() {
+  try { localStorage.setItem('jh_kws_v2', JSON.stringify(S.customKws)); } catch {}
+}
+
+// ══════════════════════════════════════════════════════════
+// LINK GENERATION
+// ══════════════════════════════════════════════════════════
+
+function getAllLinks() {
+  const out = [];
+  let id = 0;
+  const allKws = [
+    ...DEFAULT_KWS.map(kw => ({kw, type:kwType(kw), def:true})),
+    ...S.customKws.map(k => ({kw:k.kw, type:k.type, def:false}))
+  ];
+  COUNTRIES.forEach(c => {
+    allKws.forEach(k => {
+      out.push({
+        id: id++,
+        country: c.country, flag: c.flag, geoId: c.geoId,
+        local: c.local || false,
+        kw: k.kw, type: k.type, def: k.def
+      });
+    });
+  });
+  return out;
+}
+
+// ══════════════════════════════════════════════════════════
+// URL BUILDER
+// ══════════════════════════════════════════════════════════
+
+function buildURL(link) {
+  const p = new URLSearchParams();
+  p.set('distance', '25');
+  p.set('geoId', link.geoId);
+  let kw = link.kw;
+  if (S.vm) kw += ' visa sponsorship';
+  p.set('keywords', kw);
+  if (S.time)       p.set('f_TPR', S.time);
+  if (S.ea)         p.set('f_LF',  'f_AL');
+  if (S.wt.size>0)  p.set('f_WT',  [...S.wt].join(','));
+  return 'https://www.linkedin.com/jobs/search/?' + p.toString();
+}
+
+// ══════════════════════════════════════════════════════════
+// FILTER
+// ══════════════════════════════════════════════════════════
+
+function visible() {
+  const all = getAllLinks();
+  return all.filter(l => {
+    if (S.countries.size > 0 && !S.countries.has(l.country)) return false;
+    if (S.kws.size > 0      && !S.kws.has(l.type))           return false;
+    return true;
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════════════════
+
+function render() {
+  const vis = visible();
+  const lc  = document.getElementById('lc');
+  const es  = document.getElementById('es');
+
+  if (!vis.length) { lc.innerHTML=''; es.classList.remove('hidden'); }
+  else             { es.classList.add('hidden'); }
+
+  const grp = {};
+  vis.forEach(l => {
+    if (!grp[l.country]) grp[l.country] = { flag:l.flag, items:[] };
+    grp[l.country].items.push(l);
+  });
+
+  lc.innerHTML = Object.entries(grp).map(([c, d]) => `
+    <div class="cs">
+      <div class="ch">
+        <span class="ch-flag">${d.flag}</span>
+        <span class="ch-name">${c}</span>
+        <span class="ch-cnt">${d.items.length} search${d.items.length>1?'es':''}</span>
+        <button class="ch-btn" onclick="openCountry('${c}')">Open All ${d.flag} ↗</button>
+      </div>
+      <div class="cg">${d.items.map(l=>card(l)).join('')}</div>
+    </div>
+  `).join('');
+
+  renderKwManager();
+  updateKwFilterPills();
+  updateStats();
+  updateTags();
+}
+
+function card(l) {
+  const url = buildURL(l);
+  const short = url.length>92 ? url.slice(0,92)+'…' : url;
+  return `
+    <div class="card${S.sel.has(l.id)?' sel':''}" onclick="toggleSel(${l.id})" id="card-${l.id}">
+      <div class="ct">
+        <div class="chk"></div>
+        <span class="kbadge ${l.type}">${l.kw}</span>
+        ${l.local?'<span class="local-tag">local</span>':''}
+      </div>
+      <div class="curl" title="${url}">${short}</div>
+      <div class="ca" onclick="event.stopPropagation()">
+        <button class="cbtn" onclick="openOne(${l.id})">Open ↗</button>
+        <button class="cbtn cp" id="cp-${l.id}" onclick="copyU(${l.id})">Copy URL</button>
+      </div>
+    </div>`;
+}
+
+// ── Keyword Manager ──────────────────────────────────────
+function renderKwManager() {
+  const list = document.getElementById('km-list');
+  const allKws = [
+    ...DEFAULT_KWS.map(kw=>({kw, type:kwType(kw), def:true})),
+    ...S.customKws.map(k=>({...k, def:false}))
+  ];
+  list.innerHTML = allKws.map((k,i) => `
+    <div class="kw-tag ${k.type}${k.def?' default':''}">
+      ${k.kw}
+      ${k.def ? '' : `<button class="kw-del" title="Remove" onclick="removeKW(${i-DEFAULT_KWS.length})">✕</button>`}
+    </div>
+  `).join('');
+}
+
+// ── Keyword filter pills ────────────────────────────────
+function updateKwFilterPills() {
+  const allTypes = [...new Set(getAllLinks().map(l=>l.type))];
+  const typeLabels = {
+    'django':'Django','python':'Python','python-dev':'Python Dev',
+    'fastapi':'FastAPI','custom':'Custom'
+  };
+  // Don't re-render if already built — just update classes
+  const container = document.getElementById('kfp');
+  if (container.children.length !== allTypes.length) {
+    container.innerHTML = allTypes.map(t => `
+      <div class="pill${S.kws.has(t)?' on':''}" data-kt="${t}" onclick="toggleKT(this,'${t}')">${typeLabels[t]||t}</div>
+    `).join('');
+  } else {
+    container.querySelectorAll('.pill').forEach(p => {
+      const t = p.dataset.kt;
+      p.classList.toggle('on', S.kws.has(t));
+    });
+  }
+}
+
+// ── Stats & Tags ────────────────────────────────────────
+function updateStats() {
+  const vis = visible();
+  const selV = vis.filter(l=>S.sel.has(l.id));
+  document.getElementById('tv').textContent  = vis.length;
+  document.getElementById('sc2').textContent = selV.length;
+  document.getElementById('total-count').textContent = getAllLinks().length;
+  const has = selV.length>0;
+  const os = document.getElementById('op-sel');
+  const bs = document.getElementById('bat-sel');
+  os.disabled = !has;
+  bs.disabled = !has;
+  os.textContent = has ? `Open Sel. (${selV.length}) ↗` : 'Open Selected ↗';
+  let n=0;
+  if(S.time)n++;
+  S.wt.forEach(()=>n++);
+  if(S.ea)n++;
+  if(S.vm)n++;
+  const af = document.getElementById('af-stat');
+  af.innerHTML = n>0 ? `<b>${n}</b> filter${n>1?'s':''} active` : 'No filters';
+}
+
+const TL={r86400:'Today',r259200:'Last 3 Days',r604800:'This Week',r2592000:'This Month'};
+const WL={'1':'On-site','2':'Remote','3':'Hybrid'};
+
+function updateTags() {
+  const tags=[];
+  if(S.time) tags.push(TL[S.time]||S.time);
+  if(S.ea)   tags.push('Easy Apply');
+  if(S.vm)   tags.push('+ Visa Sponsorship');
+  S.wt.forEach(w=>tags.push(WL[w]));
+  if(S.countries.size>0) tags.push([...S.countries].join(' · '));
+  if(S.kws.size>0) tags.push([...S.kws].join(' · '));
+  document.getElementById('aft').innerHTML = tags.map(t=>`<span class="ft">${t}</span>`).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// FILTER CONTROLS
+// ══════════════════════════════════════════════════════════
+
+function setTime(el) {
+  S.time = el.dataset.v;
+  document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('tc-val').value='';
+  document.getElementById('tc-preview').textContent='';
+  render();
+}
+
+function customTimePreview() {
+  const v = parseInt(document.getElementById('tc-val').value)||0;
+  const u = parseInt(document.getElementById('tc-unit').value);
+  if (!v) { document.getElementById('tc-preview').textContent=''; return; }
+  const secs = v*u;
+  const mins = Math.round(secs/60);
+  const hrs  = (secs/3600).toFixed(1);
+  const days = (secs/86400).toFixed(1);
+  let label = secs<3600 ? `${mins}min` : secs<86400 ? `${hrs}h` : `${days}d`;
+  document.getElementById('tc-preview').textContent = `= ${label}`;
+}
+
+function applyCustomTime() {
+  const v = parseInt(document.getElementById('tc-val').value)||0;
+  const u = parseInt(document.getElementById('tc-unit').value);
+  if (!v||v<1) { toast('⚠️ Enter a number first'); return; }
+  const secs = v*u;
+  S.time = `r${secs}`;
+  document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
+  toast(`✅ Time filter: last ${v} ${document.getElementById('tc-unit').options[document.getElementById('tc-unit').selectedIndex].text}`);
+  render();
+}
+
+function toggleWT(el) {
+  const v=el.dataset.v;
+  if(S.wt.has(v)){S.wt.delete(v);el.classList.remove('on-sage');}
+  else           {S.wt.add(v);   el.classList.add('on-sage');}
+  render();
+}
+
+function toggleEA() {
+  S.ea=!S.ea;
+  document.getElementById('ea-pill').classList.toggle('on-grn',S.ea);
+  render();
+}
+
+function toggleVM() {
+  S.vm=!S.vm;
+  document.getElementById('vm-pill').classList.toggle('on-amb',S.vm);
+  render();
+}
+
+function updateDelay(v) {
+  S.tabDelay = parseInt(v);
+  document.getElementById('delay-label').textContent = v+'ms';
+  const slider = document.getElementById('delay-slider');
+  const pct = ((v-200)/(2000-200)*100).toFixed(1);
+  slider.style.setProperty('--pct', pct+'%');
+}
+
+// Country chips
+function initCF() {
+  document.getElementById('cf').innerHTML = COUNTRIES.map(c => `
+    <div class="pill" onclick="toggleCF('${c.country}',this)">${c.flag} ${c.country}</div>
+  `).join('');
+}
+
+function toggleCF(c, el) {
+  if(S.countries.has(c)){S.countries.delete(c);el.classList.remove('on-slt');}
+  else                  {S.countries.add(c);   el.classList.add('on-slt');}
+  render();
+}
+
+function toggleKT(el, t) {
+  if(S.kws.has(t)){S.kws.delete(t);el.classList.remove('on');}
+  else            {S.kws.add(t);   el.classList.add('on');}
+  render();
+}
+
+// ══════════════════════════════════════════════════════════
+// KEYWORD MANAGEMENT
+// ══════════════════════════════════════════════════════════
+
+function addKW() {
+  const inp = document.getElementById('kw-input');
+  const raw = inp.value.trim();
+  if (!raw) { toast('⚠️ Type a keyword first'); return; }
+  const already = [
+    ...DEFAULT_KWS.map(k=>k.toLowerCase()),
+    ...S.customKws.map(k=>k.kw.toLowerCase())
+  ];
+  if (already.includes(raw.toLowerCase())) { toast('⚠️ Keyword already exists'); return; }
+  S.customKws.push({ kw:raw, type:kwType(raw) });
+  saveCustomKws();
+  inp.value = '';
+  render();
+  toast(`✅ Added: "${raw}" to all ${COUNTRIES.length} countries`);
+}
+
+function removeKW(idx) {
+  if (idx<0 || idx>=S.customKws.length) return;
+  const removed = S.customKws[idx].kw;
+  S.customKws.splice(idx,1);
+  saveCustomKws();
+  render();
+  toast(`🗑 Removed: "${removed}"`);
+}
+
+// ══════════════════════════════════════════════════════════
+// SELECTION
+// ══════════════════════════════════════════════════════════
+
+function toggleSel(id) {
+  if(S.sel.has(id))S.sel.delete(id); else S.sel.add(id);
+  const c=document.getElementById(`card-${id}`);
+  if(c) c.classList.toggle('sel',S.sel.has(id));
+  updateStats();
+}
+
+function selAll() {
+  const vis=visible();
+  const allSel=vis.every(l=>S.sel.has(l.id));
+  vis.forEach(l=>allSel?S.sel.delete(l.id):S.sel.add(l.id));
+  render();
+}
+
+function clearSel() { S.sel.clear(); render(); }
+
+// ══════════════════════════════════════════════════════════
+// OPEN TABS  — THE FIX: sequential with delay
+// ══════════════════════════════════════════════════════════
+
+let _openQueue = [];
+let _openIdx   = 0;
+let _openTotal = 0;
+let _openTimer = null;
+
+function doOpen(which) {
+  const vis = visible();
+  const arr = which==='sel' ? vis.filter(l=>S.sel.has(l.id)) : vis;
+  if (!arr.length) return;
+  startOpenQueue(arr.map(l=>({url:buildURL(l),label:`${l.flag} ${l.country} — ${l.kw}`})));
+}
+
+function openCountry(c) {
+  const arr = visible().filter(l=>l.country===c);
+  startOpenQueue(arr.map(l=>({url:buildURL(l),label:`${l.flag} ${l.country} — ${l.kw}`})));
+}
+
+function openOne(id) {
+  const all = getAllLinks();
+  const l = all.find(x=>x.id===id);
+  if(l) window.open(buildURL(l),'_blank');
+}
+
+function startOpenQueue(items) {
+  clearTimeout(_openTimer);
+  _openQueue = items;
+  _openIdx   = 0;
+  _openTotal = items.length;
+
+  const prog = document.getElementById('op');
+  prog.classList.add('show');
+
+  // Show popup warning if opening more than 2
+  if (items.length > 2) {
+    document.getElementById('pw').classList.add('show');
+  }
+
+  nextTab();
+}
+
+function nextTab() {
+  if (_openIdx >= _openTotal) {
+    setTimeout(()=>document.getElementById('op').classList.remove('show'), 1200);
+    toast(`✅ Opened ${_openTotal} tab${_openTotal>1?'s':''}`);
+    return;
+  }
+
+  const item = _openQueue[_openIdx];
+  const n = _openIdx + 1;
+  document.getElementById('op-text').textContent = `Opening tab ${n} of ${_openTotal}: ${item.label}`;
+  document.getElementById('op-bar').style.width  = Math.round((n/_openTotal)*100)+'%';
+
+  // Use anchor click — more browser-friendly than window.open in some contexts
+  const a = document.createElement('a');
+  a.href = item.url;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  _openIdx++;
+  if (_openIdx < _openTotal) {
+    _openTimer = setTimeout(nextTab, S.tabDelay);
+  } else {
+    setTimeout(()=>document.getElementById('op').classList.remove('show'), 1200);
+    toast(`✅ Opened ${_openTotal} tab${_openTotal>1?'s':''}`);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// COPY
+// ══════════════════════════════════════════════════════════
+
+function copyU(id) {
+  const all=getAllLinks();
+  const l=all.find(x=>x.id===id);
+  if(!l)return;
+  navigator.clipboard.writeText(buildURL(l)).then(()=>{
+    const btn=document.getElementById(`cp-${id}`);
+    btn.textContent='✓ Copied!';
+    btn.style.cssText='color:var(--sage);border-color:var(--sage)';
+    setTimeout(()=>{btn.textContent='Copy URL';btn.style.cssText='';},1600);
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// DOWNLOAD .BAT
+// ══════════════════════════════════════════════════════════
+
+function dlBat(which) {
+  const vis=visible();
+  const arr=which==='sel'?vis.filter(l=>S.sel.has(l.id)):vis;
+  if(!arr.length)return;
+  const filters=[];
+  if(S.time)  filters.push(TL[S.time]||S.time);
+  if(S.ea)    filters.push('Easy Apply');
+  if(S.vm)    filters.push('Visa Sponsorship');
+  S.wt.forEach(w=>filters.push(WL[w]));
+  const lines=[
+    '@echo off','title LinkedIn Job Search Opener',
+    'echo.','echo  ================================================',
+    'echo    LinkedIn Job Search Opener','echo    Job Hunter Dashboard',
+    'echo  ================================================','echo.',
+    `echo   Searches : ${arr.length}`,
+    `echo   Filters  : ${filters.length?filters.join(', '):'None'}`,
+    'echo.','echo  Press any key to start opening tabs...','echo.',
+    'pause > nul','echo.',''
+  ];
+  arr.forEach((l,i)=>{
+    const n=String(i+1).padStart(2,'0');
+    lines.push(`echo  [${n}/${arr.length}] ${l.flag} ${l.country} — ${l.kw}`);
+    lines.push(`start "" "${buildURL(l)}"`);
+    lines.push('timeout /t 2 /nobreak > nul');
+    lines.push('');
+  });
+  lines.push('echo.','echo  ================================================');
+  lines.push('echo    Done! Good luck! 🎯','echo  ================================================');
+  lines.push('echo.','pause');
+  const blob=new Blob([lines.join('\r\n')],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`linkedin_${which}.bat`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  toast(`📥 .bat downloaded — ${arr.length} links`);
+}
+
+// ══════════════════════════════════════════════════════════
+// SAVE TO FILE (bake custom keywords into HTML)
+// ══════════════════════════════════════════════════════════
+
+async function saveToFile() {
+  try {
+    // Read the current HTML from the DOM — no network request needed
+    const src = document.documentElement.outerHTML;
+    const kwJson = JSON.stringify(S.customKws.map(k => k.kw));
+    const updated = src.replace(
+      /\/\/ BAKED_KEYWORDS_START[\s\S]*?\/\/ BAKED_KEYWORDS_END/,
+      `// BAKED_KEYWORDS_START\nconst BAKED_KEYWORDS = ${kwJson};\n// BAKED_KEYWORDS_END`
+    );
+    const blob = new Blob([updated], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'job_hunter.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast('Saved! Open the downloaded file to use your keywords anywhere.');
+  } catch(e) {
+    toast('⚠️ Could not save: ' + e.message);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════════════════
+
+function toast(msg) {
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+
+S.customKws = loadCustomKws();
+initCF();
+updateDelay(500); // init slider visual
+render();
+</script>
+</body>
+</html>
