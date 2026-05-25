@@ -767,7 +767,7 @@ function updateStats() {
   const bs  = document.getElementById('bat-sel');
   os.disabled = !has;
   bs.disabled = !has;
-  os.textContent = has ? `Open Sel. (${selV.length}) ↗` : 'Open Selected ↗';
+  os.textContent = has ? `Open Selected (${selV.length}) ↗` : 'Open Selected ↗';
 
   let n = 0;
   if (S.time) n++;
