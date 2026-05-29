@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Job Hunter</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ── LIGHT THEME ── */
@@ -31,15 +32,15 @@
 [data-theme="dark"] {
   --bg:#1a1410;--bg2:#221c16;--surface:#2a2018;--s2:#322820;--s3:#3d3028;--s4:#4a3a30;
   --border:rgba(200,160,120,0.14);--borderH:rgba(200,160,120,0.36);
-  --brown:#c49a74;--brownL:#d4b08c;--brownG:rgba(196,154,116,0.12);
+  --brown:#c4997498;--brownL:#d4b08c;--brownG:rgba(196,154,116,0.12);
   --sage:#7ab882;--sageG:rgba(122,184,130,0.13);
-  --slate:#7aaad4;--slateG:rgba(122,170,212,0.13);
+  --slate:#7aaad4;--slateG:rgba(122, 170, 212, 0.164);
   --clay:#d47a5a;--clayG:rgba(212,122,90,0.13);
   --amber:#e0a040;--amberG:rgba(224,160,64,0.14);
   --rose:#c86878;--roseG:rgba(200,104,120,0.13);
   --indigo:#8090c8;--indigoG:rgba(128,144,200,0.13);
   --moss:#8aaa70;--mossG:rgba(138,170,112,0.13);
-  --t1:#f0e8e0;--t2:#d4b898;--t3:#d4b898;--t4:#805848;
+  --t1:#f0e8e0;--t2:#f3e2cf;--t3:#dbc9b5;--t4:#d3ccca;
   --sh:0 1px 3px rgba(0,0,0,0.3),0 4px 14px rgba(0,0,0,0.2);
   --shH:0 2px 8px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.3);
   --overlay:rgba(0,0,0,0.65);
@@ -453,6 +454,62 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--s4);border-radius:3px;}
 ::-webkit-scrollbar-thumb:hover{background:var(--t4);}
+
+/* ── FOOTER ── */
+footer {
+  margin-top: 50px;
+  padding: 30px 0 20px;
+  border-top: 1px solid var(--border);
+}
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+.footer-msg {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--t2);
+  letter-spacing: 0.2px;
+}
+.footer-prayer {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brown);
+  letter-spacing: 0.3px;
+}
+.footer-repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--t3);
+  font-size: 11.5px;
+  font-family: var(--mono);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+.footer-repo-link:hover {
+  border-color: var(--brownL);
+  color: var(--brown);
+  background: var(--s3);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+.footer-repo-link svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+.footer-repo-link:hover svg {
+  transform: scale(1.05);
+}
 </style>
 </head>
 <body>
@@ -769,6 +826,17 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 
   </div>
 </div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-msg">Shared to help serious job seekers.</div>
+    <div class="footer-prayer">May Allah open the best doors for all of us.</div>
+    <a href="https://github.com/RamiAdell/job-hunter" target="_blank" rel="noopener noreferrer" class="footer-repo-link">
+      <svg height="14" width="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.35 3.1 1.07.01.67.01 1.25.01 1.48 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8z"/></svg>
+      <span>GitHub Repository</span>
+    </a>
+  </div>
+</footer>
 
 </div><!-- .wrap -->
 
@@ -1431,7 +1499,7 @@ function removeCountry(idx){
   S.countries.splice(idx,1);
   persist();
   renderCountryModal();
-  toast(`🗑 Removed: ${c.flag} ${c.country}`);
+  toast(`Removed: ${c.flag} ${c.country}`);
   updateStats();
   renderCountryFilterPills();
 }
@@ -1447,7 +1515,7 @@ function toggleCountryAuth(idx){
   }
   persist();
   renderCountryModal();
-  toast(c.local?`✅ ${c.flag} ${c.country} — marked as authorized (no visa search)`:`ℹ️ ${c.flag} ${c.country} — authorization removed`);
+  toast(c.local?` ${c.flag} ${c.country} — marked as authorized (no visa search)`:` ${c.flag} ${c.country} — authorization removed`);
 }
 
 function toggleGeoHelp(){

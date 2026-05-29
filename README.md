@@ -1,4 +1,4 @@
-# 🎯 Job Hunter
+# <img src="favicon.ico" width="32" height="32"> Job Hunter
 
 **A single HTML file that turns your job search into a system.**
 
@@ -42,14 +42,14 @@ Toggle **🌍 Visa Mode** to automatically append `"visa sponsorship"` to your s
 - Open all visible searches at once, or a selected subset
 - Card selection with Select All / Clear
 - Grouped **Script Download** panel with 4 options:
-  - **⊞ .bat Selected / All** — Windows batch script, opens URLs via terminal
-  - **🐧 .sh Selected / All** — Linux/macOS shell script, auto-detects `open` (Mac) or `xdg-open` (Linux)
+  - **.bat Selected / All** — Windows batch script, opens URLs via terminal
+  - **.sh Selected / All** — Linux/macOS shell script, auto-detects `open` (Mac) or `xdg-open` (Linux)
 
 ### 📱 Mobile-Friendly Design
-- The fixed action bar is **hidden on mobile** — a clean "💾 Save to File" panel appears instead
+- The fixed action bar is **hidden on mobile** — a clean "Save to File" panel appears instead
 - Card selection and bulk "Open All" buttons are hidden on mobile (they'd just spam the LinkedIn app)
 - A mobile notice appears automatically when the app detects a phone or tablet
-- Individual **Open ↗** buttons on cards work perfectly — each opens the LinkedIn app directly
+- Individual **Open ↗** buttons on cards work perfectly as each opens the LinkedIn app directly
 
 ### 🌙 Dark Mode
 Full dark mode support with a warm, readable color scheme. Toggle with the 🌙 button in the header. Category badge colors are vivid and readable in both modes and switch instantly without a page refresh.
@@ -118,22 +118,21 @@ The following new features don't have screenshots yet. Add images to `Screenshot
 ### Dark Mode
 Toggle the 🌙 button in the header to switch between light and dark themes. Category badge colors adapt instantly.
 
-<!-- Add screenshot: Screenshots/dark-mode.png -->
+![Dark Mode](Screenshots/image-6.png)
 
 ### Visa Mode + Authorized Countries
 In **Manage Countries**, the **✓ Authorized** toggle marks countries where you already have the right to work. When Visa Mode is enabled, those countries are excluded from the "visa sponsorship" append.
 
-<!-- Add screenshot: Screenshots/authorized-countries.png -->
+![Visa Mode + Authorized Countries](Screenshots/image-5.png)
 
 ### Script Download Panel (.bat / .sh)
 The action bar now includes a **Script** group with four options: `.bat Selected`, `.bat All`, `.sh Selected`, `.sh All`. The `.sh` option works on both Linux and macOS.
 
-<!-- Add screenshot: Screenshots/script-download-panel.png -->
+![Script Download Panel (.bat / .sh)](Screenshots/image-7.png)
+
 
 ### Mobile Layout
-On mobile, the action bar is replaced by a clean "💾 Save to File" panel. Individual Open ↗ buttons on each card still work and open the LinkedIn app directly.
-
-<!-- Add screenshot: Screenshots/mobile-layout.png -->
+On mobile, the action bar is replaced by a clean "Save to File" panel. Individual Open ↗ buttons on each card still work and open the LinkedIn app directly.
 
 ---
 
@@ -157,8 +156,8 @@ When you open many tabs at once, browsers block them by default. A banner at the
 
 ### If popups are a pain: use a script file
 Click the **Script** group in the action bar:
-- **⊞ .bat (All)** — Windows: downloads a batch script that opens every URL one by one through your default browser
-- **🐧 .sh (All)** — Linux/macOS: downloads a shell script. Run `chmod +x linkedin_search.sh` first, then `./linkedin_search.sh`
+- **.bat (All)** — Windows: downloads a batch script that opens every URL one by one through your default browser
+- **.sh (All)** — Linux/macOS: downloads a shell script. Run `chmod +x linkedin_search.sh` first, then `./linkedin_search.sh`
 
 ---
 
@@ -168,7 +167,7 @@ On mobile, every link opens in the **LinkedIn app** directly — the browser can
 
 **Recommended mobile workflow:**
 1. Tap **Open ↗** on individual search cards — each opens LinkedIn directly
-2. Use the **💾 Save to File** button to download a portable copy of your setup
+2. Use the **Save to File** button to download a portable copy of your setup
 
 The "Open All" bulk action is hidden on mobile to avoid accidentally launching dozens of LinkedIn app instances.
 
