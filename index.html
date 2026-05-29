@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Job Hunter</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
+/* ── LIGHT THEME ── */
+:root,[data-theme="light"] {
   --bg:#f0ebe2;--bg2:#e8e1d6;--surface:#faf7f3;--s2:#f0ebe2;--s3:#e4dcd0;--s4:#d9d0c3;
   --border:rgba(130,100,78,0.18);--borderH:rgba(130,100,78,0.42);
   --brown:#6e4f38;--brownL:#9b7258;--brownG:rgba(110,79,56,0.10);
@@ -17,35 +18,111 @@
   --rose:#9e5060;--roseG:rgba(158,80,96,0.12);
   --indigo:#5060a0;--indigoG:rgba(80,96,160,0.12);
   --moss:#6a8a60;--mossG:rgba(106,138,96,0.12);
-  --t1:#241510;--t2:#5e4235;--t3:#9c826e;--t4:#c4b5a8;
+  --t1:#241510;--t2:#5e4235;--t3:#7a5c48;--t4:#b0997e;
   --mono:'JetBrains Mono',monospace;--sans:'DM Sans',sans-serif;--display:'Playfair Display',serif;
   --r:10px;--rl:14px;
   --sh:0 1px 3px rgba(110,79,56,0.07),0 4px 14px rgba(110,79,56,0.05);
   --shH:0 2px 8px rgba(110,79,56,0.12),0 8px 24px rgba(110,79,56,0.09);
+  --overlay:rgba(36,21,16,0.45);
+  --ab-bg:rgba(250,247,243,0.97);
 }
+
+/* ── DARK THEME ── */
+[data-theme="dark"] {
+  --bg:#1a1410;--bg2:#221c16;--surface:#2a2018;--s2:#322820;--s3:#3d3028;--s4:#4a3a30;
+  --border:rgba(200,160,120,0.14);--borderH:rgba(200,160,120,0.36);
+  --brown:#c49a74;--brownL:#d4b08c;--brownG:rgba(196,154,116,0.12);
+  --sage:#7ab882;--sageG:rgba(122,184,130,0.13);
+  --slate:#7aaad4;--slateG:rgba(122,170,212,0.13);
+  --clay:#d47a5a;--clayG:rgba(212,122,90,0.13);
+  --amber:#e0a040;--amberG:rgba(224,160,64,0.14);
+  --rose:#c86878;--roseG:rgba(200,104,120,0.13);
+  --indigo:#8090c8;--indigoG:rgba(128,144,200,0.13);
+  --moss:#8aaa70;--mossG:rgba(138,170,112,0.13);
+  --t1:#f0e8e0;--t2:#d4b898;--t3:#d4b898;--t4:#805848;
+  --sh:0 1px 3px rgba(0,0,0,0.3),0 4px 14px rgba(0,0,0,0.2);
+  --shH:0 2px 8px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.3);
+  --overlay:rgba(0,0,0,0.65);
+  --ab-bg:rgba(26,20,16,0.97);
+}
+
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);background-image:radial-gradient(ellipse 70% 50% at 5% 0%,rgba(110,79,56,0.06) 0%,transparent 55%),radial-gradient(ellipse 50% 40% at 95% 100%,rgba(90,125,98,0.06) 0%,transparent 50%);color:var(--t1);font-family:var(--sans);min-height:100vh;padding-bottom:120px;}
-.wrap{max-width:1180px;margin:0 auto;padding:0 22px;}
+body{
+  background:var(--bg);
+  background-image:radial-gradient(ellipse 70% 50% at 5% 0%,rgba(110,79,56,0.06) 0%,transparent 55%),
+                   radial-gradient(ellipse 50% 40% at 95% 100%,rgba(90,125,98,0.06) 0%,transparent 50%);
+  color:var(--t1);font-family:var(--sans);min-height:100vh;
+  /* leave room for fixed action bar ONLY on desktop */
+  padding-bottom:20px;
+  transition:background .3s,color .3s;
+}
+@media(min-width:641px){body{padding-bottom:90px;}}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
+@media(min-width:641px){.wrap{padding:0 22px;}}
 input,select,button,textarea{font-family:var(--sans);}
 .hidden{display:none!important;}
 
+/* ── DARK MODE TOGGLE ── */
+.dm-btn{
+  display:flex;align-items:center;gap:6px;padding:6px 13px;border-radius:50px;
+  border:1px solid var(--border);background:var(--s2);color:var(--t3);
+  font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;
+  white-space:nowrap;flex-shrink:0;
+}
+.dm-btn:hover{border-color:var(--brownL);color:var(--brown);}
+.dm-icon{font-size:14px;transition:transform .4s;}
+[data-theme="dark"] .dm-icon{transform:rotate(180deg);}
+
 /* ── HEADER ── */
-header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:18px;}
 .hi{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;}
 .hl{flex:1;min-width:200px;}
 .hl-title-wrap{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
-.hl h1{font-family:var(--display);font-size:28px;font-weight:800;letter-spacing:-0.3px;color:var(--brown);outline:none;border-bottom:2px solid transparent;transition:border-color .2s;}
+.hl h1{font-family:var(--display);font-size:clamp(22px,5vw,28px);font-weight:800;letter-spacing:-0.3px;color:var(--brown);outline:none;border-bottom:2px solid transparent;transition:border-color .2s,color .3s;}
 .hl h1:focus{border-bottom-color:var(--brownL);}
 .hl p{color:var(--t3);font-size:12.5px;outline:none;border-bottom:2px solid transparent;transition:border-color .2s;display:inline-block;}
 .hl p:focus{border-bottom-color:var(--brownL);}
 .edit-hint{font-size:10px;color:var(--t4);font-family:var(--mono);margin-top:3px;opacity:0;transition:opacity .2s;}
 .hl:hover .edit-hint{opacity:1;}
-.hstats{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px;}
-.sp{background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:4px 12px;font-size:11px;color:var(--t3);font-family:var(--mono);}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+.hstats{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+.sp{background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:4px 12px;font-size:11px;color:var(--t3);font-family:var(--mono);transition:background .3s,border-color .3s;}
 .sp b{color:var(--brown);}
 
-/* ── TIP ── */
+/* ── POPUP PERMISSION BANNER ── */
+.popup-banner{
+  background:linear-gradient(135deg,rgba(79,120,158,0.1),rgba(79,120,158,0.06));
+  border:1.5px solid rgba(79,120,158,0.4);border-left:4px solid var(--slate);
+  border-radius:var(--rl);padding:14px 16px;margin-bottom:18px;
+  display:flex;gap:12px;align-items:flex-start;position:relative;
+}
+.popup-banner-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.popup-banner-body{flex:1;}
+.popup-banner h4{font-size:13.5px;font-weight:700;color:var(--slate);margin-bottom:5px;}
+.popup-banner p{font-size:12px;color:var(--t2);line-height:1.6;}
+.popup-banner-steps{margin-top:9px;display:flex;flex-direction:column;gap:5px;}
+.pbs{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--t2);}
+.pbs-num{width:18px;height:18px;border-radius:50%;background:var(--slate);color:#fff;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.popup-banner-x{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--t4);cursor:pointer;font-size:16px;line-height:1;transition:color .2s;}
+.popup-banner-x:hover{color:var(--t2);}
+.pb-confirm{display:flex;align-items:center;gap:8px;margin-top:11px;flex-wrap:wrap;}
+.pb-btn{padding:6px 14px;border-radius:7px;border:none;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
+.pb-btn.primary{background:var(--slate);color:#fff;}
+.pb-btn.primary:hover{opacity:.85;}
+.pb-btn.ghost{background:var(--s2);border:1px solid var(--border);color:var(--t3);}
+.pb-btn.ghost:hover{border-color:var(--borderH);color:var(--t2);}
+
+/* ── MOBILE WARNING ── */
+.mobile-note{
+  background:linear-gradient(135deg,rgba(184,124,48,0.1),rgba(184,124,48,0.05));
+  border:1.5px solid rgba(184,124,48,0.4);border-left:4px solid var(--amber);
+  border-radius:var(--rl);padding:13px 15px;margin-bottom:16px;
+  font-size:12px;color:var(--t2);line-height:1.6;
+}
+.mobile-note b{color:var(--amber);}
+
+/* ── TIP / WARN BANNERS ── */
 .tip{background:linear-gradient(135deg,rgba(110,79,56,0.06),rgba(90,125,98,0.04));border:1px solid rgba(110,79,56,0.22);border-left:3px solid var(--brownL);border-radius:var(--r);padding:10px 14px;margin-bottom:18px;display:flex;gap:10px;font-size:12.5px;color:var(--t2);position:relative;}
 .tip b{color:var(--brown);}
 .tip-x{position:absolute;top:8px;right:10px;background:none;border:none;color:var(--t4);cursor:pointer;font-size:14px;line-height:1;transition:color .2s;}
@@ -63,9 +140,10 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 .pill.on-amb{background:var(--amberG);border-color:var(--amber);color:var(--amber);}
 
 /* ── PANELS ── */
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:18px 20px;margin-bottom:18px;box-shadow:var(--sh);}
-.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-@media(max-width:640px){.panel-grid{grid-template-columns:1fr;}}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;margin-bottom:16px;box-shadow:var(--sh);transition:background .3s,border-color .3s;}
+@media(min-width:641px){.panel{padding:18px 20px;}}
+.panel-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+@media(min-width:641px){.panel-grid{grid-template-columns:1fr 1fr;gap:18px;}}
 .fp-sec{margin-bottom:14px;}
 .fp-sec:last-child{margin-bottom:0;}
 .fl{font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--t4);margin-bottom:7px;font-family:var(--mono);}
@@ -79,7 +157,7 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 .time-custom button:hover{border-color:var(--brown);color:var(--brown);}
 
 /* delay slider */
-.delay-row{display:flex;align-items:center;gap:10px;margin-top:2px;}
+.delay-row{display:flex;align-items:center;gap:10px;margin-top:2px;flex-wrap:wrap;}
 .delay-row input[type=range]{-webkit-appearance:none;appearance:none;width:120px;height:4px;border-radius:2px;background:linear-gradient(to right,var(--brownL) 0%,var(--brownL) var(--pct,28%),var(--s4) var(--pct,28%),var(--s4) 100%);outline:none;cursor:pointer;}
 .delay-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:var(--brown);border:2px solid var(--surface);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.15);}
 .delay-label{font-size:11px;color:var(--t3);font-family:var(--mono);}
@@ -88,20 +166,37 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 .cm-btn{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;margin-top:8px;}
 .cm-btn:hover{border-color:var(--brownL);color:var(--brown);}
 
+/* ── VISA MODE INFO ── */
+.visa-mode-info{
+  margin-top:10px;background:var(--amberG);border:1px solid rgba(184,124,48,0.35);
+  border-radius:9px;padding:10px 13px;font-size:11.5px;color:var(--t2);line-height:1.5;
+}
+.visa-mode-info b{color:var(--amber);}
+.auth-toggle{
+  display:inline-flex;align-items:center;gap:5px;padding:3px 10px 3px 7px;
+  border-radius:6px;border:1.5px solid var(--border);background:var(--s2);
+  color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;
+  margin-left:auto;flex-shrink:0;white-space:nowrap;
+}
+.auth-toggle:hover{border-color:var(--sage);color:var(--sage);}
+.auth-toggle.on{background:var(--sageG);border-color:var(--sage);color:var(--sage);}
+.auth-toggle .at-dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.5;}
+.auth-toggle.on .at-dot{opacity:1;}
+
 /* ── MODAL ── */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(36,21,16,0.45);z-index:500;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay{display:none;position:fixed;inset:0;background:var(--overlay);z-index:500;align-items:center;justify-content:center;padding:16px;}
 .modal-overlay.show{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;width:100%;max-width:600px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 12px 60px rgba(110,79,56,0.18);overflow:hidden;}
-.modal-hdr{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.modal-hdr h2{font-size:17px;font-weight:700;color:var(--t1);}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;width:100%;max-width:600px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 12px 60px rgba(0,0,0,0.25);overflow:hidden;transition:background .3s;}
+.modal-hdr{padding:16px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.modal-hdr h2{font-size:16px;font-weight:700;color:var(--t1);}
 .modal-hdr p{font-size:11.5px;color:var(--t3);margin-top:2px;}
 .modal-x{background:none;border:none;color:var(--t4);cursor:pointer;font-size:18px;line-height:1;transition:color .2s;padding:2px;}
 .modal-x:hover{color:var(--t2);}
-.modal-body{overflow-y:auto;padding:18px 22px;flex:1;}
-.modal-foot{padding:12px 22px;border-top:1px solid var(--border);flex-shrink:0;}
+.modal-body{overflow-y:auto;padding:16px 20px;flex:1;}
+.modal-foot{padding:12px 20px;border-top:1px solid var(--border);flex-shrink:0;}
 
 /* country list items */
-.clist{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+.clist{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
 .citem{display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;transition:border-color .15s;}
 .citem:hover{border-color:var(--borderH);}
 .citem-flag{font-size:22px;flex-shrink:0;width:30px;text-align:center;}
@@ -113,10 +208,10 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 .del-btn:hover{color:var(--clay);background:var(--clayG);}
 
 /* add country form */
-.add-form{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+.add-form{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:13px 15px;}
 .add-form h3{font-size:11.5px;font-weight:700;color:var(--t2);margin-bottom:12px;letter-spacing:.5px;}
 .form-row{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px;}
-.form-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:120px;}
+.form-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:110px;}
 .form-group label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t4);font-family:var(--mono);}
 .form-group input{padding:7px 11px;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--t1);font-size:12.5px;outline:none;transition:border-color .15s;width:100%;}
 .form-group input:focus{border-color:var(--brownL);}
@@ -132,7 +227,7 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 .field-err{font-size:10.5px;color:var(--clay);margin-top:2px;}
 
 /* ── KEYWORD MANAGER ── */
-.km-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.km-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .km-title span{color:var(--t3);font-size:11px;font-weight:400;}
 .km-divider{height:1px;background:var(--border);margin:14px 0;}
 .km-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:28px;}
@@ -140,13 +235,23 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 .kw-del{background:none;border:none;cursor:pointer;color:inherit;font-size:14px;line-height:1;opacity:.5;transition:opacity .15s;padding:0;}
 .kw-del:hover{opacity:1;}
 .km-add{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
-.km-add input[type=text]{flex:1;min-width:150px;padding:7px 12px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t1);font-size:12.5px;outline:none;transition:border-color .15s;}
+.km-add input[type=text]{flex:1;min-width:140px;padding:7px 12px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t1);font-size:12.5px;outline:none;transition:border-color .15s;}
 .km-add input:focus{border-color:var(--brownL);}
 .km-add input::placeholder{color:var(--t4);}
-.km-add select{padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;max-width:150px;}
+.km-add select{padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;max-width:140px;}
 .km-add button{padding:7px 15px;border-radius:8px;border:1px solid var(--border);background:var(--brown);color:#fff;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
 .km-add button:hover{background:var(--brownL);}
 .km-note{font-size:11px;color:var(--t4);margin-top:8px;font-style:italic;}
+
+/* Empty keyword nudge */
+.kw-nudge{
+  background:var(--sageG);border:1.5px dashed rgba(90,125,98,0.5);border-radius:10px;
+  padding:16px 18px;text-align:center;
+}
+.kw-nudge p{font-size:12.5px;color:var(--sage);margin-bottom:10px;line-height:1.5;}
+.kw-nudge-steps{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;}
+.kns{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 13px;font-size:12px;color:var(--t2);}
+.kns-n{width:20px;height:20px;border-radius:50%;background:var(--sage);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 
 /* ── TYPE MANAGER ── */
 .tm-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;min-height:24px;}
@@ -154,9 +259,9 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 .tm-del{background:none;border:none;cursor:pointer;color:inherit;font-size:12px;line-height:1;opacity:.4;transition:opacity .15s;padding:0;margin-left:2px;}
 .tm-del:hover{opacity:1;}
 .tm-add-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap;}
-.tm-add-row input{padding:6px 11px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t1);font-size:12px;outline:none;width:180px;transition:border-color .15s;}
+.tm-add-row input{padding:6px 11px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t1);font-size:12px;outline:none;min-width:140px;flex:1;transition:border-color .15s;}
 .tm-add-row input:focus{border-color:var(--brownL);}
-.tm-add-row button{padding:6px 13px;border-radius:7px;border:1px solid var(--borderH);background:var(--s3);color:var(--t2);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;}
+.tm-add-row button{padding:6px 13px;border-radius:7px;border:1px solid var(--borderH);background:var(--s3);color:var(--t2);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
 .tm-add-row button:hover{border-color:var(--brown);color:var(--brown);}
 .case-warn{display:none;background:rgba(184,124,48,0.1);border:1px solid rgba(184,124,48,0.4);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--amber);margin-top:6px;}
 .case-warn.show{display:block;}
@@ -172,15 +277,17 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 /* ── COUNTRY SECTION ── */
 .cs{margin-bottom:24px;animation:fadeUp .3s ease both;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.ch{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.ch{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
 .ch-flag{font-size:20px;}
 .ch-name{font-size:14.5px;font-weight:700;color:var(--t1);}
 .ch-cnt{font-size:10px;color:var(--t4);font-family:var(--mono);background:var(--s3);padding:2px 7px;border-radius:20px;}
-.ch-btn{margin-left:auto;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--t3);font-size:10.5px;font-weight:600;cursor:pointer;transition:all .15s;}
+.ch-btn{margin-left:auto;padding:5px 11px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
 .ch-btn:hover{border-color:var(--brownL);color:var(--brown);}
+@media(max-width:640px){.ch-btn{display:none;}}
 
 /* ── CARDS ── */
-.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:8px;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:8px;}
+@media(max-width:400px){.cg{grid-template-columns:1fr;}}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;transition:all .15s;cursor:pointer;position:relative;overflow:hidden;box-shadow:var(--sh);}
 .card:hover{border-color:var(--borderH);background:var(--s2);transform:translateY(-1px);box-shadow:var(--shH);}
 .card.sel{border-color:var(--brown);background:rgba(110,79,56,0.05);}
@@ -190,39 +297,61 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 .card.sel .chk{background:var(--brown);border-color:var(--brown);}
 .chk::after{content:'✓';font-size:10px;color:#fff;opacity:0;transition:opacity .15s;font-weight:800;}
 .card.sel .chk::after{opacity:1;}
-.kbadge{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:4px;border:1px solid transparent;}
-.local-tag{margin-left:auto;font-size:10px;color:var(--t4);font-family:var(--mono);}
+@media(max-width:640px){.chk{display:none;}.card{cursor:default;}}
+.kbadge{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:4px;border:1px solid transparent;max-width:calc(100% - 60px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.local-tag{margin-left:auto;font-size:10px;color:var(--t4);font-family:var(--mono);flex-shrink:0;}
 .curl{font-family:var(--mono);font-size:9.5px;color:var(--t4);word-break:break-all;line-height:1.5;margin-bottom:8px;background:var(--bg2);padding:6px 9px;border-radius:6px;border:1px solid var(--border);transition:color .15s;}
 .card:hover .curl{color:var(--t3);}
 .ca{display:flex;gap:5px;}
-.cbtn{flex:1;padding:5px 9px;border-radius:6px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;}
+.cbtn{flex:1;padding:6px 9px;border-radius:6px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;}
 .cbtn:hover{border-color:var(--brownL);color:var(--brown);background:var(--brownG);}
 .cbtn.cp:hover{border-color:var(--sage);color:var(--sage);background:var(--sageG);}
+
+/* ── DARK MODE CARD / TEXT OVERRIDES ── */
+[data-theme="dark"] .curl{color:var(--t2);}
+[data-theme="dark"] .card:hover .curl{color:var(--t1);}
+[data-theme="dark"] .sec-t{color:var(--t3);}
+[data-theme="dark"] .ch-name{color:var(--t1);}
+[data-theme="dark"] .kw-tag{border-width:1.5px;}
+[data-theme="dark"] .tm-tag{border-width:2px;}
+[data-theme="dark"] .kbadge{border-width:1.5px;}
+[data-theme="dark"] .card{border-color:rgba(200,160,120,0.18);}
+[data-theme="dark"] .card:hover{border-color:rgba(200,160,120,0.45);background:var(--s3);}
 
 /* ── EMPTY STATES ── */
 .empty{text-align:center;padding:48px 20px;color:var(--t4);}
 .empty-i{font-size:42px;margin-bottom:14px;}
-.onboard{background:linear-gradient(135deg,rgba(110,79,56,0.05),rgba(90,125,98,0.04));border:1px dashed rgba(110,79,56,0.3);border-radius:var(--rl);padding:28px 24px;text-align:center;margin-bottom:24px;}
+.onboard{background:linear-gradient(135deg,rgba(110,79,56,0.05),rgba(90,125,98,0.04));border:1px dashed rgba(110,79,56,0.3);border-radius:var(--rl);padding:24px 20px;text-align:center;margin-bottom:24px;}
 .onboard h3{font-size:15px;font-weight:700;color:var(--t2);margin-bottom:8px;}
 .onboard p{font-size:12.5px;color:var(--t3);margin-bottom:14px;line-height:1.6;}
-.onboard-steps{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;}
+.onboard-steps{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;}
 .ost{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--t2);display:flex;align-items:center;gap:8px;}
 .ost-num{width:20px;height:20px;border-radius:50%;background:var(--brown);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .ob-btn{padding:8px 18px;border-radius:8px;background:var(--brown);border:none;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s;margin:0 5px;}
 .ob-btn:hover{background:var(--brownL);}
 
 /* ── PROGRESS TOAST ── */
-.open-progress{display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 20px;box-shadow:var(--shH);z-index:400;font-size:12.5px;color:var(--t1);white-space:nowrap;text-align:center;}
+.open-progress{display:none;position:fixed;top:16px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 18px;box-shadow:var(--shH);z-index:400;font-size:12.5px;color:var(--t1);white-space:nowrap;text-align:center;max-width:90vw;}
 .open-progress.show{display:block;}
 .prog-bar-wrap{height:3px;background:var(--s4);border-radius:2px;margin-top:7px;overflow:hidden;}
 .prog-bar{height:100%;background:var(--brown);border-radius:2px;transition:width .3s;}
 
 /* ── TOAST ── */
-.toast{position:fixed;bottom:90px;right:20px;background:var(--surface);border:1px solid var(--sage);color:var(--sage);padding:9px 15px;border-radius:8px;font-size:12.5px;font-weight:600;z-index:300;opacity:0;transform:translateY(6px);transition:all .25s;pointer-events:none;box-shadow:var(--sh);max-width:340px;}
+.toast{position:fixed;bottom:24px;right:16px;background:var(--surface);border:1px solid var(--sage);color:var(--sage);padding:9px 15px;border-radius:8px;font-size:12.5px;font-weight:600;z-index:600;opacity:0;transform:translateY(6px);transition:all .25s;pointer-events:none;box-shadow:var(--sh);max-width:300px;}
+@media(min-width:641px){.toast{bottom:90px;max-width:340px;right:20px;}}
 .toast.show{opacity:1;transform:translateY(0);}
 
-/* ── ACTION BAR ── */
-.ab{position:fixed;bottom:0;left:0;right:0;background:rgba(250,247,243,0.97);backdrop-filter:blur(18px);border-top:1px solid var(--border);padding:11px 22px;z-index:100;box-shadow:0 -2px 12px rgba(110,79,56,0.08);}
+/* ── ACTION BAR — desktop only ── */
+.ab{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--ab-bg);
+  backdrop-filter:blur(18px);border-top:1px solid var(--border);
+  padding:10px 18px;z-index:100;
+  box-shadow:0 -2px 12px rgba(110,79,56,0.08);
+  transition:background .3s;
+}
+@media(min-width:641px){.ab{display:block;}}
 .ab-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
 .abl{display:flex;align-items:center;gap:8px;}
 .sm-btn{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;}
@@ -244,6 +373,82 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 .abtn.save{background:var(--roseG);border:1px solid var(--rose);color:var(--rose);}
 .abtn.save:hover{background:rgba(158,80,96,.22);}
 
+/* ── SCRIPT DOWNLOAD GROUP ── */
+.dl-group{
+  display:flex;align-items:stretch;border-radius:9px;overflow:hidden;
+  border:1px solid var(--border);background:var(--s2);
+  flex-shrink:0;
+}
+.dl-group-label{
+  display:flex;align-items:center;gap:5px;padding:0 11px;
+  font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--t3);font-family:var(--mono);border-right:1px solid var(--border);
+  white-space:nowrap;background:var(--s3);
+}
+.dl-opts{
+  display:flex;align-items:stretch;
+}
+.dl-opt{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1px;padding:5px 10px;cursor:pointer;border:none;background:transparent;
+  border-right:1px solid var(--border);transition:background .12s;
+  min-width:54px;
+}
+.dl-opt:last-child{border-right:none;}
+.dl-opt:hover{background:var(--s3);}
+.dl-opt:disabled{opacity:.35;cursor:not-allowed;}
+.dl-opt .dl-os{font-size:9.5px;font-weight:700;letter-spacing:.5px;}
+.dl-opt .dl-scope{font-size:9px;color:var(--t3);margin-top:1px;}
+.dl-opt.win .dl-os{color:var(--amber);}
+.dl-opt.lnx .dl-os{color:var(--sage);}
+.dl-opt:disabled .dl-os{color:var(--t4)!important;}
+
+/* ── MOBILE ACTION AREA (replaces fixed bar on small screens) ── */
+.mob-actions{
+  display:block;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);
+  padding:14px 16px;margin-bottom:16px;
+}
+@media(min-width:641px){.mob-actions{display:none;}}
+.mob-actions-title{font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--t4);margin-bottom:10px;font-family:var(--mono);}
+.mob-btns{display:flex;flex-direction:column;gap:8px;}
+.mob-row{display:flex;gap:7px;}
+.mob-btn{flex:1;padding:10px 12px;border-radius:9px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s;border:none;text-align:center;}
+.mob-btn.pri{background:var(--brown);color:#fff;}
+.mob-btn.pri:hover{background:var(--brownL);}
+.mob-btn.sec{background:var(--s2);border:1px solid var(--border);color:var(--t2);}
+.mob-btn.sec:hover{border-color:var(--brownL);}
+.mob-btn.bat{background:var(--amberG);border:1px solid var(--amber);color:var(--amber);}
+.mob-btn.save{background:var(--roseG);border:1px solid var(--rose);color:var(--rose);}
+.mob-sel-info{font-size:11.5px;color:var(--t3);font-family:var(--mono);margin-bottom:8px;}
+.mob-sel-info b{color:var(--brown);}
+.mob-sel-row{display:flex;gap:6px;margin-bottom:8px;}
+.mob-sm-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
+
+/* ── HOW TO USE GUIDE ── */
+.how-to{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:20px 20px;margin-top:24px;margin-bottom:24px;box-shadow:var(--sh);}
+.how-to-title{font-size:18px;font-weight:800;font-family:var(--display);color:var(--brown);margin-bottom:4px;}
+.how-to-sub{font-size:12px;color:var(--t3);margin-bottom:22px;}
+.how-steps{display:flex;flex-direction:column;gap:0;}
+.how-step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);}
+.how-step:last-child{border-bottom:none;padding-bottom:0;}
+.hs-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;}
+.hs-num{width:32px;height:32px;border-radius:50%;background:var(--brown);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hs-line{width:2px;flex:1;background:var(--border);margin:4px auto 0;}
+.how-step:last-child .hs-line{display:none;}
+.hs-body{flex:1;padding-top:4px;}
+.hs-title{font-size:13.5px;font-weight:700;color:var(--t1);margin-bottom:5px;}
+.hs-desc{font-size:12px;color:var(--t3);line-height:1.7;}
+.hs-callout{
+  display:flex;gap:8px;align-items:flex-start;
+  background:var(--amberG);border:1px solid rgba(184,124,48,0.3);
+  border-radius:8px;padding:9px 12px;margin-top:8px;font-size:11.5px;color:var(--t2);line-height:1.5;
+}
+.hs-callout.blue{background:var(--slateG);border-color:rgba(79,120,158,0.3);}
+.hs-callout.green{background:var(--sageG);border-color:rgba(90,125,98,0.3);}
+.hs-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-family:var(--mono);}
+
+/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--s4);border-radius:3px;}
@@ -258,7 +463,7 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
     <div class="modal-hdr">
       <div>
         <h2>🌍 Manage Countries</h2>
-        <p>Add, remove, or reorder countries for your search</p>
+        <p>Set countries to search in — mark where you're <strong>authorized to work</strong> (no visa needed)</p>
       </div>
       <button class="modal-x" onclick="closeCountryModal()">✕</button>
     </div>
@@ -290,7 +495,7 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
           </div>
         </div>
         <label class="local-check">
-          <input type="checkbox" id="nf-local"> Mark as local / home country
+          <input type="checkbox" id="nf-local"> I'm authorized to work here (no visa sponsorship needed)
         </label>
       </div>
     </div>
@@ -320,17 +525,47 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
       <p id="site-sub" contenteditable="true" spellcheck="false" title="Click to edit subtitle"></p>
       <div class="edit-hint">✏️ Click title or subtitle to edit · changes auto-save</div>
     </div>
-    <div class="hstats">
-      <div class="sp"><b id="total-count">0</b> searches</div>
-      <div class="sp"><b id="country-count">0</b> countries</div>
-      <div class="sp" id="af-stat">No filters</div>
+    <div class="header-right">
+      <button class="dm-btn" onclick="toggleDark()" id="dm-btn">
+        <span class="dm-icon" id="dm-icon">🌙</span>
+        <span id="dm-label">Dark Mode</span>
+      </button>
+      <div class="hstats">
+        <div class="sp"><b id="total-count">0</b> searches</div>
+        <div class="sp"><b id="country-count">0</b> countries</div>
+        <div class="sp" id="af-stat">No filters</div>
+      </div>
     </div>
   </div>
 </header>
 
+<!-- ── POPUP PERMISSION BANNER ── -->
+<div class="popup-banner" id="popup-banner" style="display:none">
+  <div class="popup-banner-icon">🔓</div>
+  <div class="popup-banner-body">
+    <h4>Allow pop-ups to open multiple tabs at once</h4>
+    <p>Job Hunter opens each search in a new tab. Your browser blocks this by default — here's how to allow it:</p>
+    <div class="popup-banner-steps">
+      <div class="pbs"><div class="pbs-num">1</div> Click the <strong>blocked pop-up icon</strong> in your address bar (usually a small icon on the right)</div>
+      <div class="pbs"><div class="pbs-num">2</div> Choose <strong>"Always allow pop-ups from this site"</strong></div>
+      <div class="pbs"><div class="pbs-num">3</div> Click <strong>Done</strong> — then try opening tabs again</div>
+    </div>
+    <div class="pb-confirm" style="margin-top:12px;">
+      <button class="pb-btn primary" onclick="dismissPopupBanner()">✓ Got it, I've allowed them</button>
+      <button class="pb-btn ghost" onclick="dismissPopupBanner()">Skip for now</button>
+    </div>
+  </div>
+  <button class="popup-banner-x" onclick="dismissPopupBanner()">✕</button>
+</div>
+
+<!-- ── MOBILE NOTE ── -->
+<div class="mobile-note" id="mobile-note" style="display:none">
+  📱 <b>Mobile tip:</b> Opening multiple tabs on mobile will launch the LinkedIn app for each link, one at a time. We recommend tapping <strong>Open ↗</strong> on each card individually for the best experience. The "Open All" and batch download features work best on desktop.
+</div>
+
 <div class="pw" id="pw">
   <span>⚠️</span>
-  <span>Some tabs may still be blocked. Click the popup icon in your address bar → Allow. Or use <b>📥 .bat</b> below.</span>
+  <span>Some tabs may still be blocked. Click the popup icon in your address bar → Allow. Or use <b>.bat</b> below.</span>
 </div>
 
 <!-- ── FILTER PANEL ── -->
@@ -374,6 +609,10 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
           <div class="pill" id="ea-pill" onclick="toggleEA()">⚡ Easy Apply</div>
           <div class="pill" id="vm-pill" onclick="toggleVM()">🌍 Visa Mode</div>
         </div>
+        <!-- Visa Mode info — shown only when Visa Mode is on -->
+        <div class="visa-mode-info" id="visa-mode-info" style="display:none;">
+          🌍 <b>Visa Mode is ON</b> — "visa sponsorship" is appended to searches in countries where you're <em>not</em> authorized to work. Countries you're authorized in are searched normally. Manage your authorization in <strong>🌍 Manage Countries</strong>.
+        </div>
       </div>
       <div class="fp-sec">
         <div class="fl">Tab Speed</div>
@@ -405,7 +644,7 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 
   <!-- Type Manager -->
   <div class="fp-sec">
-    <div class="fl">Keyword Categories (Types)</div>
+    <div class="fl">Step 1 — Keyword Categories (Types)</div>
     <div class="tm-list" id="tm-list"></div>
     <div class="tm-add-row">
       <input type="text" id="tm-input" placeholder="New category, e.g. Backend" maxlength="40"
@@ -419,8 +658,8 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 
   <!-- Keyword list -->
   <div class="fp-sec">
-    <div class="fl">All Keywords</div>
-    <div class="km-list" id="km-list"></div>
+    <div class="fl">Step 2 — All Keywords</div>
+    <div id="km-list-wrap"></div>
   </div>
   <div class="km-add">
     <input type="text" id="kw-input" placeholder="Add keyword: e.g. React Developer, Data Analyst..." maxlength="80"
@@ -428,7 +667,15 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
     <select id="kw-type-sel" style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;"></select>
     <button onclick="addKW()">+ Add Keyword</button>
   </div>
-  <div class="km-note" id="km-note">Custom keywords & types are saved in your browser. Click <b>Save to File</b> in the action bar to bake them into the HTML permanently.</div>
+  <div class="km-note" id="km-note">Custom keywords & types are saved in your browser. Click <b>Save to File</b> to bake them into the HTML permanently.</div>
+</div>
+
+<!-- ── MOBILE ACTION AREA ── -->
+<div class="mob-actions">
+  <div class="mob-actions-title">Actions</div>
+  <div class="mob-btns">
+    <button class="mob-btn save" style="width:100%" onclick="saveToFile()">💾 Save to File</button>
+  </div>
 </div>
 
 <!-- ── ACTIVE FILTER TAGS ── -->
@@ -442,9 +689,90 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
   <p style="color:var(--t3);font-size:13px;">No searches match your filters.<br>Try adjusting country or keyword filters.</p>
 </div>
 
+<!-- ── HOW TO USE ── -->
+<div class="how-to" id="how-to">
+  <div class="how-to-title">How to use Job Hunter</div>
+  <div class="how-to-sub">A quick walkthrough to get you finding jobs in minutes</div>
+  <div class="how-steps">
+
+    <div class="how-step">
+      <div class="hs-left"><div class="hs-num">1</div><div class="hs-line"></div></div>
+      <div class="hs-body">
+        <div class="hs-title">Add countries you want to search in</div>
+        <div class="hs-desc">Click <strong>🌍 Manage Countries</strong> in the filter panel. Each country needs a LinkedIn GeoId — a unique number that tells LinkedIn which region to search. You can find it by searching on LinkedIn and checking the URL for <span class="hs-tag">geoId=…</span>. Mark your home country as <strong>Local</strong> so the tool knows where you already live.</div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="hs-left"><div class="hs-num">2</div><div class="hs-line"></div></div>
+      <div class="hs-body">
+        <div class="hs-title">Create keyword categories (types)</div>
+        <div class="hs-desc">In the Keywords panel, first add <strong>categories</strong> to organize your searches — for example <span class="hs-tag">Backend</span>, <span class="hs-tag">Frontend</span>, <span class="hs-tag">DevOps</span>. These become color-coded filter pills so you can quickly focus on one area at a time.</div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="hs-left"><div class="hs-num">3</div><div class="hs-line"></div></div>
+      <div class="hs-body">
+        <div class="hs-title">Add job title keywords</div>
+        <div class="hs-desc">Then add actual job titles or search phrases — e.g. <span class="hs-tag">Python Developer</span>, <span class="hs-tag">Data Engineer</span>. Assign each to a category. Each keyword × each country = one search card. So 5 keywords × 7 countries = 35 ready-to-open searches.</div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="hs-left"><div class="hs-num">4</div><div class="hs-line"></div></div>
+      <div class="hs-body">
+        <div class="hs-title">Use filters to narrow results</div>
+        <div class="hs-desc">Use the filter panel to narrow by time range, work type (remote, hybrid, on-site), or Easy Apply. Filter by country or keyword type to focus on specific cards. Active filters are shown as tags below the panel.</div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="hs-left"><div class="hs-num">5</div><div class="hs-line"></div></div>
+      <div class="hs-body">
+        <div class="hs-title">Understand Visa Sponsorship mode</div>
+        <div class="hs-desc">Toggle <strong>🌍 Visa Mode</strong> to append "visa sponsorship" to your searches — this surfaces jobs that explicitly mention visa support. In <strong>🌍 Manage Countries</strong>, mark each country where you're <strong>authorized to work</strong> (your home country or any country where you hold a work permit). Those countries will search <em>without</em> "visa sponsorship" appended.</div>
+        <div class="hs-callout">
+          <span>💡</span>
+          <span>Example: You're Egyptian, applying to Germany and UK. In Manage Countries, mark 🇪🇬 Egypt as <em>Authorized</em>. Then enable Visa Mode. Egypt will search normally — Germany and UK will search for visa-sponsored roles.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="hs-left"><div class="hs-num">6</div><div class="hs-line"></div></div>
+      <div class="hs-body">
+        <div class="hs-title">Open searches — desktop vs mobile</div>
+        <div class="hs-desc">On <strong>desktop</strong>: select cards and click <em>Open Selected ↗</em>, or <em>Open All ↗</em> to open everything at once. Your browser may block pop-ups the first time — allow them when prompted (the banner at the top guides you). On <strong>mobile</strong>: every link opens in the LinkedIn app. Clicking "Open All" will launch the app <em>once per search</em> which can be overwhelming.</div>
+        <div class="hs-callout blue">
+          <span></span>
+          <span>Desktop tip: use the Tab Speed slider to control how fast tabs open. On mobile, tap <em>Open ↗</em> on individual cards rather than using "Open All" — it's a much smoother experience.</span>
+        </div>
+        <div class="hs-callout" style="margin-top:6px;">
+          <span></span>
+          <span><strong>Mobile notice:</strong> When you tap "Open All" or "Open Selected" on mobile, you'll see a count of how many links will open in the LinkedIn app one by one. Tap each notification to open them at your own pace.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="how-step">
+      <div class="hs-left"><div class="hs-num">7</div><div class="hs-line"></div></div>
+      <div class="hs-body">
+        <div class="hs-title">Save your setup</div>
+        <div class="hs-desc">Your keywords and countries auto-save in your browser. But if you want a shareable, portable version, click <strong>Save to File</strong> — it downloads a copy of this HTML with all your settings baked in. Open that file in any browser and everything will be there.</div>
+        <div class="hs-callout green">
+          <span></span>
+          <span>The <strong>.bat</strong> (Windows) and <strong>.sh</strong> (Linux/macOS) downloads create scripts that open all links one by one in your browser — great when pop-ups are blocked. Run <code style="background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10px;">chmod +x linkedin_search.sh</code> first on Linux/Mac.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </div><!-- .wrap -->
 
-<!-- ── ACTION BAR ── -->
+<!-- ── ACTION BAR (desktop only) ── -->
 <div class="ab">
   <div class="ab-in">
     <div class="abl">
@@ -453,11 +781,31 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
       <div class="sel-info">Selected: <b id="sc2">0</b> / <span id="tv">0</span></div>
     </div>
     <div class="abr">
-      <button class="abtn bat" id="bat-sel" disabled onclick="dlBat('sel')">📥 .bat (Sel)</button>
-      <button class="abtn bat" onclick="dlBat('all')">📥 .bat (All)</button>
+      <!-- Script download group: 4 options in one compact unit -->
+      <div class="dl-group" title="Download script to open all links">
+        <div class="dl-group-label">Script</div>
+        <div class="dl-opts">
+          <button class="dl-opt win" id="bat-sel-btn" disabled onclick="dlBat('sel')" title="Windows .bat — selected only">
+            <span class="dl-os">.bat</span>
+            <span class="dl-scope">Selected</span>
+          </button>
+          <button class="dl-opt win" onclick="dlBat('all')" title="Windows .bat — all visible">
+            <span class="dl-os">.bat</span>
+            <span class="dl-scope">All</span>
+          </button>
+          <button class="dl-opt lnx" id="sh-sel-btn" disabled onclick="dlSh('sel')" title="Linux/macOS .sh — selected only">
+            <span class="dl-os">.sh</span>
+            <span class="dl-scope">Selected</span>
+          </button>
+          <button class="dl-opt lnx" onclick="dlSh('all')" title="Linux/macOS .sh — all visible">
+            <span class="dl-os">.sh</span>
+            <span class="dl-scope">All</span>
+          </button>
+        </div>
+      </div>
       <button class="abtn pri" id="op-sel" disabled onclick="doOpen('sel')">Open Selected ↗</button>
       <button class="abtn pri2" onclick="doOpen('all')">Open All ↗</button>
-      <button class="abtn save" onclick="saveToFile()">Save to File</button>
+      <button class="abtn save" onclick="saveToFile()">Save and Download</button>
     </div>
   </div>
 </div>
@@ -467,8 +815,8 @@ header{padding:26px 0 20px;border-bottom:1px solid var(--border);margin-bottom:2
 // BAKED DATA — replaced wholesale on "Save to File"
 // BAKED_START
 const BAKED = {
-  settings: {title:"Job Hunter",subtitle:"LinkedIn Opportunity Radar"},
-  countries: [
+  settings:{title:"Job Hunter",subtitle:"LinkedIn Opportunity Radar"},
+  countries:[
     {country:"Spain",flag:"🇪🇸",geoId:"105646813",local:false},
     {country:"Egypt",flag:"🇪🇬",geoId:"106155005",local:true},
     {country:"Germany",flag:"🇩🇪",geoId:"101282230",local:false},
@@ -477,118 +825,173 @@ const BAKED = {
     {country:"Poland",flag:"🇵🇱",geoId:"105072130",local:false},
     {country:"Portugal",flag:"🇵🇹",geoId:"100364837",local:false}
   ],
-  customKws: [],
-  kwTypes: ["Backend","Frontend","Full Stack","DevOps","Data","Custom"]
+  customKws:[],
+  kwTypes:["Backend","Frontend","Full Stack","DevOps","Data","Custom"],
+  darkMode:false,
+  popupBannerDismissed:false,
+  visaExclude:[]
 };
 // BAKED_END
 
 // ═══════════════════════════════════════════════════════════
-// COLOR PALETTE  — cycles by type index
+// COLOR PALETTE — light & dark variants
 // ═══════════════════════════════════════════════════════════
-const TYPE_PALETTE = [
-  {bg:'rgba(90,125,98,0.13)',  border:'#5a7d62', text:'#5a7d62'},
-  {bg:'rgba(79,120,158,0.13)', border:'#4f789e', text:'#4f789e'},
-  {bg:'rgba(184,124,48,0.12)',  border:'#b87c30', text:'#b87c30'},
-  {bg:'rgba(168,92,62,0.13)',  border:'#a85c3e', text:'#a85c3e'},
-  {bg:'rgba(110,79,56,0.10)',  border:'#9b7258', text:'#9b7258'},
-  {bg:'rgba(158,80,96,0.12)',  border:'#9e5060', text:'#9e5060'},
-  {bg:'rgba(80,96,160,0.12)',  border:'#5060a0', text:'#5060a0'},
-  {bg:'rgba(106,138,96,0.12)', border:'#6a8a60', text:'#6a8a60'},
+const TYPE_PALETTE_LIGHT=[
+  {bg:'rgba(90,125,98,0.13)',  border:'#5a7d62',text:'#3d6648'},
+  {bg:'rgba(79,120,158,0.13)', border:'#4f789e',text:'#345f88'},
+  {bg:'rgba(184,124,48,0.12)', border:'#b87c30',text:'#8f5a14'},
+  {bg:'rgba(168,92,62,0.13)',  border:'#a85c3e',text:'#7a3a20'},
+  {bg:'rgba(110,79,56,0.10)',  border:'#9b7258',text:'#6b4a2e'},
+  {bg:'rgba(158,80,96,0.12)',  border:'#9e5060',text:'#7a2c40'},
+  {bg:'rgba(80,96,160,0.12)',  border:'#5060a0',text:'#344080'},
+  {bg:'rgba(106,138,96,0.12)', border:'#6a8a60',text:'#456840'},
+];
+const TYPE_PALETTE_DARK=[
+  {bg:'rgba(122,184,130,0.22)', border:'#7ab882',text:'#a8e0b0'},
+  {bg:'rgba(122,170,212,0.22)', border:'#7aaad4',text:'#a8d0f0'},
+  {bg:'rgba(224,160,64,0.22)',  border:'#e0a040',text:'#f4c860'},
+  {bg:'rgba(212,122,90,0.22)',  border:'#d47a5a',text:'#f0a080'},
+  {bg:'rgba(196,154,116,0.22)', border:'#c49a74',text:'#e0c098'},
+  {bg:'rgba(200,104,120,0.22)', border:'#c86878',text:'#f090a8'},
+  {bg:'rgba(128,144,200,0.22)', border:'#8090c8',text:'#b0c0f0'},
+  {bg:'rgba(138,170,112,0.22)', border:'#8aaa70',text:'#b0d890'},
 ];
 
-function typeColor(typeLabel) {
-  const idx = S.kwTypes.indexOf(typeLabel);
-  return TYPE_PALETTE[(idx < 0 ? S.kwTypes.length : idx) % TYPE_PALETTE.length];
+function typeColor(t){
+  const palette=S.darkMode?TYPE_PALETTE_DARK:TYPE_PALETTE_LIGHT;
+  const i=S.kwTypes.indexOf(t);
+  return palette[(i<0?S.kwTypes.length:i)%palette.length];
 }
-
-function typeStyle(typeLabel) {
-  const c = typeColor(typeLabel);
-  return `background:${c.bg};border-color:${c.border};color:${c.text};`;
-}
+function typeStyle(t){const c=typeColor(t);return `background:${c.bg};border-color:${c.border};color:${c.text};`;}
 
 // ═══════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════
-const S = {
-  time: '', wt: new Set(), ea: false, vm: false,
-  countryFilter: new Set(), typeFilter: new Set(),
-  sel: new Set(), tabDelay: 500,
-  // data (loaded from BAKED then possibly localStorage)
-  settings: {title:'', subtitle:''},
-  countries: [],   // [{country,flag,geoId,local}]
-  customKws: [],   // [{kw, typeLabel}]
-  kwTypes: [],     // string[]
+const S={
+  time:'',wt:new Set(),ea:false,vm:false,
+  countryFilter:new Set(),typeFilter:new Set(),
+  sel:new Set(),tabDelay:500,
+  settings:{title:'',subtitle:''},
+  countries:[],customKws:[],kwTypes:[],
+  darkMode:false,
+  popupBannerDismissed:false,
+  visaExclude:[]  // country names excluded from visa mode
 };
+
+const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||window.innerWidth<641;
+
+// ═══════════════════════════════════════════════════════════
+// DARK MODE
+// ═══════════════════════════════════════════════════════════
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme',S.darkMode?'dark':'light');
+  document.getElementById('dm-icon').textContent=S.darkMode?'☀️':'🌙';
+  document.getElementById('dm-label').textContent=S.darkMode?'Light Mode':'Dark Mode';
+}
+function toggleDark(){
+  S.darkMode=!S.darkMode;
+  applyTheme();
+  persist();
+  render(); // re-render so inline category/keyword colors switch palette immediately
+}
 
 // ═══════════════════════════════════════════════════════════
 // PERSISTENCE
 // ═══════════════════════════════════════════════════════════
-function persist() {
-  try {
-    localStorage.setItem('jh_settings', JSON.stringify(S.settings));
-    localStorage.setItem('jh_countries', JSON.stringify(S.countries));
-    localStorage.setItem('jh_kwTypes', JSON.stringify(S.kwTypes));
-    localStorage.setItem('jh_customKws', JSON.stringify(S.customKws));
-  } catch(e) {}
+function persist(){
+  try{
+    localStorage.setItem('jh_settings',JSON.stringify(S.settings));
+    localStorage.setItem('jh_countries',JSON.stringify(S.countries));
+    localStorage.setItem('jh_kwTypes',JSON.stringify(S.kwTypes));
+    localStorage.setItem('jh_customKws',JSON.stringify(S.customKws));
+    localStorage.setItem('jh_darkMode',JSON.stringify(S.darkMode));
+    localStorage.setItem('jh_popupDismissed',JSON.stringify(S.popupBannerDismissed));
+    localStorage.setItem('jh_visaExclude',JSON.stringify(S.visaExclude));
+  }catch(e){}
 }
 
-function loadState() {
-  // Start from BAKED
-  S.settings  = {...BAKED.settings};
-  S.countries = BAKED.countries.map(c=>({...c}));
-  S.kwTypes   = [...BAKED.kwTypes];
-  S.customKws = BAKED.customKws.map(k=>({...k}));
-  // Override with localStorage if present
-  try {
-    const ls = localStorage.getItem('jh_settings');
-    const lc = localStorage.getItem('jh_countries');
-    const lt = localStorage.getItem('jh_kwTypes');
-    const lk = localStorage.getItem('jh_customKws');
-    if (ls) S.settings  = JSON.parse(ls);
-    if (lc) S.countries = JSON.parse(lc);
-    if (lt) S.kwTypes   = JSON.parse(lt);
-    if (lk) S.customKws = JSON.parse(lk);
-  } catch(e) {}
+function loadState(){
+  S.settings=   {...BAKED.settings};
+  S.countries=  BAKED.countries.map(c=>({...c}));
+  S.kwTypes=    [...BAKED.kwTypes];
+  S.customKws=  BAKED.customKws.map(k=>({...k}));
+  S.darkMode=   BAKED.darkMode||false;
+  S.popupBannerDismissed=BAKED.popupBannerDismissed||false;
+  S.visaExclude=[...(BAKED.visaExclude||[])];
+  try{
+    const ls=localStorage.getItem('jh_settings');
+    const lc=localStorage.getItem('jh_countries');
+    const lt=localStorage.getItem('jh_kwTypes');
+    const lk=localStorage.getItem('jh_customKws');
+    const ld=localStorage.getItem('jh_darkMode');
+    const lp=localStorage.getItem('jh_popupDismissed');
+    const lv=localStorage.getItem('jh_visaExclude');
+    if(ls) S.settings=JSON.parse(ls);
+    if(lc) S.countries=JSON.parse(lc);
+    if(lt) S.kwTypes=JSON.parse(lt);
+    if(lk) S.customKws=JSON.parse(lk);
+    if(ld) S.darkMode=JSON.parse(ld);
+    if(lp) S.popupBannerDismissed=JSON.parse(lp);
+    if(lv) S.visaExclude=JSON.parse(lv);
+  }catch(e){}
+  // Auto-seed visaExclude with local countries
+  S.countries.forEach(c=>{
+    if(c.local&&!S.visaExclude.includes(c.country)){
+      S.visaExclude.push(c.country);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// POPUP BANNER
+// ═══════════════════════════════════════════════════════════
+function showPopupBannerIfNeeded(){
+  // On desktop show always if not dismissed; on mobile never show
+  if(isMobile) return;
+  if(!S.popupBannerDismissed){
+    document.getElementById('popup-banner').style.display='flex';
+  }
+}
+function dismissPopupBanner(){
+  S.popupBannerDismissed=true;
+  persist();
+  document.getElementById('popup-banner').style.display='none';
 }
 
 // ═══════════════════════════════════════════════════════════
 // LINK GENERATION
 // ═══════════════════════════════════════════════════════════
-function getAllLinks() {
-  const out = [];
-  let id = 0;
-  S.countries.forEach(c => {
-    S.customKws.forEach(k => {
-      out.push({
-        id: id++, country: c.country, flag: c.flag,
-        geoId: c.geoId, local: c.local||false,
-        kw: k.kw, typeLabel: k.typeLabel
-      });
+function getAllLinks(){
+  const out=[];let id=0;
+  S.countries.forEach(c=>{
+    S.customKws.forEach(k=>{
+      out.push({id:id++,country:c.country,flag:c.flag,geoId:c.geoId,local:c.local||false,kw:k.kw,typeLabel:k.typeLabel});
     });
   });
   return out;
 }
 
-function buildURL(link) {
-  const p = new URLSearchParams();
-  p.set('distance', '25');
-  p.set('geoId', link.geoId);
-  let kw = link.kw;
-  if (S.vm) kw += ' visa sponsorship';
-  p.set('keywords', kw);
-  if (S.time) p.set('f_TPR', S.time);
-  if (S.ea)   p.set('f_LF', 'f_AL');
-  if (S.wt.size > 0) p.set('f_WT', [...S.wt].join(','));
-  return 'https://www.linkedin.com/jobs/search/?' + p.toString();
+function buildURL(link){
+  const p=new URLSearchParams();
+  p.set('distance','25');
+  p.set('geoId',link.geoId);
+  let kw=link.kw;
+  // Apply visa sponsorship only if VM is on AND country not excluded
+  if(S.vm&&!S.visaExclude.includes(link.country)) kw+=' visa sponsorship';
+  p.set('keywords',kw);
+  if(S.time) p.set('f_TPR',S.time);
+  if(S.ea)   p.set('f_LF','f_AL');
+  if(S.wt.size>0) p.set('f_WT',[...S.wt].join(','));
+  return 'https://www.linkedin.com/jobs/search/?'+p.toString();
 }
 
 // ═══════════════════════════════════════════════════════════
 // FILTER
 // ═══════════════════════════════════════════════════════════
-function visible() {
-  return getAllLinks().filter(l => {
-    if (S.countryFilter.size > 0 && !S.countryFilter.has(l.country)) return false;
-    if (S.typeFilter.size > 0 && !S.typeFilter.has(l.typeLabel)) return false;
+function visible(){
+  return getAllLinks().filter(l=>{
+    if(S.countryFilter.size>0&&!S.countryFilter.has(l.country)) return false;
+    if(S.typeFilter.size>0&&!S.typeFilter.has(l.typeLabel)) return false;
     return true;
   });
 }
@@ -596,37 +999,36 @@ function visible() {
 // ═══════════════════════════════════════════════════════════
 // RENDER — MAIN
 // ═══════════════════════════════════════════════════════════
-function render() {
-  const vis = visible();
-  const lc  = document.getElementById('lc');
-  const es  = document.getElementById('es');
+function render(){
+  const vis=visible();
+  const lc=document.getElementById('lc');
+  const es=document.getElementById('es');
 
-  // Update header
-  document.getElementById('site-title').textContent  = S.settings.title   || 'Job Hunter';
-  document.getElementById('site-sub').textContent    = S.settings.subtitle || 'LinkedIn Opportunity Radar';
-  document.title = S.settings.title || 'Job Hunter';
+  document.getElementById('site-title').textContent=S.settings.title||'Job Hunter';
+  document.getElementById('site-sub').textContent=S.settings.subtitle||'LinkedIn Opportunity Radar';
+  document.title=S.settings.title||'Job Hunter';
 
-  // Empty / onboard state
-  if (S.countries.length === 0 || S.customKws.length === 0) {
-    lc.innerHTML = renderOnboard();
+  if(S.countries.length===0||S.customKws.length===0){
+    lc.innerHTML=renderOnboard();
     es.classList.add('hidden');
-  } else if (!vis.length) {
-    lc.innerHTML = '';
+  } else if(!vis.length){
+    lc.innerHTML='';
     es.classList.remove('hidden');
   } else {
     es.classList.add('hidden');
-    const grp = {};
-    vis.forEach(l => {
-      if (!grp[l.country]) grp[l.country] = {flag:l.flag, items:[]};
+    const grp={};
+    vis.forEach(l=>{
+      if(!grp[l.country]) grp[l.country]={flag:l.flag,items:[]};
       grp[l.country].items.push(l);
     });
-    lc.innerHTML = Object.entries(grp).map(([c, d], i) => `
+    lc.innerHTML=Object.entries(grp).map(([c,d],i)=>`
       <div class="cs" style="animation-delay:${i*0.04}s">
         <div class="ch">
           <span class="ch-flag">${d.flag}</span>
           <span class="ch-name">${c}</span>
           <span class="ch-cnt">${d.items.length} search${d.items.length>1?'es':''}</span>
-          <button class="ch-btn" onclick="openCountryGroup('${escQ(c)}')">Open All ${d.flag} ↗</button>
+          ${S.vm&&S.visaExclude.includes(c)?`<span style="font-size:10px;color:var(--t4);font-family:var(--mono);padding:2px 7px;background:var(--s3);border-radius:20px;">no visa mode</span>`:''}
+          <button class="ch-btn" onclick="${isMobile?`doOpenMobileGroup('${escQ(c)}')`:`openCountryGroup('${escQ(c)}')`}">Open All ${d.flag} ↗</button>
         </div>
         <div class="cg">${d.items.map(l=>card(l)).join('')}</div>
       </div>
@@ -638,77 +1040,98 @@ function render() {
   renderCountryFilterPills();
   renderTypePills();
   renderCountryModal();
+  renderVisaExcludePills();
   updateStats();
   updateTags();
   updateKwTypeSelect();
+  applyTheme();
 }
 
-function renderOnboard() {
-  const noCountry = S.countries.length === 0;
-  const noKw = S.customKws.length === 0;
+function renderOnboard(){
+  const noCountry=S.countries.length===0;
+  const noKw=S.customKws.length===0;
+  const noType=S.kwTypes.length===0;
   return `
     <div class="onboard">
-      <h3>🚀 Welcome! Set up your Job Hunter in 2 steps</h3>
-      <p>This tool generates LinkedIn job search URLs for any role and country — fully customized to your search.</p>
+      <h3>🚀 Welcome! Set up your Job Hunter</h3>
+      <p>Generate LinkedIn job search URLs for any role and country — fully customized to your search.</p>
       <div class="onboard-steps">
         ${noCountry
-          ? `<div class="ost"><div class="ost-num">1</div> Add countries to search in</div>`
-          : `<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.countries.length} countr${S.countries.length>1?'ies':'y'} added</div>`}
+          ?`<div class="ost"><div class="ost-num">1</div> Add countries to search in</div>`
+          :`<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.countries.length} countr${S.countries.length>1?'ies':'y'} added</div>`}
+        ${noType
+          ?`<div class="ost"><div class="ost-num">2</div> Add a keyword category first</div>`
+          :`<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.kwTypes.length} categor${S.kwTypes.length>1?'ies':'y'} ready</div>`}
         ${noKw
-          ? `<div class="ost"><div class="ost-num">2</div> Add keywords / job titles</div>`
-          : `<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.customKws.length} keyword${S.customKws.length>1?'s':''} added</div>`}
+          ?`<div class="ost"><div class="ost-num">3</div> Add job title keywords</div>`
+          :`<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.customKws.length} keyword${S.customKws.length>1?'s':''} added</div>`}
       </div>
-      ${noCountry ? `<button class="ob-btn" onclick="openCountryModal()">🌍 Add Countries</button>` : ''}
-      ${noKw ? `<button class="ob-btn" onclick="document.getElementById('kw-input').focus()">🏷 Add Keywords</button>` : ''}
+      ${noCountry?`<button class="ob-btn" onclick="openCountryModal()">🌍 Add Countries</button>`:''}
+      ${(!noCountry&&noType)?`<button class="ob-btn" onclick="document.getElementById('tm-input').focus()">🏷 Add a Category</button>`:''}
+      ${(!noType&&noKw)?`<button class="ob-btn" onclick="document.getElementById('kw-input').focus()">✏️ Add Keywords</button>`:''}
     </div>`;
 }
 
-function card(l) {
-  const url   = buildURL(l);
-  const short = url.length > 94 ? url.slice(0,94)+'…' : url;
-  const c     = typeColor(l.typeLabel);
+function card(l){
+  const url=buildURL(l);
+  const short=url.length>90?url.slice(0,90)+'…':url;
+  const visaNote=S.vm&&!S.visaExclude.includes(l.country)?'<span style="font-size:9.5px;color:var(--amber);font-family:var(--mono);margin-left:auto;flex-shrink:0;" title="Visa sponsorship appended">+visa</span>':'';
   return `
-    <div class="card${S.sel.has(l.id)?' sel':''}" onclick="toggleSel(${l.id})" id="card-${l.id}">
+    <div class="card${S.sel.has(l.id)?' sel':''}"${isMobile?'':` onclick="toggleSel(${l.id})"`} id="card-${l.id}">
       <div class="ct">
         <div class="chk"></div>
         <span class="kbadge" style="${typeStyle(l.typeLabel)}">${l.kw}</span>
         ${l.local?'<span class="local-tag">local</span>':''}
+        ${visaNote}
       </div>
       <div class="curl" title="${url}">${short}</div>
       <div class="ca" onclick="event.stopPropagation()">
-        <button class="cbtn" onclick="openOne(${l.id})">Open ↗</button>
+        <button class="cbtn" onclick="${isMobile?`window.location.href='${url.replace(/'/g,"\\'")}'`:`openOne(${l.id})`}">Open ↗</button>
         <button class="cbtn cp" id="cp-${l.id}" onclick="copyU(${l.id})">Copy URL</button>
       </div>
     </div>`;
 }
 
 // ── Keyword Manager ──────────────────────────────────────
-function renderKwManager() {
-  const list = document.getElementById('km-list');
-  if (!S.customKws.length) {
-    list.innerHTML = '<span style="font-size:12px;color:var(--t4);font-style:italic;">No keywords yet — add some below</span>';
+function renderKwManager(){
+  const wrap=document.getElementById('km-list-wrap');
+  if(!S.customKws.length){
+    const noType=S.kwTypes.length===0;
+    wrap.innerHTML=`
+      <div class="kw-nudge">
+        <p>${noType
+          ?'<strong>Start here:</strong> First create a keyword category (like "Backend" or "Data"), then add job titles to it.'
+          :'No keywords yet. Type a job title below and select a category, then click <strong>+ Add Keyword</strong>.'}</p>
+        <div class="kw-nudge-steps">
+          ${noType?`<div class="kns"><div class="kns-n">1</div> Add a category above</div><div class="kns"><div class="kns-n">2</div> Then add keywords here</div>`
+                  :`<div class="kns"><div class="kns-n">✓</div> Categories ready</div><div class="kns"><div class="kns-n">→</div> Type a keyword below and click + Add</div>`}
+        </div>
+      </div>`;
     return;
   }
-  list.innerHTML = S.customKws.map((k, i) => {
-    const style = typeStyle(k.typeLabel);
+  const list=document.createElement('div');
+  list.className='km-list';
+  list.innerHTML=S.customKws.map((k,i)=>{
+    const style=typeStyle(k.typeLabel);
     return `<div class="kw-tag" style="${style}" title="${k.typeLabel}">
-      ${k.kw}
-      <button class="kw-del" title="Remove" onclick="removeKW(${i})">✕</button>
+      ${k.kw}<button class="kw-del" title="Remove" onclick="removeKW(${i})">✕</button>
     </div>`;
   }).join('');
-  document.getElementById('km-title-sub').textContent =
-    `— applied to all ${S.countries.length} countr${S.countries.length!==1?'ies':'y'} · ${getAllLinks().length} total searches`;
+  wrap.innerHTML='';
+  wrap.appendChild(list);
+  document.getElementById('km-title-sub').textContent=
+    `— ${S.countries.length} countr${S.countries.length!==1?'ies':'y'} · ${getAllLinks().length} total searches`;
 }
 
 // ── Type Manager ─────────────────────────────────────────
-function renderTypeManager() {
-  const list = document.getElementById('tm-list');
-  if (!S.kwTypes.length) {
-    list.innerHTML = '<span style="font-size:12px;color:var(--t4);font-style:italic;">No types yet</span>';
+function renderTypeManager(){
+  const list=document.getElementById('tm-list');
+  if(!S.kwTypes.length){
+    list.innerHTML='<span style="font-size:12px;color:var(--t4);font-style:italic;">No categories yet — add one above to get started</span>';
     return;
   }
-  list.innerHTML = S.kwTypes.map((t, i) => {
-    const c = TYPE_PALETTE[i % TYPE_PALETTE.length];
+  list.innerHTML=S.kwTypes.map((t,i)=>{
+    const c=typeColor(t);
     return `<div class="tm-tag" style="background:${c.bg};border-color:${c.border};color:${c.text}">
       ${t}<button class="tm-del" onclick="removeType(${i})" title="Remove '${t}'">✕</button>
     </div>`;
@@ -716,202 +1139,220 @@ function renderTypeManager() {
 }
 
 // ── Country filter pills ─────────────────────────────────
-function renderCountryFilterPills() {
-  document.getElementById('cf').innerHTML = S.countries.map(c =>
+function renderCountryFilterPills(){
+  document.getElementById('cf').innerHTML=S.countries.map(c=>
     `<div class="pill${S.countryFilter.has(c.country)?' on-slt':''}" onclick="toggleCF('${escQ(c.country)}',this)">${c.flag} ${c.country}</div>`
   ).join('');
 }
 
 // ── Type filter pills ────────────────────────────────────
-function renderTypePills() {
-  document.getElementById('kfp').innerHTML = S.kwTypes.map(t =>
+function renderTypePills(){
+  document.getElementById('kfp').innerHTML=S.kwTypes.map(t=>
     `<div class="pill${S.typeFilter.has(t)?' on':''}" onclick="toggleTypeFilter('${escQ(t)}')">${t}</div>`
   ).join('');
 }
 
+// ── Visa Mode Info ───────────────────────────────────────
+function renderVisaExcludePills(){
+  const box=document.getElementById('visa-mode-info');
+  if(box) box.style.display=S.vm?'block':'none';
+}
+
 // ── Country Modal ────────────────────────────────────────
-function renderCountryModal() {
-  document.getElementById('clist-wrap').innerHTML = S.countries.length === 0
-    ? '<div style="text-align:center;padding:16px;color:var(--t4);font-size:12.5px;">No countries added yet</div>'
-    : S.countries.map((c, i) => `
+function renderCountryModal(){
+  document.getElementById('clist-wrap').innerHTML=S.countries.length===0
+    ?'<div style="text-align:center;padding:16px;color:var(--t4);font-size:12.5px;">No countries added yet. Add one below to start.</div>'
+    :S.countries.map((c,i)=>{
+      const authLabel=c.local?'✓ Authorized (no visa)':'+ Mark as authorized';
+      return `
       <div class="citem">
         <span class="citem-flag">${c.flag||'🌐'}</span>
         <div class="citem-info">
-          <div class="citem-name">${c.country}${c.local?' <span class="local-badge">LOCAL</span>':''}</div>
+          <div class="citem-name">${c.country}</div>
           <div class="citem-geo">GeoId: ${c.geoId}</div>
         </div>
+        <button class="auth-toggle${c.local?' on':''}" onclick="toggleCountryAuth(${i})" title="Toggle authorization for ${c.country}">
+          <span class="at-dot"></span>${authLabel}
+        </button>
         <button class="del-btn" onclick="removeCountry(${i})" title="Remove ${c.country}">✕</button>
-      </div>`).join('');
+      </div>`;
+    }).join('');
 }
 
 // ── Keyword type select ──────────────────────────────────
-function updateKwTypeSelect() {
-  const sel = document.getElementById('kw-type-sel');
-  const prev = sel.value;
-  sel.innerHTML = S.kwTypes.length
-    ? S.kwTypes.map(t => `<option value="${t}"${t===prev?' selected':''}>${t}</option>`).join('')
-    : '<option value="Custom">Custom</option>';
+function updateKwTypeSelect(){
+  const sel=document.getElementById('kw-type-sel');
+  const prev=sel.value;
+  sel.innerHTML=S.kwTypes.length
+    ?S.kwTypes.map(t=>`<option value="${t}"${t===prev?' selected':''}>${t}</option>`).join('')
+    :'<option value="">— add a category first —</option>';
 }
 
 // ── Stats & Tags ─────────────────────────────────────────
-function updateStats() {
-  const vis   = visible();
-  const selV  = vis.filter(l => S.sel.has(l.id));
-  document.getElementById('tv').textContent           = vis.length;
-  document.getElementById('sc2').textContent          = selV.length;
-  document.getElementById('total-count').textContent  = getAllLinks().length;
-  document.getElementById('country-count').textContent = S.countries.length;
+function updateStats(){
+  const vis=visible();
+  const selV=vis.filter(l=>S.sel.has(l.id));
+  document.getElementById('tv').textContent=vis.length;
+  document.getElementById('sc2').textContent=selV.length;
+  document.getElementById('total-count').textContent=getAllLinks().length;
+  document.getElementById('country-count').textContent=S.countries.length;
+  // Mobile counters
+  const mt=document.getElementById('mob-tv');
+  const ms=document.getElementById('mob-sc');
+  if(mt) mt.textContent=vis.length;
+  if(ms) ms.textContent=selV.length;
 
-  const has = selV.length > 0;
-  const os  = document.getElementById('op-sel');
-  const bs  = document.getElementById('bat-sel');
-  os.disabled = !has;
-  bs.disabled = !has;
-  os.textContent = has ? `Open Selected (${selV.length}) ↗` : 'Open Selected ↗';
+  const has=selV.length>0;
+  const os=document.getElementById('op-sel');
+  const bs=document.getElementById('bat-sel-btn');
+  const ss=document.getElementById('sh-sel-btn');
+  if(os){os.disabled=!has;os.textContent=has?`Open Selected (${selV.length}) ↗`:'Open Selected ↗';}
+  if(bs) bs.disabled=!has;
+  if(ss) ss.disabled=!has;
 
-  let n = 0;
-  if (S.time) n++;
-  S.wt.forEach(() => n++);
-  if (S.ea) n++;
-  if (S.vm) n++;
-  const af = document.getElementById('af-stat');
-  af.innerHTML = n > 0 ? `<b>${n}</b> filter${n>1?'s':''} active` : 'No filters';
+  let n=0;
+  if(S.time) n++;
+  S.wt.forEach(()=>n++);
+  if(S.ea) n++;
+  if(S.vm) n++;
+  const af=document.getElementById('af-stat');
+  af.innerHTML=n>0?`<b>${n}</b> filter${n>1?'s':''} active`:'No filters';
 }
 
-const TL = {r86400:'Today',r259200:'Last 3 Days',r604800:'This Week',r2592000:'This Month'};
-const WL = {'1':'On-site','2':'Remote','3':'Hybrid'};
+const TL={r86400:'Today',r259200:'Last 3 Days',r604800:'This Week',r2592000:'This Month'};
+const WL={'1':'On-site','2':'Remote','3':'Hybrid'};
 
-function updateTags() {
-  const tags = [];
-  if (S.time)            tags.push(TL[S.time] || S.time);
-  if (S.ea)              tags.push('Easy Apply');
-  if (S.vm)              tags.push('+ Visa Sponsorship');
-  S.wt.forEach(w =>     tags.push(WL[w]));
-  if (S.countryFilter.size > 0) tags.push([...S.countryFilter].join(' · '));
-  if (S.typeFilter.size > 0)    tags.push('Type: ' + [...S.typeFilter].join(' · '));
-  document.getElementById('aft').innerHTML = tags.map(t => `<span class="ft">${t}</span>`).join('');
+function updateTags(){
+  const tags=[];
+  if(S.time)            tags.push(TL[S.time]||S.time);
+  if(S.ea)              tags.push('Easy Apply');
+  if(S.vm)              tags.push('+ Visa Sponsorship');
+  S.wt.forEach(w=>      tags.push(WL[w]));
+  if(S.countryFilter.size>0) tags.push([...S.countryFilter].join(' · '));
+  if(S.typeFilter.size>0)    tags.push('Type: '+[...S.typeFilter].join(' · '));
+  document.getElementById('aft').innerHTML=tags.map(t=>`<span class="ft">${t}</span>`).join('');
 }
 
 // ═══════════════════════════════════════════════════════════
 // FILTER CONTROLS
 // ═══════════════════════════════════════════════════════════
-function setTime(el) {
-  S.time = el.dataset.v;
-  document.querySelectorAll('#tf .pill').forEach(p => p.classList.remove('on'));
+function setTime(el){
+  S.time=el.dataset.v;
+  document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
   el.classList.add('on');
-  document.getElementById('tc-val').value = '';
-  document.getElementById('tc-preview').textContent = '';
+  document.getElementById('tc-val').value='';
+  document.getElementById('tc-preview').textContent='';
   render();
 }
 
-function customTimePreview() {
-  const v = parseInt(document.getElementById('tc-val').value)||0;
-  const u = parseInt(document.getElementById('tc-unit').value);
-  if (!v) { document.getElementById('tc-preview').textContent=''; return; }
-  const secs = v*u;
-  const label = secs < 3600 ? `${Math.round(secs/60)}min` : secs < 86400 ? `${(secs/3600).toFixed(1)}h` : `${(secs/86400).toFixed(1)}d`;
-  document.getElementById('tc-preview').textContent = `= ${label}`;
+function customTimePreview(){
+  const v=parseInt(document.getElementById('tc-val').value)||0;
+  const u=parseInt(document.getElementById('tc-unit').value);
+  if(!v){document.getElementById('tc-preview').textContent='';return;}
+  const secs=v*u;
+  const label=secs<3600?`${Math.round(secs/60)}min`:secs<86400?`${(secs/3600).toFixed(1)}h`:`${(secs/86400).toFixed(1)}d`;
+  document.getElementById('tc-preview').textContent=`= ${label}`;
 }
 
-function applyCustomTime() {
-  const v = parseInt(document.getElementById('tc-val').value)||0;
-  const u = parseInt(document.getElementById('tc-unit').value);
-  if (!v || v < 1) { toast('⚠️ Enter a number first'); return; }
-  S.time = `r${v*u}`;
-  document.querySelectorAll('#tf .pill').forEach(p => p.classList.remove('on'));
-  toast(`✅ Time filter set`);
+function applyCustomTime(){
+  const v=parseInt(document.getElementById('tc-val').value)||0;
+  const u=parseInt(document.getElementById('tc-unit').value);
+  if(!v||v<1){toast('⚠️ Enter a number first');return;}
+  S.time=`r${v*u}`;
+  document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
+  toast('✅ Time filter set');
   render();
 }
 
-function toggleWT(el) {
-  const v = el.dataset.v;
-  if (S.wt.has(v)) { S.wt.delete(v); el.classList.remove('on-grn'); }
-  else             { S.wt.add(v);    el.classList.add('on-grn'); }
+function toggleWT(el){
+  const v=el.dataset.v;
+  if(S.wt.has(v)){S.wt.delete(v);el.classList.remove('on-grn');}
+  else            {S.wt.add(v);  el.classList.add('on-grn');}
   render();
 }
 
-function toggleEA() {
-  S.ea = !S.ea;
-  document.getElementById('ea-pill').classList.toggle('on-grn', S.ea);
+function toggleEA(){
+  S.ea=!S.ea;
+  document.getElementById('ea-pill').classList.toggle('on-grn',S.ea);
   render();
 }
 
-function toggleVM() {
-  S.vm = !S.vm;
-  document.getElementById('vm-pill').classList.toggle('on-amb', S.vm);
+function toggleVM(){
+  S.vm=!S.vm;
+  document.getElementById('vm-pill').classList.toggle('on-amb',S.vm);
   render();
 }
 
-function updateDelay(v) {
-  S.tabDelay = parseInt(v);
-  document.getElementById('delay-label').textContent = v + 'ms';
-  const pct = ((v-200)/(2000-200)*100).toFixed(1);
-  document.getElementById('delay-slider').style.setProperty('--pct', pct+'%');
+function updateDelay(v){
+  S.tabDelay=parseInt(v);
+  document.getElementById('delay-label').textContent=v+'ms';
+  const pct=((v-200)/(2000-200)*100).toFixed(1);
+  document.getElementById('delay-slider').style.setProperty('--pct',pct+'%');
 }
 
-function toggleCF(c, el) {
-  if (S.countryFilter.has(c)) { S.countryFilter.delete(c); el.classList.remove('on-slt'); }
-  else                        { S.countryFilter.add(c);    el.classList.add('on-slt'); }
+function toggleCF(c,el){
+  if(S.countryFilter.has(c)){S.countryFilter.delete(c);el.classList.remove('on-slt');}
+  else                      {S.countryFilter.add(c);   el.classList.add('on-slt');}
   render();
 }
 
-function toggleTypeFilter(t) {
-  if (S.typeFilter.has(t)) S.typeFilter.delete(t);
-  else                     S.typeFilter.add(t);
+function toggleTypeFilter(t){
+  if(S.typeFilter.has(t)) S.typeFilter.delete(t);
+  else                    S.typeFilter.add(t);
   render();
 }
 
 // ═══════════════════════════════════════════════════════════
 // COUNTRY MANAGEMENT
 // ═══════════════════════════════════════════════════════════
-function openCountryModal() {
+function openCountryModal(){
   renderCountryModal();
   document.getElementById('country-modal').classList.add('show');
 }
 
-function closeCountryModal() {
+function closeCountryModal(){
   document.getElementById('country-modal').classList.remove('show');
-  document.getElementById('nf-flag').value = '';
-  document.getElementById('nf-name').value = '';
-  document.getElementById('nf-geo').value  = '';
-  document.getElementById('nf-local').checked = false;
+  document.getElementById('nf-flag').value='';
+  document.getElementById('nf-name').value='';
+  document.getElementById('nf-geo').value='';
+  document.getElementById('nf-local').checked=false;
   document.getElementById('geo-err').classList.add('hidden');
   render();
 }
 
-function addCountry() {
-  const flag  = document.getElementById('nf-flag').value.trim() || '🌐';
-  const name  = document.getElementById('nf-name').value.trim();
-  const geo   = document.getElementById('nf-geo').value.trim().replace(/\D/g,'');
-  const local = document.getElementById('nf-local').checked;
-  const errEl = document.getElementById('geo-err');
+function addCountry(){
+  const flag=document.getElementById('nf-flag').value.trim()||'🌐';
+  const name=document.getElementById('nf-name').value.trim();
+  const geo= document.getElementById('nf-geo').value.trim().replace(/\D/g,'');
+  const local=document.getElementById('nf-local').checked;
+  const errEl=document.getElementById('geo-err');
 
-  if (!name) { toast('⚠️ Country name is required'); return; }
-  if (!geo)  { errEl.classList.remove('hidden'); document.getElementById('nf-geo').classList.add('err'); return; }
+  if(!name){toast('⚠️ Country name is required');return;}
+  if(!geo){errEl.classList.remove('hidden');document.getElementById('nf-geo').classList.add('err');return;}
   errEl.classList.add('hidden');
   document.getElementById('nf-geo').classList.remove('err');
 
-  if (S.countries.some(c => c.country.toLowerCase() === name.toLowerCase())) {
-    toast('⚠️ Country already exists'); return;
-  }
-  S.countries.push({country:name, flag, geoId:geo, local});
+  if(S.countries.some(c=>c.country.toLowerCase()===name.toLowerCase())){toast('⚠️ Country already exists');return;}
+  S.countries.push({country:name,flag,geoId:geo,local});
+  // Auto-exclude authorized countries from visa mode
+  if(local&&!S.visaExclude.includes(name)) S.visaExclude.push(name);
   persist();
   renderCountryModal();
-  document.getElementById('nf-flag').value = '';
-  document.getElementById('nf-name').value = '';
-  document.getElementById('nf-geo').value  = '';
-  document.getElementById('nf-local').checked = false;
-  toast(`✅ Added: ${flag} ${name}`);
+  document.getElementById('nf-flag').value='';
+  document.getElementById('nf-name').value='';
+  document.getElementById('nf-geo').value='';
+  document.getElementById('nf-local').checked=false;
+  toast(`✅ Added: ${flag} ${name}${local?' (authorized — no visa needed)':''}`);
   updateStats();
   renderCountryFilterPills();
 }
 
-function removeCountry(idx) {
-  const c = S.countries[idx];
-  if (!c) return;
-  // Remove from filter if active
+function removeCountry(idx){
+  const c=S.countries[idx];
+  if(!c) return;
   S.countryFilter.delete(c.country);
-  S.countries.splice(idx, 1);
+  S.visaExclude=S.visaExclude.filter(x=>x!==c.country);
+  S.countries.splice(idx,1);
   persist();
   renderCountryModal();
   toast(`🗑 Removed: ${c.flag} ${c.country}`);
@@ -919,79 +1360,89 @@ function removeCountry(idx) {
   renderCountryFilterPills();
 }
 
-function toggleGeoHelp() {
+function toggleCountryAuth(idx){
+  const c=S.countries[idx];
+  if(!c) return;
+  c.local=!c.local;
+  if(c.local){
+    if(!S.visaExclude.includes(c.country)) S.visaExclude.push(c.country);
+  } else {
+    S.visaExclude=S.visaExclude.filter(x=>x!==c.country);
+  }
+  persist();
+  renderCountryModal();
+  toast(c.local?`✅ ${c.flag} ${c.country} — marked as authorized (no visa search)`:`ℹ️ ${c.flag} ${c.country} — authorization removed`);
+}
+
+function toggleGeoHelp(){
   document.getElementById('geo-help-box').classList.toggle('show');
 }
 
 // ═══════════════════════════════════════════════════════════
 // KEYWORD TYPE MANAGEMENT
 // ═══════════════════════════════════════════════════════════
-function checkTypeCase() {
-  const raw = document.getElementById('tm-input').value.trim();
-  const warn = document.getElementById('case-warn');
-  if (!raw) { warn.classList.remove('show'); return; }
-  const match = S.kwTypes.find(t =>
-    t.toLowerCase() === raw.toLowerCase() && t !== raw
-  );
-  if (match) {
-    warn.textContent = `⚠ Similar type "${match}" already exists (different case). Using both will create separate filter pills — are you sure?`;
+function checkTypeCase(){
+  const raw=document.getElementById('tm-input').value.trim();
+  const warn=document.getElementById('case-warn');
+  if(!raw){warn.classList.remove('show');return;}
+  const match=S.kwTypes.find(t=>t.toLowerCase()===raw.toLowerCase()&&t!==raw);
+  if(match){
+    warn.textContent=`⚠ Similar type "${match}" already exists (different case). Using both creates separate filter pills.`;
     warn.classList.add('show');
   } else {
     warn.classList.remove('show');
   }
 }
 
-function addType() {
-  const raw = document.getElementById('tm-input').value.trim();
-  if (!raw) { toast('⚠️ Type a category name first'); return; }
-  if (S.kwTypes.includes(raw)) { toast(`⚠️ "${raw}" already exists`); return; }
+function addType(){
+  const raw=document.getElementById('tm-input').value.trim();
+  if(!raw){toast('⚠️ Type a category name first');return;}
+  if(S.kwTypes.includes(raw)){toast(`⚠️ "${raw}" already exists`);return;}
   S.kwTypes.push(raw);
-  document.getElementById('tm-input').value = '';
+  document.getElementById('tm-input').value='';
   document.getElementById('case-warn').classList.remove('show');
   persist();
   render();
-  toast(`✅ Added type: "${raw}"`);
+  toast(`✅ Added category: "${raw}"`);
 }
 
-function removeType(idx) {
-  const label = S.kwTypes[idx];
-  const affected = S.customKws.filter(k => k.typeLabel === label).length;
-  if (affected > 0) {
-    const fallback = S.kwTypes.find((t,i) => i !== idx) || 'Custom';
-    if (!confirm(`"${label}" is used by ${affected} keyword${affected>1?'s':''}. They will be moved to "${fallback}". Continue?`)) return;
-    S.customKws.forEach(k => { if (k.typeLabel === label) k.typeLabel = fallback; });
+function removeType(idx){
+  const label=S.kwTypes[idx];
+  const affected=S.customKws.filter(k=>k.typeLabel===label).length;
+  if(affected>0){
+    const fallback=S.kwTypes.find((_,i)=>i!==idx)||'Custom';
+    if(!confirm(`"${label}" is used by ${affected} keyword${affected>1?'s':''}. They will move to "${fallback}". Continue?`)) return;
+    S.customKws.forEach(k=>{if(k.typeLabel===label) k.typeLabel=fallback;});
   }
-  S.kwTypes.splice(idx, 1);
+  S.kwTypes.splice(idx,1);
   S.typeFilter.delete(label);
   persist();
   render();
-  toast(`🗑 Removed type: "${label}"`);
+  toast(`🗑 Removed category: "${label}"`);
 }
 
 // ═══════════════════════════════════════════════════════════
 // KEYWORD MANAGEMENT
 // ═══════════════════════════════════════════════════════════
-function addKW() {
-  const inp  = document.getElementById('kw-input');
-  const tsel = document.getElementById('kw-type-sel');
-  const raw  = inp.value.trim();
-  const type = tsel.value || (S.kwTypes[0] || 'Custom');
-  if (!raw) { toast('⚠️ Type a keyword first'); return; }
-  if (S.customKws.some(k => k.kw.toLowerCase() === raw.toLowerCase())) {
-    toast('⚠️ Keyword already exists'); return;
-  }
-  if (S.kwTypes.length === 0) { toast('⚠️ Add at least one category/type first'); return; }
-  S.customKws.push({kw: raw, typeLabel: type});
+function addKW(){
+  const inp=document.getElementById('kw-input');
+  const tsel=document.getElementById('kw-type-sel');
+  const raw=inp.value.trim();
+  const type=tsel.value||(S.kwTypes[0]||'Custom');
+  if(!raw){toast('⚠️ Type a keyword first');return;}
+  if(S.customKws.some(k=>k.kw.toLowerCase()===raw.toLowerCase())){toast('⚠️ Keyword already exists');return;}
+  if(S.kwTypes.length===0){toast('⚠️ Add at least one category first (Step 1 above)');return;}
+  S.customKws.push({kw:raw,typeLabel:type});
   persist();
-  inp.value = '';
+  inp.value='';
   render();
-  toast(`✅ Added "${raw}" as ${type}`);
+  toast(`✅ Added "${raw}" → ${type}`);
 }
 
-function removeKW(idx) {
-  if (idx < 0 || idx >= S.customKws.length) return;
-  const removed = S.customKws[idx].kw;
-  S.customKws.splice(idx, 1);
+function removeKW(idx){
+  if(idx<0||idx>=S.customKws.length) return;
+  const removed=S.customKws[idx].kw;
+  S.customKws.splice(idx,1);
   persist();
   render();
   toast(`🗑 Removed: "${removed}"`);
@@ -1000,72 +1451,101 @@ function removeKW(idx) {
 // ═══════════════════════════════════════════════════════════
 // SELECTION
 // ═══════════════════════════════════════════════════════════
-function toggleSel(id) {
-  if (S.sel.has(id)) S.sel.delete(id); else S.sel.add(id);
-  const c = document.getElementById(`card-${id}`);
-  if (c) c.classList.toggle('sel', S.sel.has(id));
+function toggleSel(id){
+  if(S.sel.has(id)) S.sel.delete(id); else S.sel.add(id);
+  const c=document.getElementById(`card-${id}`);
+  if(c) c.classList.toggle('sel',S.sel.has(id));
   updateStats();
 }
 
-function selAll() {
-  const vis    = visible();
-  const allSel = vis.every(l => S.sel.has(l.id));
-  vis.forEach(l => allSel ? S.sel.delete(l.id) : S.sel.add(l.id));
+function selAll(){
+  const vis=visible();
+  const allSel=vis.every(l=>S.sel.has(l.id));
+  vis.forEach(l=>allSel?S.sel.delete(l.id):S.sel.add(l.id));
   render();
 }
 
-function clearSel() { S.sel.clear(); render(); }
+function clearSel(){S.sel.clear();render();}
 
 // ═══════════════════════════════════════════════════════════
 // OPEN TABS — sequential with delay
 // ═══════════════════════════════════════════════════════════
-let _openQueue = [], _openIdx = 0, _openTotal = 0, _openTimer = null;
+let _openQueue=[],_openIdx=0,_openTotal=0,_openTimer=null;
 
-function doOpen(which) {
-  const vis = visible();
-  const arr = which==='sel' ? vis.filter(l => S.sel.has(l.id)) : vis;
-  if (!arr.length) return;
-  startOpenQueue(arr.map(l => ({url: buildURL(l), label:`${l.flag} ${l.country} — ${l.kw}`})));
+function doOpen(which){
+  const vis=visible();
+  const arr=which==='sel'?vis.filter(l=>S.sel.has(l.id)):vis;
+  if(!arr.length) return;
+  startOpenQueue(arr.map(l=>({url:buildURL(l),label:`${l.flag} ${l.country} — ${l.kw}`})));
 }
 
-function openCountryGroup(c) {
-  const arr = visible().filter(l => l.country === c);
-  startOpenQueue(arr.map(l => ({url: buildURL(l), label:`${l.flag} ${l.country} — ${l.kw}`})));
+// Mobile: just open one at a time in same-ish way, but inform user
+function doOpenMobile(which){
+  const vis=visible();
+  const arr=which==='sel'?vis.filter(l=>S.sel.has(l.id)):vis;
+  if(!arr.length) return;
+  if(arr.length>1){
+    toast(`📱 Opening ${arr.length} links one by one — check your LinkedIn app between each`);
+    let i=0;
+    function openNext(){
+      if(i>=arr.length) return;
+      window.open(buildURL(arr[i]),'_blank');
+      i++;
+      if(i<arr.length) setTimeout(openNext,2000);
+    }
+    openNext();
+  } else {
+    window.open(buildURL(arr[0]),'_blank');
+  }
 }
 
-function openOne(id) {
-  const l = getAllLinks().find(x => x.id === id);
-  if (l) window.open(buildURL(l), '_blank');
+function doOpenMobileGroup(c){
+  const arr=visible().filter(l=>l.country===c);
+  doOpenMobile('sel',arr);
 }
 
-function startOpenQueue(items) {
+function openCountryGroup(c){
+  const arr=visible().filter(l=>l.country===c);
+  startOpenQueue(arr.map(l=>({url:buildURL(l),label:`${l.flag} ${l.country} — ${l.kw}`})));
+}
+
+function openOne(id){
+  const l=getAllLinks().find(x=>x.id===id);
+  if(l) window.open(buildURL(l),'_blank');
+}
+
+function startOpenQueue(items){
   clearTimeout(_openTimer);
-  _openQueue = items;
-  _openIdx   = 0;
-  _openTotal = items.length;
+  _openQueue=items;
+  _openIdx=0;
+  _openTotal=items.length;
+  // Show popup banner if not dismissed and on desktop
+  if(!S.popupBannerDismissed&&items.length>1&&!isMobile){
+    document.getElementById('popup-banner').style.display='flex';
+  }
   document.getElementById('op').classList.add('show');
-  if (items.length > 2) document.getElementById('pw').classList.add('show');
+  if(items.length>2) document.getElementById('pw').classList.add('show');
   nextTab();
 }
 
-function nextTab() {
-  if (_openIdx >= _openTotal) {
-    setTimeout(() => document.getElementById('op').classList.remove('show'), 1200);
+function nextTab(){
+  if(_openIdx>=_openTotal){
+    setTimeout(()=>document.getElementById('op').classList.remove('show'),1200);
     toast(`✅ Opened ${_openTotal} tab${_openTotal>1?'s':''}`);
     return;
   }
-  const item = _openQueue[_openIdx];
-  const n    = _openIdx + 1;
-  document.getElementById('op-text').textContent = `Opening tab ${n} of ${_openTotal}: ${item.label}`;
-  document.getElementById('op-bar').style.width  = Math.round((n/_openTotal)*100) + '%';
-  const a = document.createElement('a');
-  a.href = item.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  const item=_openQueue[_openIdx];
+  const n=_openIdx+1;
+  document.getElementById('op-text').textContent=`Opening tab ${n} of ${_openTotal}: ${item.label}`;
+  document.getElementById('op-bar').style.width=Math.round((n/_openTotal)*100)+'%';
+  const a=document.createElement('a');
+  a.href=item.url;a.target='_blank';a.rel='noopener noreferrer';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
   _openIdx++;
-  if (_openIdx < _openTotal) {
-    _openTimer = setTimeout(nextTab, S.tabDelay);
+  if(_openIdx<_openTotal){
+    _openTimer=setTimeout(nextTab,S.tabDelay);
   } else {
-    setTimeout(() => document.getElementById('op').classList.remove('show'), 1200);
+    setTimeout(()=>document.getElementById('op').classList.remove('show'),1200);
     toast(`✅ Opened ${_openTotal} tab${_openTotal>1?'s':''}`);
   }
 }
@@ -1073,30 +1553,30 @@ function nextTab() {
 // ═══════════════════════════════════════════════════════════
 // COPY
 // ═══════════════════════════════════════════════════════════
-function copyU(id) {
-  const l = getAllLinks().find(x => x.id === id);
-  if (!l) return;
-  navigator.clipboard.writeText(buildURL(l)).then(() => {
-    const btn = document.getElementById(`cp-${id}`);
-    btn.textContent = '✓ Copied!';
-    btn.style.cssText = 'color:var(--sage);border-color:var(--sage)';
-    setTimeout(() => { btn.textContent = 'Copy URL'; btn.style.cssText = ''; }, 1600);
+function copyU(id){
+  const l=getAllLinks().find(x=>x.id===id);
+  if(!l) return;
+  navigator.clipboard.writeText(buildURL(l)).then(()=>{
+    const btn=document.getElementById(`cp-${id}`);
+    btn.textContent='✓ Copied!';
+    btn.style.cssText='color:var(--sage);border-color:var(--sage)';
+    setTimeout(()=>{btn.textContent='Copy URL';btn.style.cssText='';},1600);
   });
 }
 
 // ═══════════════════════════════════════════════════════════
 // DOWNLOAD .BAT
 // ═══════════════════════════════════════════════════════════
-function dlBat(which) {
-  const vis = visible();
-  const arr = which==='sel' ? vis.filter(l => S.sel.has(l.id)) : vis;
-  if (!arr.length) return;
-  const filters = [];
-  if (S.time) filters.push(TL[S.time]||S.time);
-  if (S.ea)   filters.push('Easy Apply');
-  if (S.vm)   filters.push('Visa Sponsorship');
-  S.wt.forEach(w => filters.push(WL[w]));
-  const lines = [
+function dlBat(which){
+  const vis=visible();
+  const arr=which==='sel'?vis.filter(l=>S.sel.has(l.id)):vis;
+  if(!arr.length) return;
+  const filters=[];
+  if(S.time) filters.push(TL[S.time]||S.time);
+  if(S.ea)   filters.push('Easy Apply');
+  if(S.vm)   filters.push('Visa Sponsorship');
+  S.wt.forEach(w=>filters.push(WL[w]));
+  const lines=[
     '@echo off','title LinkedIn Job Search Opener','echo.',
     'echo  ================================================',
     `echo    ${S.settings.title||'Job Hunter'} — LinkedIn Opener`,
@@ -1105,88 +1585,158 @@ function dlBat(which) {
     `echo   Filters  : ${filters.length?filters.join(', '):'None'}`,
     'echo.','echo  Press any key to start...','pause > nul',''
   ];
-  arr.forEach((l, i) => {
-    const n = String(i+1).padStart(2,'0');
+  arr.forEach((l,i)=>{
+    const n=String(i+1).padStart(2,'0');
     lines.push(`echo  [${n}/${arr.length}] ${l.flag} ${l.country} — ${l.kw}`);
     lines.push(`start "" "${buildURL(l)}"`);
     lines.push('timeout /t 2 /nobreak > nul','');
   });
   lines.push('echo.','echo  Done! Good luck!','echo.','pause');
-  const blob = new Blob([lines.join('\r\n')], {type:'text/plain;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'linkedin_search.bat';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  toast(`📥 .bat downloaded — ${arr.length} links`);
+  const blob=new Blob([lines.join('\r\n')],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='linkedin_search.bat';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  toast(`.bat downloaded — ${arr.length} links`);
 }
 
 // ═══════════════════════════════════════════════════════════
-// SAVE TO FILE — bakes all state into a new HTML
+// DOWNLOAD .SH (Linux / macOS)
 // ═══════════════════════════════════════════════════════════
-function saveToFile() {
-  try {
-    const src = document.documentElement.outerHTML;
-    const bakedData = {
-      settings:   S.settings,
-      countries:  S.countries,
-      customKws:  S.customKws,
-      kwTypes:    S.kwTypes,
+function dlSh(which){
+  const vis=visible();
+  const arr=which==='sel'?vis.filter(l=>S.sel.has(l.id)):vis;
+  if(!arr.length) return;
+  const filters=[];
+  if(S.time) filters.push(TL[S.time]||S.time);
+  if(S.ea)   filters.push('Easy Apply');
+  if(S.vm)   filters.push('Visa Sponsorship');
+  S.wt.forEach(w=>filters.push(WL[w]));
+  const title=S.settings.title||'Job Hunter';
+  const lines=[
+    '#!/usr/bin/env bash',
+    '# ================================================',
+    `#   ${title} — LinkedIn Opener`,
+    '# ================================================',
+    `# Searches : ${arr.length}`,
+    `# Filters  : ${filters.length?filters.join(', '):'None'}`,
+    '',
+    '# Detect OS for open command',
+    'if [[ "$OSTYPE" == "darwin"* ]]; then OPEN=open; else OPEN=xdg-open; fi',
+    '',
+    `echo "🔎 ${title} — ${arr.length} LinkedIn searches"`,
+    'echo "Press Enter to start opening links one by one..."',
+    'read -r',
+    '',
+  ];
+  arr.forEach((l,i)=>{
+    const n=String(i+1).padStart(2,'0');
+    const url=buildURL(l);
+    lines.push(`echo "[${n}/${arr.length}] ${l.flag} ${l.country} — ${l.kw}"`);
+    // Shell-escape the URL (single-quote wrap, escape any single quotes inside)
+    const safeUrl=url.replace(/'/g,"'\\''")
+    lines.push(`$OPEN '${safeUrl}'`);
+    lines.push('sleep 2');
+    lines.push('');
+  });
+  lines.push('echo ""');
+  lines.push(`echo "✅ Done! ${arr.length} link${arr.length>1?'s':''} opened. Good luck!"`);
+  const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='linkedin_search.sh';
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  document.body.removeChild(a);
+  toast(`.sh downloaded — ${arr.length} links (chmod +x the file to run)`);
+}
+
+// ═══════════════════════════════════════════════════════════
+// SAVE TO FILE
+// ═══════════════════════════════════════════════════════════
+function saveToFile(){
+  try{
+    // Fetch the original HTML source (not the DOM, which may differ after render mutations)
+    const src=document.documentElement.outerHTML;
+    const bakedData={
+      settings:S.settings,
+      countries:S.countries,
+      customKws:S.customKws,
+      kwTypes:S.kwTypes,
+      darkMode:S.darkMode,
+      popupBannerDismissed:false, // reset so banner shows on first open
+      visaExclude:S.visaExclude,
     };
-    const newBaked = `// BAKED_START\nconst BAKED = ${JSON.stringify(bakedData, null, 2)};\n// BAKED_END`;
-    const updated  = src.replace(/\/\/ BAKED_START[\s\S]*?\/\/ BAKED_END/, newBaked);
-    const blob = new Blob([updated], {type:'text/html;charset=utf-8'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = (S.settings.title || 'job_hunter').toLowerCase().replace(/\s+/g,'_') + '.html';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    toast('Saved! The downloaded file includes all your settings, countries & keywords.');
-  } catch(e) {
-    toast('⚠️ Could not save: ' + e.message);
+    const newBaked=`// BAKED_START\nconst BAKED = ${JSON.stringify(bakedData,null,2)};\n// BAKED_END`;
+    // Replace the baked block — use the specific marker pattern
+    const updated=src.replace(/\/\/ BAKED_START[\s\S]*?\/\/ BAKED_END/,newBaked);
+    if(updated===src){
+      toast('⚠️ Could not locate save marker. Please use the original file.');
+      return;
+    }
+    const blob=new Blob(['<!DOCTYPE html>\n'+updated.replace(/^<!DOCTYPE[^>]*>\n?/i,'')],{type:'text/html;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=(S.settings.title||'job_hunter').toLowerCase().replace(/\s+/g,'_')+'.html';
+    document.body.appendChild(a);a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    document.body.removeChild(a);
+    toast('💾 Saved! All your keywords & countries are baked in.');
+  }catch(e){
+    toast('⚠️ Could not save: '+e.message);
   }
 }
 
 // ═══════════════════════════════════════════════════════════
 // HEADER EDITABLE
 // ═══════════════════════════════════════════════════════════
-function initEditableHeader() {
-  const title = document.getElementById('site-title');
-  const sub   = document.getElementById('site-sub');
-
-  title.addEventListener('blur', () => {
-    S.settings.title = title.textContent.trim() || 'Job Hunter';
-    title.textContent = S.settings.title;
-    document.title = S.settings.title;
+function initEditableHeader(){
+  const title=document.getElementById('site-title');
+  const sub=document.getElementById('site-sub');
+  title.addEventListener('blur',()=>{
+    S.settings.title=title.textContent.trim()||'Job Hunter';
+    title.textContent=S.settings.title;
+    document.title=S.settings.title;
     persist();
   });
-  sub.addEventListener('blur', () => {
-    S.settings.subtitle = sub.textContent.trim() || 'LinkedIn Opportunity Radar';
-    sub.textContent = S.settings.subtitle;
+  sub.addEventListener('blur',()=>{
+    S.settings.subtitle=sub.textContent.trim()||'LinkedIn Opportunity Radar';
+    sub.textContent=S.settings.subtitle;
     persist();
   });
-  [title, sub].forEach(el => {
-    el.addEventListener('keydown', e => { if (e.key==='Enter'){ e.preventDefault(); el.blur(); }});
+  [title,sub].forEach(el=>{
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();el.blur();}});
   });
 }
 
 // ═══════════════════════════════════════════════════════════
 // UTILITY
 // ═══════════════════════════════════════════════════════════
-function escQ(s) { return s.replace(/'/g,"\\'"); }
+function escQ(s){return s.replace(/'/g,"\\'");}
 
-function toast(msg) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
   el.classList.add('show');
   clearTimeout(el._t);
-  el._t = setTimeout(() => el.classList.remove('show'), 2800);
+  el._t=setTimeout(()=>el.classList.remove('show'),2800);
 }
 
 // ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 loadState();
+applyTheme();
 updateDelay(500);
 initEditableHeader();
+
+// Show mobile note on mobile devices
+if(isMobile){
+  document.getElementById('mobile-note').style.display='block';
+}
+// Show popup banner on desktop if not dismissed (always on page load)
+showPopupBannerIfNeeded();
+
 render();
 </script>
 </body>
