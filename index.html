@@ -342,7 +342,7 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 @media(min-width:641px){.toast{bottom:90px;max-width:340px;right:20px;}}
 .toast.show{opacity:1;transform:translateY(0);}
 
-/* ── ACTION BAR — desktop only ── */
+/* ── ACTION BAR desktop only ── */
 .ab{
   display:none;
   position:fixed;bottom:0;left:0;right:0;
@@ -574,7 +574,7 @@ footer {
     <div class="modal-hdr">
       <div>
         <h2>🌍 Manage Countries</h2>
-        <p>Set countries to search in — mark where you're <strong>authorized to work</strong> (no visa needed)</p>
+        <p>Set countries to search in mark where you're <strong>authorized to work</strong> (no visa needed)</p>
       </div>
       <button class="modal-x" onclick="closeCountryModal()">✕</button>
     </div>
@@ -601,8 +601,8 @@ footer {
         <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">
           <span class="geoid-help" onclick="toggleGeoHelp()">❓ How to find a LinkedIn GeoId?</span>
           <div id="geo-help-box" class="geo-help-box">
-            <strong>Method 1:</strong> Visit <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">linkedin.com/jobs/search/</code>, filter by location (type the country name). Check the URL — it will contain <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">geoId=XXXXXXX</code>. Copy that number.<br><br>
-            <strong>Method 2:</strong> Common GeoIds — 🇺🇸 US: 103644278 · 🇬🇧 UK: 101165590 · 🇩🇪 DE: 101282230 · 🇫🇷 FR: 105015875 · 🇳🇱 NL: 102890719 · 🇨🇦 CA: 101174742 · 🇦🇺 AU: 101452733 · 🇸🇬 SG: 102454443 · 🇯🇵 JP: 101355337 · 🇸🇦 SA: 102571527 · 🇦🇪 AE: 104305776 · 🇪🇸 ES: 105646813 · 🇵🇱 PL: 105072130 · 🇵🇹 PT: 100364837 · 🇪🇬 EG: 106155005
+            <strong>Method 1:</strong> Visit <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">linkedin.com/jobs/search/</code>, filter by location (type the country name). Check the URL it will contain <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">geoId=XXXXXXX</code>. Copy that number.<br><br>
+            <strong>Method 2:</strong> Common GeoIds 🇺🇸 US: 103644278 · 🇬🇧 UK: 101165590 · 🇩🇪 DE: 101282230 · 🇫🇷 FR: 105015875 · 🇳🇱 NL: 102890719 · 🇨🇦 CA: 101174742 · 🇦🇺 AU: 101452733 · 🇸🇬 SG: 102454443 · 🇯🇵 JP: 101355337 · 🇸🇦 SA: 102571527 · 🇦🇪 AE: 104305776 · 🇪🇸 ES: 105646813 · 🇵🇱 PL: 105072130 · 🇵🇹 PT: 100364837 · 🇪🇬 EG: 106155005
           </div>
         </div>
         <label class="local-check">
@@ -671,11 +671,11 @@ footer {
   <div class="popup-banner-icon">🔓</div>
   <div class="popup-banner-body">
     <h4>Allow pop-ups to open multiple tabs at once</h4>
-    <p>Job Hunter opens each search in a new tab. Your browser blocks this by default — here's how to allow it:</p>
+    <p>Job Hunter opens each search in a new tab. Your browser blocks this by default here's how to allow it:</p>
     <div class="popup-banner-steps">
       <div class="pbs"><div class="pbs-num">1</div> Click the <strong>blocked pop-up icon</strong> in your address bar (usually a small icon on the right)</div>
       <div class="pbs"><div class="pbs-num">2</div> Choose <strong>"Always allow pop-ups from this site"</strong></div>
-      <div class="pbs"><div class="pbs-num">3</div> Click <strong>Done</strong> — then try opening tabs again</div>
+      <div class="pbs"><div class="pbs-num">3</div> Click <strong>Done</strong> then try opening tabs again</div>
     </div>
     <div class="pb-confirm" style="margin-top:12px;">
       <button class="pb-btn primary" onclick="dismissPopupBanner()">✓ Got it, I've allowed them</button>
@@ -736,9 +736,9 @@ footer {
           <div class="pill" id="ea-pill" onclick="toggleEA()">⚡ Easy Apply</div>
           <div class="pill" id="vm-pill" onclick="toggleVM()">🌍 Visa Mode</div>
         </div>
-        <!-- Visa Mode info — shown only when Visa Mode is on -->
+        <!-- Visa Mode info shown only when Visa Mode is on -->
         <div class="visa-mode-info" id="visa-mode-info" style="display:none;">
-          🌍 <b>Visa Mode is ON</b> — "visa sponsorship" is appended to searches in countries where you're <em>not</em> authorized to work. Countries you're authorized in are searched normally. Manage your authorization in <strong>🌍 Manage Countries</strong>.
+          🌍 <b>Visa Mode is ON</b> "visa sponsorship" is appended to searches in countries where you're <em>not</em> authorized to work. Countries you're authorized in are searched normally. Manage your authorization in <strong>🌍 Manage Countries</strong>.
         </div>
       </div>
       <div class="fp-sec">
@@ -766,12 +766,12 @@ footer {
 <div class="panel">
   <div class="km-title">
     Keywords
-    <span id="km-title-sub">— applied to all countries</span>
+    <span id="km-title-sub">applied to all countries</span>
   </div>
 
   <!-- Type Manager -->
   <div class="fp-sec">
-    <div class="fl">Step 1 — Keyword Categories (Types)</div>
+    <div class="fl">Step 1 Keyword Categories (Types)</div>
     <div class="tm-list" id="tm-list"></div>
     <div class="tm-add-row">
       <input type="text" id="tm-input" placeholder="New category, e.g. Backend" maxlength="40"
@@ -785,7 +785,7 @@ footer {
 
   <!-- Keyword list -->
   <div class="fp-sec">
-    <div class="fl">Step 2 — All Keywords</div>
+    <div class="fl">Step 2 All Keywords</div>
     <div id="km-list-wrap"></div>
   </div>
   <div class="km-add">
@@ -794,14 +794,14 @@ footer {
     <select id="kw-type-sel" style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;"></select>
     <button onclick="addKW()">+ Add Keyword</button>
   </div>
-  <div class="km-note" id="km-note">Custom keywords & types are saved in your browser. Click <b>Save to File</b> to bake them into the HTML permanently.</div>
+  <div class="km-note" id="km-note">Custom keywords & types are saved in your browser. Click <b>Save and Download</b> to bake them into the HTML permanently.</div>
 </div>
 
 <!-- ── MOBILE ACTION AREA ── -->
 <div class="mob-actions">
   <div class="mob-actions-title">Actions</div>
   <div class="mob-btns">
-    <button class="mob-btn save" style="width:100%" onclick="saveToFile()">💾 Save to File</button>
+    <button class="mob-btn save" style="width:100%" onclick="saveToFile()">Save and Download</button>
   </div>
 </div>
 
@@ -826,7 +826,7 @@ footer {
       <div class="hs-left"><div class="hs-num">1</div><div class="hs-line"></div></div>
       <div class="hs-body">
         <div class="hs-title">Add countries you want to search in</div>
-        <div class="hs-desc">Click <strong>🌍 Manage Countries</strong> in the filter panel. Each country needs a LinkedIn GeoId — a unique number that tells LinkedIn which region to search. You can find it by searching on LinkedIn and checking the URL for <span class="hs-tag">geoId=…</span>. Mark your home country as <strong>Local</strong> so the tool knows where you already live.</div>
+        <div class="hs-desc">Click <strong>🌍 Manage Countries</strong> in the filter panel. Each country needs a LinkedIn GeoId a unique number that tells LinkedIn which region to search. You can find it by searching on LinkedIn and checking the URL for <span class="hs-tag">geoId=…</span>. Mark your home country as <strong>Local</strong> so the tool knows where you already live.</div>
       </div>
     </div>
 
@@ -834,7 +834,7 @@ footer {
       <div class="hs-left"><div class="hs-num">2</div><div class="hs-line"></div></div>
       <div class="hs-body">
         <div class="hs-title">Create keyword categories (types)</div>
-        <div class="hs-desc">In the Keywords panel, first add <strong>categories</strong> to organize your searches — for example <span class="hs-tag">Backend</span>, <span class="hs-tag">Frontend</span>, <span class="hs-tag">DevOps</span>. These become color-coded filter pills so you can quickly focus on one area at a time.</div>
+        <div class="hs-desc">In the Keywords panel, first add <strong>categories</strong> to organize your searches  for example <span class="hs-tag">Backend</span> , <span class="hs-tag">Frontend</span> , <span class="hs-tag">DevOps</span>. These become color-coded filter pills so you can quickly focus on one area at a time.</div>
       </div>
     </div>
 
@@ -842,7 +842,7 @@ footer {
       <div class="hs-left"><div class="hs-num">3</div><div class="hs-line"></div></div>
       <div class="hs-body">
         <div class="hs-title">Add job title keywords</div>
-        <div class="hs-desc">Then add actual job titles or search phrases — e.g. <span class="hs-tag">Python Developer</span>, <span class="hs-tag">Data Engineer</span>. Assign each to a category. Each keyword × each country = one search card. So 5 keywords × 7 countries = 35 ready-to-open searches.</div>
+        <div class="hs-desc">Then add actual job titles or search phrases e.g. <span class="hs-tag">Python Developer</span> , <span class="hs-tag">Data Engineer</span>. Assign each to a category. Each keyword × each country = one search card. So 5 keywords × 7 countries = 35 ready-to-open searches.</div>
       </div>
     </div>
 
@@ -858,10 +858,10 @@ footer {
       <div class="hs-left"><div class="hs-num">5</div><div class="hs-line"></div></div>
       <div class="hs-body">
         <div class="hs-title">Understand Visa Sponsorship mode</div>
-        <div class="hs-desc">Toggle <strong>🌍 Visa Mode</strong> to append "visa sponsorship" to your searches — this surfaces jobs that explicitly mention visa support. In <strong>🌍 Manage Countries</strong>, mark each country where you're <strong>authorized to work</strong> (your home country or any country where you hold a work permit). Those countries will search <em>without</em> "visa sponsorship" appended.</div>
+        <div class="hs-desc">Toggle <strong>🌍 Visa Mode</strong> to append "visa sponsorship" to your searches this surfaces jobs that explicitly mention visa support. In <strong>🌍 Manage Countries</strong>, mark each country where you're <strong>authorized to work</strong> (your home country or any country where you hold a work permit). Those countries will search <em>without</em> "visa sponsorship" appended.</div>
         <div class="hs-callout">
           <span>💡</span>
-          <span>Example: You're Egyptian, applying to Germany and UK. In Manage Countries, mark 🇪🇬 Egypt as <em>Authorized</em>. Then enable Visa Mode. Egypt will search normally — Germany and UK will search for visa-sponsored roles.</span>
+          <span>Example: You're Egyptian, applying to Germany and UK. In Manage Countries, mark 🇪🇬 Egypt as <em>Authorized</em>. Then enable Visa Mode. Egypt will search normally Germany and UK will search for visa-sponsored roles.</span>
         </div>
       </div>
     </div>
@@ -869,15 +869,15 @@ footer {
     <div class="how-step">
       <div class="hs-left"><div class="hs-num">6</div><div class="hs-line"></div></div>
       <div class="hs-body">
-        <div class="hs-title">Open searches — desktop vs mobile</div>
-        <div class="hs-desc">On <strong>desktop</strong>: select cards and click <em>Open Selected ↗</em>, or <em>Open All ↗</em> to open everything at once. Your browser may block pop-ups the first time — allow them when prompted (the banner at the top guides you). On <strong>mobile</strong>: every link opens in the LinkedIn app. Clicking "Open All" will launch the app <em>once per search</em> which can be overwhelming.</div>
+        <div class="hs-title">Open searches desktop vs mobile</div>
+        <div class="hs-desc">On <strong>desktop</strong>: select cards and click <span class="hs-tag">Open Selected ↗</span> , or <span class="hs-tag">Open All ↗</span> to open everything at once. Your browser may block pop-ups the first time allow them when prompted (the banner at the top guides you). On <strong>mobile</strong>: every link opens in the LinkedIn app. Clicking <span class="hs-tag">Open All ↗</span> will launch the app <em>once per search</em> which can be overwhelming.</div>
         <div class="hs-callout blue">
           <span></span>
-          <span>Desktop tip: use the Tab Speed slider to control how fast tabs open. On mobile, tap <em>Open ↗</em> on individual cards rather than using "Open All" — it's a much smoother experience.</span>
+          <span>Desktop tip: use the Tab Speed slider to control how fast tabs open. On mobile, tap <span class="hs-tag">Open ↗</span> on individual cards rather than using <span class="hs-tag">Open All ↗</span> it's a much smoother experience.</span>
         </div>
         <div class="hs-callout" style="margin-top:6px;">
           <span></span>
-          <span><strong>Mobile notice:</strong> There is no "Open All" or "Open Selected" on mobile, as every link opens in the LinkedIn app one by one. Tap each notification to open them at your own pace.</span>
+          <span><strong>Mobile notice:</strong> There is no <span class="hs-tag">Open All ↗</span> or <span class="hs-tag">Open Selected ↗</span> on mobile, as every link opens in the LinkedIn app one by one. Tap each <span class="hs-tag">Open ↗</span> button to open them at your own pace.</span>
         </div>
       </div>
     </div>
@@ -886,10 +886,10 @@ footer {
       <div class="hs-left"><div class="hs-num">7</div><div class="hs-line"></div></div>
       <div class="hs-body">
         <div class="hs-title">Save your setup</div>
-        <div class="hs-desc">Your keywords and countries auto-save in your browser. But if you want a shareable, portable version, click <strong>Save to File</strong> — it downloads a copy of this HTML with all your settings baked in. Open that file in any browser and everything will be there.</div>
+        <div class="hs-desc">Your keywords and countries auto-save in your browser. But if you want a shareable, portable version, click <span class="hs-tag">Save and Download</span> it downloads a copy of this HTML with all your settings baked in. Open that file in any browser and everything will be there.</div>
         <div class="hs-callout green">
           <span></span>
-          <span>The <strong>.bat</strong> (Windows) and <strong>.sh</strong> (Linux/macOS) downloads create scripts that open all links one by one in your browser — great when pop-ups are blocked. Run <code style="background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10px;">chmod +x linkedin_search.sh</code> first on Linux/Mac.</span>
+          <span>The <strong>.bat</strong> (Windows) and <strong>.sh</strong> (Linux/macOS) downloads create scripts that open all links one by one in your browser great when pop-ups are blocked. Run <code style="background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10px;">chmod +x linkedin_search.sh</code> first on Linux/Mac.</span>
         </div>
       </div>
     </div>
@@ -936,19 +936,19 @@ footer {
       <div class="dl-group" title="Download script to open all links">
         <div class="dl-group-label">Script</div>
         <div class="dl-opts">
-          <button class="dl-opt win" id="bat-sel-btn" disabled onclick="dlBat('sel')" title="Windows .bat — selected only">
+          <button class="dl-opt win" id="bat-sel-btn" disabled onclick="dlBat('sel')" title="Windows .bat selected only">
             <span class="dl-os">.bat</span>
             <span class="dl-scope">Selected</span>
           </button>
-          <button class="dl-opt win" onclick="dlBat('all')" title="Windows .bat — all visible">
+          <button class="dl-opt win" onclick="dlBat('all')" title="Windows .bat all visible">
             <span class="dl-os">.bat</span>
             <span class="dl-scope">All</span>
           </button>
-          <button class="dl-opt lnx" id="sh-sel-btn" disabled onclick="dlSh('sel')" title="Linux/macOS .sh — selected only">
+          <button class="dl-opt lnx" id="sh-sel-btn" disabled onclick="dlSh('sel')" title="Linux/macOS .sh selected only">
             <span class="dl-os">.sh</span>
             <span class="dl-scope">Selected</span>
           </button>
-          <button class="dl-opt lnx" onclick="dlSh('all')" title="Linux/macOS .sh — all visible">
+          <button class="dl-opt lnx" onclick="dlSh('all')" title="Linux/macOS .sh all visible">
             <span class="dl-os">.sh</span>
             <span class="dl-scope">All</span>
           </button>
@@ -963,7 +963,7 @@ footer {
 
 <script>
 // ═══════════════════════════════════════════════════════════
-// BAKED DATA — replaced wholesale on "Save to File"
+// BAKED DATA replaced wholesale on "Save to File"
 // BAKED_START
 const BAKED = {
   settings:{title:"Job Hunter",subtitle:"LinkedIn Opportunity Radar"},
@@ -985,7 +985,7 @@ const BAKED = {
 // BAKED_END
 
 // ═══════════════════════════════════════════════════════════
-// COLOR PALETTE — light & dark variants
+// COLOR PALETTE light & dark variants
 // ═══════════════════════════════════════════════════════════
 const TYPE_PALETTE_LIGHT=[
   {bg:'rgba(90,125,98,0.13)',  border:'#5a7d62',text:'#3d6648'},
@@ -1128,7 +1128,7 @@ function restoreFilterUI(){
   // Time pills
   document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
   if(!S.time){
-    // No filter — activate "Any Time"
+    // No filter activate "Any Time"
     const p=document.querySelector('#tf .pill[data-v=""]');
     if(p) p.classList.add('on');
   } else if(PRESET_TIMES.includes(S.time)){
@@ -1136,7 +1136,7 @@ function restoreFilterUI(){
     const p=document.querySelector(`#tf .pill[data-v="${S.time}"]`);
     if(p) p.classList.add('on');
   } else {
-    // Custom value like r57600 — restore into the input fields
+    // Custom value like r57600 restore into the input fields
     const secs=parseInt(S.time.replace('r',''))||0;
     if(secs>0){
       // Pick the largest clean unit
@@ -1224,7 +1224,7 @@ function visible(){
 }
 
 // ═══════════════════════════════════════════════════════════
-// RENDER — MAIN
+// RENDER MAIN
 // ═══════════════════════════════════════════════════════════
 function render(){
   const vis=visible();
@@ -1281,7 +1281,7 @@ function renderOnboard(){
   return `
     <div class="onboard">
       <h3>🚀 Welcome! Set up your Job Hunter</h3>
-      <p>Generate LinkedIn job search URLs for any role and country — fully customized to your search.</p>
+      <p>Generate LinkedIn job search URLs for any role and country fully customized to your search.</p>
       <div class="onboard-steps">
         ${noCountry
           ?`<div class="ost"><div class="ost-num">1</div> Add countries to search in</div>`
@@ -1347,14 +1347,14 @@ function renderKwManager(){
   wrap.innerHTML='';
   wrap.appendChild(list);
   document.getElementById('km-title-sub').textContent=
-    `— ${S.countries.length} countr${S.countries.length!==1?'ies':'y'} · ${getAllLinks().length} total searches`;
+    `${S.countries.length} countr${S.countries.length!==1?'ies':'y'} · ${getAllLinks().length} total searches`;
 }
 
 // ── Type Manager ─────────────────────────────────────────
 function renderTypeManager(){
   const list=document.getElementById('tm-list');
   if(!S.kwTypes.length){
-    list.innerHTML='<span style="font-size:12px;color:var(--t4);font-style:italic;">No categories yet — add one above to get started</span>';
+    list.innerHTML='<span style="font-size:12px;color:var(--t4);font-style:italic;">No categories yet add one above to get started</span>';
     return;
   }
   list.innerHTML=S.kwTypes.map((t,i)=>{
@@ -1412,7 +1412,7 @@ function updateKwTypeSelect(){
   const prev=sel.value;
   sel.innerHTML=S.kwTypes.length
     ?S.kwTypes.map(t=>`<option value="${t}"${t===prev?' selected':''}>${t}</option>`).join('')
-    :'<option value="">— add a category first —</option>';
+    :'<option value="">add category first</option>';
 }
 
 // ── Stats & Tags ─────────────────────────────────────────
@@ -1478,7 +1478,7 @@ function customTimePreview(){
   if(!v){document.getElementById('tc-preview').textContent='';return;}
   const secs=v*u;
   const label=secs<3600?`${Math.round(secs/60)}min`:secs<86400?`${(secs/3600).toFixed(1)}h`:`${(secs/86400).toFixed(1)}d`;
-  document.getElementById('tc-preview').textContent=`= ${label}`;
+  document.getElementById('tc-preview').textContent=`= Last ${label}`;
 }
 
 function applyCustomTime(){
@@ -1577,7 +1577,7 @@ function addCountry(){
   document.getElementById('nf-name').value='';
   document.getElementById('nf-geo').value='';
   document.getElementById('nf-local').checked=false;
-  toast(`✅ Added: ${flag} ${name}${local?' (authorized — no visa needed)':''}`);
+  toast(`✅ Added: ${flag} ${name}${local?' (authorized no visa needed)':''}`);
   updateStats();
   renderCountryFilterPills();
 }
@@ -1606,7 +1606,7 @@ function toggleCountryAuth(idx){
   }
   persist();
   renderCountryModal();
-  toast(c.local?` ${c.flag} ${c.country} — marked as authorized (no visa search)`:` ${c.flag} ${c.country} — authorization removed`);
+  toast(c.local?` ${c.flag} ${c.country} marked as authorized (no visa search)`:` ${c.flag} ${c.country} authorization removed`);
 }
 
 function toggleGeoHelp(){
@@ -1703,7 +1703,7 @@ function selAll(){
 function clearSel(){S.sel.clear();render();}
 
 // ═══════════════════════════════════════════════════════════
-// OPEN TABS — sequential with delay
+// OPEN TABS sequential with delay
 // ═══════════════════════════════════════════════════════════
 let _openQueue=[],_openIdx=0,_openTotal=0,_openTimer=null;
 
@@ -1720,7 +1720,7 @@ function doOpenMobile(which){
   const arr=which==='sel'?vis.filter(l=>S.sel.has(l.id)):vis;
   if(!arr.length) return;
   if(arr.length>1){
-    toast(`📱 Opening ${arr.length} links one by one — check your LinkedIn app between each`);
+    toast(`Opening ${arr.length} links one by one check your LinkedIn app between each`);
     let i=0;
     function openNext(){
       if(i>=arr.length) return;
@@ -1882,7 +1882,7 @@ function dlSh(which){
   document.body.appendChild(a);a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);
   document.body.removeChild(a);
-  toast(`.sh downloaded — ${arr.length} links (chmod +x the file to run)`);
+  toast(`.sh downloaded ${arr.length} links (chmod +x the file to run)`);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1908,7 +1908,7 @@ function saveToFile(){
       tabDelay:S.tabDelay,
     };
     const newBaked=`// BAKED_START\nconst BAKED = ${JSON.stringify(bakedData,null,2)};\n// BAKED_END`;
-    // Replace the baked block — use the specific marker pattern
+    // Replace the baked block use the specific marker pattern
     const updated=src.replace(/\/\/ BAKED_START[\s\S]*?\/\/ BAKED_END/,newBaked);
     if(updated===src){
       toast('⚠️ Could not locate save marker. Please use the original file.');
