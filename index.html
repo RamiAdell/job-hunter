@@ -907,6 +907,12 @@ function persist(){
     localStorage.setItem('jh_darkMode',JSON.stringify(S.darkMode));
     localStorage.setItem('jh_popupDismissed',JSON.stringify(S.popupBannerDismissed));
     localStorage.setItem('jh_visaExclude',JSON.stringify(S.visaExclude));
+    // Filter states
+    localStorage.setItem('jh_time',JSON.stringify(S.time));
+    localStorage.setItem('jh_wt',JSON.stringify([...S.wt]));
+    localStorage.setItem('jh_ea',JSON.stringify(S.ea));
+    localStorage.setItem('jh_vm',JSON.stringify(S.vm));
+    localStorage.setItem('jh_delay',JSON.stringify(S.tabDelay));
   }catch(e){}
 }
 
@@ -918,6 +924,12 @@ function loadState(){
   S.darkMode=   BAKED.darkMode||false;
   S.popupBannerDismissed=BAKED.popupBannerDismissed||false;
   S.visaExclude=[...(BAKED.visaExclude||[])];
+  // Filter states from BAKED
+  S.time=BAKED.time||'';
+  S.wt=new Set(BAKED.wt||[]);
+  S.ea=BAKED.ea||false;
+  S.vm=BAKED.vm||false;
+  S.tabDelay=BAKED.tabDelay||500;
   try{
     const ls=localStorage.getItem('jh_settings');
     const lc=localStorage.getItem('jh_countries');
@@ -926,6 +938,11 @@ function loadState(){
     const ld=localStorage.getItem('jh_darkMode');
     const lp=localStorage.getItem('jh_popupDismissed');
     const lv=localStorage.getItem('jh_visaExclude');
+    const ltm=localStorage.getItem('jh_time');
+    const lw=localStorage.getItem('jh_wt');
+    const lea=localStorage.getItem('jh_ea');
+    const lvm=localStorage.getItem('jh_vm');
+    const ldl=localStorage.getItem('jh_delay');
     if(ls) S.settings=JSON.parse(ls);
     if(lc) S.countries=JSON.parse(lc);
     if(lt) S.kwTypes=JSON.parse(lt);
@@ -933,6 +950,11 @@ function loadState(){
     if(ld) S.darkMode=JSON.parse(ld);
     if(lp) S.popupBannerDismissed=JSON.parse(lp);
     if(lv) S.visaExclude=JSON.parse(lv);
+    if(ltm) S.time=JSON.parse(ltm);
+    if(lw)  S.wt=new Set(JSON.parse(lw));
+    if(lea) S.ea=JSON.parse(lea);
+    if(lvm) S.vm=JSON.parse(lvm);
+    if(ldl) S.tabDelay=JSON.parse(ldl);
   }catch(e){}
   // Auto-seed visaExclude with local countries
   S.countries.forEach(c=>{
@@ -940,6 +962,36 @@ function loadState(){
       S.visaExclude.push(c.country);
     }
   });
+}
+
+// Restore filter pill UI states after loadState()
+function restoreFilterUI(){
+  // Time pills
+  document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
+  if(!S.time){
+    const p=document.querySelector('#tf .pill[data-v=""]');
+    if(p) p.classList.add('on');
+  } else {
+    const p=document.querySelector(`#tf [data-v="${S.time}"]`);
+    if(p) p.classList.add('on');
+    // custom value — no preset pill, leave all unlit
+  }
+  // Work type pills
+  document.querySelectorAll('#wf .pill').forEach(p=>{
+    p.classList.toggle('on-grn',S.wt.has(p.dataset.v));
+  });
+  // Easy Apply
+  const eaPill=document.getElementById('ea-pill');
+  if(eaPill) eaPill.classList.toggle('on-grn',S.ea);
+  // Visa Mode
+  const vmPill=document.getElementById('vm-pill');
+  if(vmPill) vmPill.classList.toggle('on-amb',S.vm);
+  // Tab delay slider
+  const slider=document.getElementById('delay-slider');
+  if(slider){
+    slider.value=S.tabDelay;
+    updateDelay(S.tabDelay);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1666,6 +1718,12 @@ function saveToFile(){
       darkMode:S.darkMode,
       popupBannerDismissed:false, // reset so banner shows on first open
       visaExclude:S.visaExclude,
+      // Filter states
+      time:S.time,
+      wt:[...S.wt],
+      ea:S.ea,
+      vm:S.vm,
+      tabDelay:S.tabDelay,
     };
     const newBaked=`// BAKED_START\nconst BAKED = ${JSON.stringify(bakedData,null,2)};\n// BAKED_END`;
     // Replace the baked block — use the specific marker pattern
@@ -1727,8 +1785,8 @@ function toast(msg){
 // ═══════════════════════════════════════════════════════════
 loadState();
 applyTheme();
-updateDelay(500);
 initEditableHeader();
+restoreFilterUI(); // re-activate filter pills from saved state
 
 // Show mobile note on mobile devices
 if(isMobile){
