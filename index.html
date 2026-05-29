@@ -950,11 +950,13 @@ function loadState(){
     if(ld) S.darkMode=JSON.parse(ld);
     if(lp) S.popupBannerDismissed=JSON.parse(lp);
     if(lv) S.visaExclude=JSON.parse(lv);
-    if(ltm) S.time=JSON.parse(ltm);
-    if(lw)  S.wt=new Set(JSON.parse(lw));
-    if(lea) S.ea=JSON.parse(lea);
-    if(lvm) S.vm=JSON.parse(lvm);
-    if(ldl) S.tabDelay=JSON.parse(ldl);
+    // For filter states, only override BAKED if localStorage has a meaningful (truthy) value
+    // This prevents an old empty-string entry from wiping out a BAKED custom value
+    if(ltm!==null){ const t=JSON.parse(ltm); if(t) S.time=t; }
+    if(lw!==null)  S.wt=new Set(JSON.parse(lw));
+    if(lea!==null) S.ea=JSON.parse(lea);
+    if(lvm!==null) S.vm=JSON.parse(lvm);
+    if(ldl!==null){ const d=JSON.parse(ldl); if(d) S.tabDelay=d; }
   }catch(e){}
   // Auto-seed visaExclude with local countries
   S.countries.forEach(c=>{
@@ -966,16 +968,38 @@ function loadState(){
 
 // Restore filter pill UI states after loadState()
 function restoreFilterUI(){
+  const PRESET_TIMES=['','r86400','r259200','r604800','r2592000'];
+
+  // Always clear stale DOM text that may be baked into saved HTML
+  document.getElementById('tc-preview').textContent='';
+  document.getElementById('tc-val').value='';
+
   // Time pills
   document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
   if(!S.time){
+    // No filter — activate "Any Time"
     const p=document.querySelector('#tf .pill[data-v=""]');
     if(p) p.classList.add('on');
-  } else {
-    const p=document.querySelector(`#tf [data-v="${S.time}"]`);
+  } else if(PRESET_TIMES.includes(S.time)){
+    // Known preset pill
+    const p=document.querySelector(`#tf .pill[data-v="${S.time}"]`);
     if(p) p.classList.add('on');
-    // custom value — no preset pill, leave all unlit
+  } else {
+    // Custom value like r57600 — restore into the input fields
+    const secs=parseInt(S.time.replace('r',''))||0;
+    if(secs>0){
+      // Pick the largest clean unit
+      let val,unit;
+      if(secs%604800===0){val=secs/604800;unit=604800;}
+      else if(secs%86400===0){val=secs/86400;unit=86400;}
+      else if(secs%3600===0){val=secs/3600;unit=3600;}
+      else{val=Math.round(secs/60);unit=60;}
+      document.getElementById('tc-val').value=val;
+      document.getElementById('tc-unit').value=unit;
+      customTimePreview();
+    }
   }
+
   // Work type pills
   document.querySelectorAll('#wf .pill').forEach(p=>{
     p.classList.toggle('on-grn',S.wt.has(p.dataset.v));
