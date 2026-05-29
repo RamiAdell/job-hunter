@@ -510,6 +510,60 @@ footer {
 .footer-repo-link:hover svg {
   transform: scale(1.05);
 }
+
+/* ── HOW-TO DISCLAIMER ── */
+.how-disclaimer {
+  display: none;
+}
+@media(min-width:641px) {
+  .how-disclaimer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(79,120,158,0.08), rgba(79,120,158,0.03));
+    border: 1.5px solid rgba(79,120,158,0.3);
+    border-radius: var(--rl);
+    box-shadow: var(--sh);
+  }
+}
+.hd-content {
+  flex: 1;
+}
+.hd-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--slate);
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+.hd-desc {
+  font-size: 12.5px;
+  color: var(--t2);
+  line-height: 1.6;
+}
+.hd-btn {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--slate);
+  background: var(--slate);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--sans);
+  box-shadow: 0 2px 6px rgba(79,120,158,0.15);
+}
+.hd-btn:hover {
+  background: transparent;
+  color: var(--slate);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
 </style>
 </head>
 <body>
@@ -559,6 +613,22 @@ footer {
     <div class="modal-foot" style="display:flex;gap:8px;justify-content:flex-end;">
       <button class="abtn sec" onclick="closeCountryModal()">Done</button>
       <button class="add-confirm" onclick="addCountry()">+ Add Country</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── GIF GUIDE MODAL ── -->
+<div class="modal-overlay" id="gif-modal" onclick="if(event.target===this)closeGifModal()">
+  <div class="modal" style="max-width: 1100px; width: 95%;">
+    <div class="modal-hdr">
+      <div>
+        <h2>Pop-up Permission Guide</h2>
+        <p>Follow these steps in your browser address bar to allow opening multiple tabs</p>
+      </div>
+      <button class="modal-x" onclick="closeGifModal()">✕</button>
+    </div>
+    <div class="modal-body" style="padding: 16px; background: var(--bg2); display: flex; justify-content: center; align-items: center;">
+      <video src="demo.mp4" autoplay loop muted playsinline style="max-width: 100%; height: auto; border-radius: var(--r); box-shadow: var(--sh); outline: none;"></video>
     </div>
   </div>
 </div>
@@ -807,7 +877,7 @@ footer {
         </div>
         <div class="hs-callout" style="margin-top:6px;">
           <span></span>
-          <span><strong>Mobile notice:</strong> When you tap "Open All" or "Open Selected" on mobile, you'll see a count of how many links will open in the LinkedIn app one by one. Tap each notification to open them at your own pace.</span>
+          <span><strong>Mobile notice:</strong> There is no "Open All" or "Open Selected" on mobile, as every link opens in the LinkedIn app one by one. Tap each notification to open them at your own pace.</span>
         </div>
       </div>
     </div>
@@ -824,6 +894,19 @@ footer {
       </div>
     </div>
 
+  </div>
+
+  <div class="how-disclaimer">
+    <div class="hd-content">
+      <div class="hd-title">Notice: Pop-up Blocker Info</div>
+      <div class="hd-desc">
+        If pages do not open automatically, your browser is blocking pop-ups. 
+        Look for a "Pop-up blocked" icon in the address bar at the top of your browser window. 
+        Click that icon, select the option to always allow pop-ups from this site, and click Done. 
+        Once allowed, trying again will open all your links correctly.
+      </div>
+    </div>
+    <button class="hd-btn" onclick="openGifModal()">View Visual Guide</button>
   </div>
 </div>
 
@@ -1446,6 +1529,14 @@ function toggleTypeFilter(t){
   render();
 }
 
+function openGifModal(){
+  document.getElementById('gif-modal').classList.add('show');
+}
+
+function closeGifModal(){
+  document.getElementById('gif-modal').classList.remove('show');
+}
+
 // ═══════════════════════════════════════════════════════════
 // COUNTRY MANAGEMENT
 // ═══════════════════════════════════════════════════════════
@@ -1668,7 +1759,6 @@ function startOpenQueue(items){
     document.getElementById('popup-banner').style.display='flex';
   }
   document.getElementById('op').classList.add('show');
-  if(items.length>2) document.getElementById('pw').classList.add('show');
   nextTab();
 }
 

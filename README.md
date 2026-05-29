@@ -111,7 +111,7 @@ Pick a time range, choose remote/hybrid/on-site, toggle Easy Apply or Visa Mode 
 
 ---
 
-## New Features — Screenshots Needed
+## New Features
 
 The following new features don't have screenshots yet. Add images to `Screenshots/` and update the paths below:
 
@@ -153,6 +153,12 @@ When you open many tabs at once, browsers block them by default. A banner at the
 ### Safari
 1. Go to **Safari → Settings → Websites → Pop-up Windows**
 2. Find the page and set it to **Allow**
+
+### Visual Guide
+
+Watch the video guide below to see how to allow popups:
+
+<video src="demo.mp4" width="600" style="max-width: 100%;" autoplay loop muted playsinline></video>
 
 ### If popups are a pain: use a script file
 Click the **Script** group in the action bar:
@@ -197,7 +203,7 @@ The saved file is completely self-contained. No internet connection required to 
 
 **Editable title** — click the "Job Hunter" title or subtitle in the header to rename them. Useful for making separate files for different campaigns (e.g. "Europe Fintech Hunt 2025").
 
-**Dark mode** — toggle with the 🌙 button. Color-coded category badges switch palette instantly — no refresh needed.
+**Dark mode** — toggle with the 🌙 button.
 
 ---
 
