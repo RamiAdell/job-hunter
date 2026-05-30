@@ -1,68 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Job Hunter</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
 <style>
 /* ── LIGHT THEME ── */
 :root,[data-theme="light"] {
-  --bg:#f0ebe2;--bg2:#e8e1d6;--surface:#faf7f3;--s2:#f0ebe2;--s3:#e4dcd0;--s4:#d9d0c3;
-  --border:rgba(130,100,78,0.18);--borderH:rgba(130,100,78,0.42);
-  --brown:#6e4f38;--brownL:#9b7258;--brownG:rgba(110,79,56,0.10);
-  --sage:#5a7d62;--sageG:rgba(90,125,98,0.13);
-  --slate:#4f789e;--slateG:rgba(79,120,158,0.13);
-  --clay:#a85c3e;--clayG:rgba(168,92,62,0.13);
-  --amber:#b87c30;--amberG:rgba(184,124,48,0.12);
-  --rose:#9e5060;--roseG:rgba(158,80,96,0.12);
-  --indigo:#5060a0;--indigoG:rgba(80,96,160,0.12);
-  --moss:#6a8a60;--mossG:rgba(106,138,96,0.12);
-  --t1:#241510;--t2:#5e4235;--t3:#7a5c48;--t4:#b0997e;
-  --mono:'JetBrains Mono',monospace;--sans:'DM Sans',sans-serif;--display:'Playfair Display',serif;
+  color-scheme:light;
+  --bg:#f6f8fb;--bg2:#edf1f6;--surface:#ffffff;--s2:#f3f6fa;--s3:#e8edf5;--s4:#d5deea;
+  --border:rgba(30,41,59,0.12);--borderH:rgba(37,99,235,0.35);
+  --brown:#2563eb;--brownL:#3b82f6;--brownG:rgba(37,99,235,0.12);
+  --sage:#0f9f8a;--sageG:rgba(15,159,138,0.12);
+  --slate:#475569;--slateG:rgba(71,85,105,0.11);
+  --clay:#d14f3f;--clayG:rgba(209,79,63,0.12);
+  --amber:#b7791f;--amberG:rgba(183,121,31,0.12);
+  --rose:#c43b6f;--roseG:rgba(196,59,111,0.11);
+  --indigo:#635bff;--indigoG:rgba(99,91,255,0.11);
+  --moss:#4d7c0f;--mossG:rgba(77,124,15,0.11);
+  --t1:#111827;--t2:#334155;--t3:#64748b;--t4:#94a3b8;
+  --font:'Google Sans',Aptos,'Aptos Display','Segoe UI Variable','Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:var(--font);--sans:var(--font);--display:var(--font);
   --r:10px;--rl:14px;
-  --sh:0 1px 3px rgba(110,79,56,0.07),0 4px 14px rgba(110,79,56,0.05);
-  --shH:0 2px 8px rgba(110,79,56,0.12),0 8px 24px rgba(110,79,56,0.09);
-  --overlay:rgba(36,21,16,0.45);
-  --ab-bg:rgba(250,247,243,0.97);
+  --sh:0 1px 2px rgba(15,23,42,0.06),0 8px 28px rgba(15,23,42,0.06);
+  --shH:0 6px 18px rgba(15,23,42,0.10),0 18px 38px rgba(15,23,42,0.08);
+  --overlay:rgba(15,23,42,0.50);
+  --ab-bg:rgba(255,255,255,0.94);
 }
 
 /* ── DARK THEME ── */
 [data-theme="dark"] {
-  --bg:#1a1410;--bg2:#221c16;--surface:#2a2018;--s2:#322820;--s3:#3d3028;--s4:#4a3a30;
-  --border:rgba(200,160,120,0.14);--borderH:rgba(200,160,120,0.36);
-  --brown:#c4997498;--brownL:#d4b08c;--brownG:rgba(196,154,116,0.12);
-  --sage:#7ab882;--sageG:rgba(122,184,130,0.13);
-  --slate:#7aaad4;--slateG:rgba(122, 170, 212, 0.164);
-  --clay:#d47a5a;--clayG:rgba(212,122,90,0.13);
-  --amber:#e0a040;--amberG:rgba(224,160,64,0.14);
-  --rose:#c86878;--roseG:rgba(200,104,120,0.13);
-  --indigo:#8090c8;--indigoG:rgba(128,144,200,0.13);
-  --moss:#8aaa70;--mossG:rgba(138,170,112,0.13);
-  --t1:#f0e8e0;--t2:#f3e2cf;--t3:#dbc9b5;--t4:#d3ccca;
-  --sh:0 1px 3px rgba(0,0,0,0.3),0 4px 14px rgba(0,0,0,0.2);
-  --shH:0 2px 8px rgba(0,0,0,0.4),0 8px 24px rgba(0,0,0,0.3);
+  color-scheme:dark;
+  --bg:#0f1218;--bg2:#121722;--surface:#181e29;--s2:#1f2633;--s3:#283242;--s4:#39465a;
+  --border:rgba(148,163,184,0.16);--borderH:rgba(138,180,255,0.44);
+  --brown:#8ab4ff;--brownL:#a8c7ff;--brownG:rgba(138,180,255,0.16);
+  --sage:#52d6bf;--sageG:rgba(82,214,191,0.14);
+  --slate:#9aa8ba;--slateG:rgba(154,168,186,0.14);
+  --clay:#ff8a76;--clayG:rgba(255,138,118,0.14);
+  --amber:#f2bd5c;--amberG:rgba(242,189,92,0.15);
+  --rose:#ff7aa8;--roseG:rgba(255,122,168,0.14);
+  --indigo:#a7a4ff;--indigoG:rgba(167,164,255,0.14);
+  --moss:#a4d66f;--mossG:rgba(164,214,111,0.14);
+  --t1:#f8fafc;--t2:#dbe4ef;--t3:#aebbd0;--t4:#7f8da3;
+  --sh:0 1px 3px rgba(0,0,0,0.32),0 12px 28px rgba(0,0,0,0.24);
+  --shH:0 8px 24px rgba(0,0,0,0.38),0 22px 46px rgba(0,0,0,0.30);
   --overlay:rgba(0,0,0,0.65);
-  --ab-bg:rgba(26,20,16,0.97);
+  --ab-bg:rgba(15,18,24,0.94);
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;scroll-padding-top:78px;}
 body{
   background:var(--bg);
-  background-image:radial-gradient(ellipse 70% 50% at 5% 0%,rgba(110,79,56,0.06) 0%,transparent 55%),
-                   radial-gradient(ellipse 50% 40% at 95% 100%,rgba(90,125,98,0.06) 0%,transparent 50%);
-  color:var(--t1);font-family:var(--sans);min-height:100vh;
+  color:var(--t1);font-family:var(--sans);min-height:100vh;line-height:1.5;
+  text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
   /* leave room for fixed action bar ONLY on desktop */
   padding-bottom:20px;
-  transition:background .3s,color .3s;
+  transition:background-color .2s,color .2s;
 }
 @media(min-width:641px){body{padding-bottom:90px;}}
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
 @media(min-width:641px){.wrap{padding:0 22px;}}
 input,select,button,textarea{font-family:var(--sans);}
+a{color:inherit;}
 .hidden{display:none!important;}
+:focus-visible{outline:2px solid var(--brownL);outline-offset:2px;}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important;}
+}
 
 /* ── DARK MODE TOGGLE ── */
 .dm-btn{
@@ -80,7 +89,8 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 .hi{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;}
 .hl{flex:1;min-width:200px;}
 .hl-title-wrap{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
-.hl h1{font-family:var(--display);font-size:clamp(22px,5vw,28px);font-weight:800;letter-spacing:-0.3px;color:var(--brown);outline:none;border-bottom:2px solid transparent;transition:border-color .2s,color .3s;}
+.hl h1{font-family:var(--display);font-size:28px;line-height:1.08;font-weight:800;letter-spacing:0;color:var(--brown);outline:none;border-bottom:2px solid transparent;transition:border-color .2s,color .2s;}
+@media(max-width:640px){.hl h1{font-size:24px;}}
 .hl h1:focus{border-bottom-color:var(--brownL);}
 .hl p{color:var(--t3);font-size:12.5px;outline:none;border-bottom:2px solid transparent;transition:border-color .2s;display:inline-block;}
 .hl p:focus{border-bottom-color:var(--brownL);}
@@ -90,6 +100,19 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 .hstats{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
 .sp{background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:4px 12px;font-size:11px;color:var(--t3);font-family:var(--mono);transition:background .3s,border-color .3s;}
 .sp b{color:var(--brown);}
+
+/* ── QUICK NAV ── */
+.quick-nav{position:sticky;top:0;z-index:90;margin:-6px 0 16px;padding:8px 0;background:var(--bg);border-bottom:1px solid transparent;}
+.quick-nav-inner{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}
+.quick-nav-inner::-webkit-scrollbar{display:none;}
+.quick-nav a{
+  display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:6px 12px;
+  border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--t3);
+  font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 1px 2px rgba(15,23,42,0.03);
+  transition:border-color .15s,color .15s,background .15s,transform .15s;
+}
+.quick-nav a:hover{border-color:var(--borderH);color:var(--brown);background:var(--s2);transform:translateY(-1px);}
+@media(max-width:640px){.quick-nav{margin-top:-4px;}}
 
 /* ── POPUP PERMISSION BANNER ── */
 .popup-banner{
@@ -132,19 +155,34 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 .pw.show{display:flex;}
 
 /* ── PILLS ── */
-.pills{display:flex;flex-wrap:wrap;gap:5px;}
-.pill{padding:5px 13px;border-radius:50px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--s2);color:var(--t3);transition:all .15s;user-select:none;white-space:nowrap;}
+.pills{display:flex;flex-wrap:wrap;gap:5px;min-width:0;}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 13px;border-radius:50px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--s2);color:var(--t3);transition:all .15s;user-select:none;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;}
 .pill:hover{border-color:var(--borderH);color:var(--t1);background:var(--s3);}
 .pill.on{background:var(--brown);border-color:var(--brown);color:#fff;box-shadow:0 2px 8px var(--brownG);}
 .pill.on-slt{background:var(--slateG);border-color:var(--slate);color:var(--slate);}
 .pill.on-grn{background:var(--sageG);border-color:var(--sage);color:var(--sage);}
 .pill.on-amb{background:var(--amberG);border-color:var(--amber);color:var(--amber);}
+.country-pill:hover{border-color:var(--brownL);background:var(--brownG);color:var(--brownL);}
+.country-pill.on-slt{background:var(--brown);border-color:var(--brownL);color:#07111f;font-weight:800;box-shadow:0 2px 10px var(--brownG);}
+.country-pill.on-slt::before{content:'✓';font-size:11px;font-weight:900;line-height:1;}
+.country-pill.on-slt:hover{background:var(--brownL);border-color:var(--brownL);color:#07111f;}
 
 /* ── PANELS ── */
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;margin-bottom:16px;box-shadow:var(--sh);transition:background .3s,border-color .3s;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;margin-bottom:16px;box-shadow:var(--sh);transition:background .2s,border-color .2s,box-shadow .2s;}
 @media(min-width:641px){.panel{padding:18px 20px;}}
 .panel-grid{display:grid;grid-template-columns:1fr;gap:16px;}
 @media(min-width:641px){.panel-grid{grid-template-columns:1fr 1fr;gap:18px;}}
+.panel-grid>*{min-width:0;}
+.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px;padding-bottom:13px;border-bottom:1px solid var(--border);}
+.panel-title{font-size:15px;font-weight:800;color:var(--t1);line-height:1.25;}
+.panel-sub{font-size:12px;color:var(--t3);line-height:1.55;margin-top:3px;max-width:680px;}
+.panel-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.mini-action{
+  min-height:32px;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--s2);
+  color:var(--t2);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.mini-action:hover{border-color:var(--brownL);color:var(--brown);background:var(--brownG);}
+@media(max-width:640px){.panel-head{flex-direction:column;gap:10px;}.panel-actions{width:100%;justify-content:flex-start;}}
 .fp-sec{margin-bottom:14px;}
 .fp-sec:last-child{margin-bottom:0;}
 .fl{font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--t4);margin-bottom:7px;font-family:var(--mono);}
@@ -230,6 +268,7 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 /* ── KEYWORD MANAGER ── */
 .km-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .km-title span{color:var(--t3);font-size:11px;font-weight:400;}
+.panel-head .km-title{margin-bottom:0;}
 .km-divider{height:1px;background:var(--border);margin:14px 0;}
 .km-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:28px;}
 .kw-tag{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:7px;font-size:12px;font-weight:500;border:1px solid var(--border);background:var(--s2);color:var(--t2);}
@@ -269,14 +308,15 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 
 /* ── ACTIVE FILTER TAGS ── */
 .aft{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;min-height:22px;}
-.ft{background:rgba(110,79,56,0.09);border:1px solid rgba(110,79,56,0.25);color:var(--brownL);font-size:11px;padding:2px 9px;border-radius:20px;font-family:var(--mono);}
+.aft:empty{display:none;}
+.ft{background:var(--brownG);border:1px solid var(--borderH);color:var(--brown);font-size:11px;padding:2px 9px;border-radius:20px;font-family:var(--mono);}
 
 /* ── SECTION TITLE ── */
 .sec-t{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t4);font-family:var(--mono);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .sec-t::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* ── COUNTRY SECTION ── */
-.cs{margin-bottom:24px;animation:fadeUp .3s ease both;}
+.cs{margin-bottom:24px;animation:fadeUp .3s ease both;content-visibility:auto;contain-intrinsic-size:360px;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .ch{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
 .ch-flag{font-size:20px;}
@@ -287,11 +327,11 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 @media(max-width:640px){.ch-btn{display:none;}}
 
 /* ── CARDS ── */
-.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:8px;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:10px;}
 @media(max-width:400px){.cg{grid-template-columns:1fr;}}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;transition:all .15s;cursor:pointer;position:relative;overflow:hidden;box-shadow:var(--sh);}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;transition:border-color .15s,background .15s,transform .15s,box-shadow .15s;cursor:pointer;position:relative;overflow:hidden;box-shadow:var(--sh);}
 .card:hover{border-color:var(--borderH);background:var(--s2);transform:translateY(-1px);box-shadow:var(--shH);}
-.card.sel{border-color:var(--brown);background:rgba(110,79,56,0.05);}
+.card.sel{border-color:var(--brown);background:var(--brownG);}
 .card.sel::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--brown),var(--brownL));border-radius:var(--r) 0 0 var(--r);}
 .ct{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .chk{width:17px;height:17px;border-radius:4px;border:1.5px solid var(--t4);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
@@ -301,7 +341,7 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 @media(max-width:640px){.chk{display:none;}.card{cursor:default;}}
 .kbadge{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:4px;border:1px solid transparent;max-width:calc(100% - 60px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .local-tag{margin-left:auto;font-size:10px;color:var(--t4);font-family:var(--mono);flex-shrink:0;}
-.curl{font-family:var(--mono);font-size:9.5px;color:var(--t4);word-break:break-all;line-height:1.5;margin-bottom:8px;background:var(--bg2);padding:6px 9px;border-radius:6px;border:1px solid var(--border);transition:color .15s;}
+.curl{font-family:var(--mono);font-size:9.5px;color:var(--t4);word-break:break-all;line-height:1.5;margin-bottom:8px;background:var(--bg2);padding:6px 9px;border-radius:6px;border:1px solid var(--border);transition:color .15s;max-height:48px;overflow:hidden;}
 .card:hover .curl{color:var(--t3);}
 .ca{display:flex;gap:5px;}
 .cbtn{flex:1;padding:6px 9px;border-radius:6px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;}
@@ -316,8 +356,8 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 [data-theme="dark"] .kw-tag{border-width:1.5px;}
 [data-theme="dark"] .tm-tag{border-width:2px;}
 [data-theme="dark"] .kbadge{border-width:1.5px;}
-[data-theme="dark"] .card{border-color:rgba(200,160,120,0.18);}
-[data-theme="dark"] .card:hover{border-color:rgba(200,160,120,0.45);background:var(--s3);}
+[data-theme="dark"] .card{border-color:var(--border);}
+[data-theme="dark"] .card:hover{border-color:var(--borderH);background:var(--s3);}
 
 /* ── EMPTY STATES ── */
 .empty{text-align:center;padding:48px 20px;color:var(--t4);}
@@ -363,16 +403,16 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 .abtn{padding:7px 15px;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s;border:none;}
 .abtn.sec{background:var(--s2);border:1px solid var(--border);color:var(--t2);}
 .abtn.sec:hover{border-color:var(--brownL);color:var(--t1);}
-.abtn.pri{background:var(--brown);color:#fff;box-shadow:0 2px 8px var(--brownG);}
-.abtn.pri:hover{background:var(--brownL);}
+.abtn.pri{background:var(--s2);border:1px solid var(--borderH);color:var(--brown);box-shadow:none;}
+.abtn.pri:hover{background:var(--brownG);border-color:var(--brownL);color:var(--brownL);}
 .abtn.pri:disabled{opacity:.35;cursor:not-allowed;box-shadow:none;}
-.abtn.pri2{background:var(--sage);color:#fff;}
-.abtn.pri2:hover{opacity:.88;}
+.abtn.pri2{background:var(--brown);color:#07111f;box-shadow:0 2px 10px var(--brownG);}
+.abtn.pri2:hover{background:var(--brownL);}
 .abtn.bat{background:var(--amberG);border:1px solid var(--amber);color:var(--amber);}
 .abtn.bat:hover{background:rgba(184,124,48,.22);}
 .abtn.bat:disabled{opacity:.35;cursor:not-allowed;}
-.abtn.save{background:var(--roseG);border:1px solid var(--rose);color:var(--rose);}
-.abtn.save:hover{background:rgba(158,80,96,.22);}
+.abtn.save{background:var(--s2);border:1px solid var(--border);color:var(--t2);}
+.abtn.save:hover{background:var(--s3);border-color:var(--brownL);color:var(--t1);}
 
 /* ── SCRIPT DOWNLOAD GROUP ── */
 .dl-group{
@@ -415,19 +455,20 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 .mob-btns{display:flex;flex-direction:column;gap:8px;}
 .mob-row{display:flex;gap:7px;}
 .mob-btn{flex:1;padding:10px 12px;border-radius:9px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s;border:none;text-align:center;}
-.mob-btn.pri{background:var(--brown);color:#fff;}
+.mob-btn.pri{background:var(--brown);color:#07111f;}
 .mob-btn.pri:hover{background:var(--brownL);}
 .mob-btn.sec{background:var(--s2);border:1px solid var(--border);color:var(--t2);}
 .mob-btn.sec:hover{border-color:var(--brownL);}
 .mob-btn.bat{background:var(--amberG);border:1px solid var(--amber);color:var(--amber);}
-.mob-btn.save{background:var(--roseG);border:1px solid var(--rose);color:var(--rose);}
+.mob-btn.save{background:var(--s2);border:1px solid var(--border);color:var(--t2);}
+.mob-btn.save:hover{background:var(--s3);border-color:var(--brownL);color:var(--t1);}
 .mob-sel-info{font-size:11.5px;color:var(--t3);font-family:var(--mono);margin-bottom:8px;}
 .mob-sel-info b{color:var(--brown);}
 .mob-sel-row{display:flex;gap:6px;margin-bottom:8px;}
 .mob-sm-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
 
 /* ── HOW TO USE GUIDE ── */
-.how-to{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:20px 20px;margin-top:24px;margin-bottom:24px;box-shadow:var(--sh);}
+.how-to{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:20px 20px;margin-top:24px;margin-bottom:24px;box-shadow:var(--sh);content-visibility:auto;contain-intrinsic-size:980px;}
 .how-to-title{font-size:18px;font-weight:800;font-family:var(--display);color:var(--brown);margin-bottom:4px;}
 .how-to-sub{font-size:12px;color:var(--t3);margin-bottom:22px;}
 .how-steps{display:flex;flex-direction:column;gap:0;}
@@ -460,6 +501,8 @@ footer {
   margin-top: 50px;
   padding: 30px 0 20px;
   border-top: 1px solid var(--border);
+  content-visibility:auto;
+  contain-intrinsic-size:140px;
 }
 .footer-content {
   display: flex;
@@ -564,6 +607,27 @@ footer {
   box-shadow: none;
   transform: translateY(-1px);
 }
+
+/* ── VISUAL GUIDE ── */
+.visual-guide{width:100%;display:grid;gap:16px;padding:8px;}
+.browser-demo{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;}
+.browser-demo-bar{display:flex;align-items:center;gap:8px;padding:12px;border-bottom:1px solid var(--border);background:var(--s2);}
+.demo-dot{width:10px;height:10px;border-radius:50%;background:var(--s4);}
+.demo-url{flex:1;min-width:0;padding:7px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font-family:var(--mono);font-size:11px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.demo-pop{margin-left:auto;padding:6px 10px;border-radius:999px;background:var(--amberG);border:1px solid rgba(183,121,31,.34);color:var(--amber);font-size:11px;font-weight:800;}
+.browser-demo-body{padding:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.demo-step{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px;min-height:116px;}
+.demo-step-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brown);color:#07111f;font-size:12px;font-weight:800;margin-bottom:10px;}
+.demo-step-title{font-size:13px;font-weight:800;color:var(--t1);margin-bottom:5px;}
+.demo-step-copy{font-size:12px;color:var(--t3);line-height:1.55;}
+.guide-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 16px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r);}
+.guide-control-copy{font-size:12px;color:var(--t3);line-height:1.55;max-width:680px;}
+.guide-demo-btn{padding:8px 14px;border-radius:8px;border:1px solid var(--brown);background:var(--brown);color:#07111f;font-size:12.5px;font-weight:800;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.guide-demo-btn:hover{background:var(--brownL);border-color:var(--brownL);}
+.guide-video-wrap{width:100%;display:flex;align-items:center;justify-content:center;padding:8px;}
+.guide-video{width:100%;max-height:74vh;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);background:#000;outline:none;}
+.guide-video-fallback{font-size:12px;color:var(--t3);padding:12px;text-align:center;}
+@media(max-width:760px){.browser-demo-body{grid-template-columns:1fr;padding:16px;}.demo-pop{display:none;}.guide-controls{align-items:stretch;}.guide-demo-btn{width:100%;}}
 </style>
 </head>
 <body>
@@ -573,7 +637,7 @@ footer {
   <div class="modal">
     <div class="modal-hdr">
       <div>
-        <h2>🌍 Manage Countries</h2>
+        <h2>🌍 Countries</h2>
         <p>Set countries to search in mark where you're <strong>authorized to work</strong> (no visa needed)</p>
       </div>
       <button class="modal-x" onclick="closeCountryModal()">✕</button>
@@ -627,8 +691,45 @@ footer {
       </div>
       <button class="modal-x" onclick="closeGifModal()">✕</button>
     </div>
-    <div class="modal-body" style="padding: 16px; background: var(--bg2); display: flex; justify-content: center; align-items: center;">
-      <video src="demo.mp4" autoplay loop muted playsinline style="max-width: 100%; height: auto; border-radius: var(--r); box-shadow: var(--sh); outline: none;"></video>
+    <div class="modal-body" style="padding:16px;background:var(--bg2);">
+      <div class="visual-guide" aria-label="Pop-up permission visual guide">
+        <div class="browser-demo">
+          <div class="browser-demo-bar">
+            <span class="demo-dot"></span>
+            <span class="demo-dot"></span>
+            <span class="demo-dot"></span>
+            <div class="demo-url">job-hunter.html</div>
+            <div class="demo-pop">Pop-up blocked</div>
+          </div>
+          <div class="browser-demo-body">
+            <div class="demo-step">
+              <div class="demo-step-num">1</div>
+              <div class="demo-step-title">Open the browser notice</div>
+              <div class="demo-step-copy">Click the pop-up blocked icon in the address bar after trying Open All.</div>
+            </div>
+            <div class="demo-step">
+              <div class="demo-step-num">2</div>
+              <div class="demo-step-title">Allow this page</div>
+              <div class="demo-step-copy">Choose the option to always allow pop-ups and redirects from this file.</div>
+            </div>
+            <div class="demo-step">
+              <div class="demo-step-num">3</div>
+              <div class="demo-step-title">Try again</div>
+              <div class="demo-step-copy">Close the notice, then use Open Selected or Open All again.</div>
+            </div>
+          </div>
+        </div>
+        <div class="guide-controls">
+          <div class="guide-control-copy">Prefer to watch the original walkthrough? Open the video demo here without slowing the main page load.</div>
+          <button class="guide-demo-btn" onclick="showGuideVideo()">Show video demo</button>
+        </div>
+        <div class="guide-video-wrap hidden" id="guide-video-wrap" aria-label="Pop-up permission video guide">
+          <video id="guide-video" class="guide-video" controls playsinline preload="none">
+            <source id="guide-video-source" data-src="demo.mp4" type="video/mp4">
+            <p class="guide-video-fallback">Your browser cannot play this video. Keep demo.mp4 next to index.html and try again.</p>
+          </video>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -666,6 +767,15 @@ footer {
   </div>
 </header>
 
+<nav class="quick-nav" aria-label="Page sections">
+  <div class="quick-nav-inner">
+    <a href="#filters">Filters</a>
+    <a href="#keywords">Keywords</a>
+    <a href="#results">Searches</a>
+    <a href="#guide">Guide</a>
+  </div>
+</nav>
+
 <!-- ── POPUP PERMISSION BANNER ── -->
 <div class="popup-banner" id="popup-banner" style="display:none">
   <div class="popup-banner-icon">🔓</div>
@@ -696,7 +806,16 @@ footer {
 </div>
 
 <!-- ── FILTER PANEL ── -->
-<div class="panel">
+<section class="panel filter-panel" id="filters" aria-labelledby="filters-title">
+  <div class="panel-head">
+    <div>
+      <div class="panel-title" id="filters-title">Filters</div>
+      <div class="panel-sub">Tune the search set before opening tabs. Active choices update the cards below.</div>
+    </div>
+    <div class="panel-actions">
+      <button class="mini-action" onclick="clearFilters()">Clear filters</button>
+    </div>
+  </div>
   <div class="panel-grid">
     <div>
       <div class="fp-sec">
@@ -738,7 +857,7 @@ footer {
         </div>
         <!-- Visa Mode info shown only when Visa Mode is on -->
         <div class="visa-mode-info" id="visa-mode-info" style="display:none;">
-          🌍 <b>Visa Mode is ON</b> "visa sponsorship" is appended to searches in countries where you're <em>not</em> authorized to work. Countries you're authorized in are searched normally. Manage your authorization in <strong>🌍 Manage Countries</strong>.
+          🌍 <b>Visa Mode is ON</b> "visa sponsorship" is appended to searches in countries where you're <em>not</em> authorized to work. Countries you're authorized in are searched normally. Manage your authorization in <strong>🌍 Countries</strong>.
         </div>
       </div>
       <div class="fp-sec">
@@ -752,7 +871,7 @@ footer {
       <div class="fp-sec">
         <div class="fl">Filter by Country</div>
         <div class="pills" id="cf"></div>
-        <button class="cm-btn" onclick="openCountryModal()">🌍 Manage Countries</button>
+        <button class="cm-btn" onclick="openCountryModal()">🌍 Countries</button>
       </div>
       <div class="fp-sec">
         <div class="fl">Filter by Keyword Type</div>
@@ -760,13 +879,18 @@ footer {
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- ── KEYWORD MANAGER ── -->
-<div class="panel">
-  <div class="km-title">
-    Keywords
-    <span id="km-title-sub">applied to all countries</span>
+<section class="panel keywords-panel" id="keywords" aria-labelledby="keywords-title">
+  <div class="panel-head">
+    <div>
+      <div class="km-title" id="keywords-title">
+        Keywords
+        <span id="km-title-sub">applied to all countries</span>
+      </div>
+      <div class="panel-sub">Create reusable search terms, then group them by type for faster filtering.</div>
+    </div>
   </div>
 
   <!-- Type Manager -->
@@ -795,7 +919,7 @@ footer {
     <button onclick="addKW()">+ Add Keyword</button>
   </div>
   <div class="km-note" id="km-note">Custom keywords & types are saved in your browser. Click <b>Save and Download</b> to bake them into the HTML permanently.</div>
-</div>
+</section>
 
 <!-- ── MOBILE ACTION AREA ── -->
 <div class="mob-actions">
@@ -809,7 +933,7 @@ footer {
 <div class="aft" id="aft"></div>
 
 <!-- ── RESULTS ── -->
-<div class="sec-t">Your Searches</div>
+<div class="sec-t" id="results">Your Searches</div>
 <div id="lc"></div>
 <div class="empty hidden" id="es">
   <div class="empty-i">🔍</div>
@@ -817,7 +941,7 @@ footer {
 </div>
 
 <!-- ── HOW TO USE ── -->
-<div class="how-to" id="how-to">
+<div class="how-to" id="guide">
   <div class="how-to-title">How to use Job Hunter</div>
   <div class="how-to-sub">A quick walkthrough to get you finding jobs in minutes</div>
   <div class="how-steps">
@@ -826,7 +950,7 @@ footer {
       <div class="hs-left"><div class="hs-num">1</div><div class="hs-line"></div></div>
       <div class="hs-body">
         <div class="hs-title">Add countries you want to search in</div>
-        <div class="hs-desc">Click <strong>🌍 Manage Countries</strong> in the filter panel. Each country needs a LinkedIn GeoId a unique number that tells LinkedIn which region to search. You can find it by searching on LinkedIn and checking the URL for <span class="hs-tag">geoId=…</span>. Mark your home country as <strong>Local</strong> so the tool knows where you already live.</div>
+        <div class="hs-desc">Click <strong>🌍 Countries</strong> in the filter panel. Each country needs a LinkedIn GeoId a unique number that tells LinkedIn which region to search. You can find it by searching on LinkedIn and checking the URL for <span class="hs-tag">geoId=…</span>. Mark your home country as <strong>Local</strong> so the tool knows where you already live.</div>
       </div>
     </div>
 
@@ -858,10 +982,10 @@ footer {
       <div class="hs-left"><div class="hs-num">5</div><div class="hs-line"></div></div>
       <div class="hs-body">
         <div class="hs-title">Understand Visa Sponsorship mode</div>
-        <div class="hs-desc">Toggle <strong>🌍 Visa Mode</strong> to append "visa sponsorship" to your searches this surfaces jobs that explicitly mention visa support. In <strong>🌍 Manage Countries</strong>, mark each country where you're <strong>authorized to work</strong> (your home country or any country where you hold a work permit). Those countries will search <em>without</em> "visa sponsorship" appended.</div>
+        <div class="hs-desc">Toggle <strong>🌍 Visa Mode</strong> to append "visa sponsorship" to your searches this surfaces jobs that explicitly mention visa support. In <strong>🌍 Countries</strong>, mark each country where you're <strong>authorized to work</strong> (your home country or any country where you hold a work permit). Those countries will search <em>without</em> "visa sponsorship" appended.</div>
         <div class="hs-callout">
           <span>💡</span>
-          <span>Example: You're Egyptian, applying to Germany and UK. In Manage Countries, mark 🇪🇬 Egypt as <em>Authorized</em>. Then enable Visa Mode. Egypt will search normally Germany and UK will search for visa-sponsored roles.</span>
+          <span>Example: You're Egyptian, applying to Germany and UK. In 🌍 Countries, mark 🇪🇬 Egypt as <em>Authorized</em>. Then enable Visa Mode. Egypt will search normally Germany and UK will search for visa-sponsored roles.</span>
         </div>
       </div>
     </div>
@@ -978,7 +1102,7 @@ const BAKED = {
   ],
   customKws:[],
   kwTypes:["Backend","Frontend","Full Stack","DevOps","Data","Custom"],
-  darkMode:false,
+  darkMode:true,
   popupBannerDismissed:false,
   visaExclude:[]
 };
@@ -1024,12 +1148,13 @@ const S={
   sel:new Set(),tabDelay:500,
   settings:{title:'',subtitle:''},
   countries:[],customKws:[],kwTypes:[],
-  darkMode:false,
+  darkMode:true,
   popupBannerDismissed:false,
   visaExclude:[]  // country names excluded from visa mode
 };
 
 const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||window.innerWidth<641;
+const THEME_PREF_VERSION='dark-default-v2';
 
 // ═══════════════════════════════════════════════════════════
 // DARK MODE
@@ -1056,6 +1181,7 @@ function persist(){
     localStorage.setItem('jh_kwTypes',JSON.stringify(S.kwTypes));
     localStorage.setItem('jh_customKws',JSON.stringify(S.customKws));
     localStorage.setItem('jh_darkMode',JSON.stringify(S.darkMode));
+    localStorage.setItem('jh_themePrefVersion',THEME_PREF_VERSION);
     localStorage.setItem('jh_popupDismissed',JSON.stringify(S.popupBannerDismissed));
     localStorage.setItem('jh_visaExclude',JSON.stringify(S.visaExclude));
     // Filter states
@@ -1065,6 +1191,12 @@ function persist(){
     localStorage.setItem('jh_vm',JSON.stringify(S.vm));
     localStorage.setItem('jh_delay',JSON.stringify(S.tabDelay));
   }catch(e){}
+}
+
+let _persistTimer=null;
+function queuePersist(){
+  clearTimeout(_persistTimer);
+  _persistTimer=setTimeout(persist,120);
 }
 
 function loadState(){
@@ -1087,6 +1219,7 @@ function loadState(){
     const lt=localStorage.getItem('jh_kwTypes');
     const lk=localStorage.getItem('jh_customKws');
     const ld=localStorage.getItem('jh_darkMode');
+    const lThemeVersion=localStorage.getItem('jh_themePrefVersion');
     const lp=localStorage.getItem('jh_popupDismissed');
     const lv=localStorage.getItem('jh_visaExclude');
     const ltm=localStorage.getItem('jh_time');
@@ -1098,7 +1231,7 @@ function loadState(){
     if(lc) S.countries=JSON.parse(lc);
     if(lt) S.kwTypes=JSON.parse(lt);
     if(lk) S.customKws=JSON.parse(lk);
-    if(ld) S.darkMode=JSON.parse(ld);
+    if(ld!==null&&lThemeVersion===THEME_PREF_VERSION) S.darkMode=JSON.parse(ld);
     if(lp) S.popupBannerDismissed=JSON.parse(lp);
     if(lv) S.visaExclude=JSON.parse(lv);
     // For filter states, only override BAKED if localStorage has a meaningful (truthy) value
@@ -1188,13 +1321,21 @@ function dismissPopupBanner(){
 // ═══════════════════════════════════════════════════════════
 // LINK GENERATION
 // ═══════════════════════════════════════════════════════════
+let _linksCache=null,_linksSig='';
 function getAllLinks(){
+  const sig=
+    S.countries.map(c=>[c.country,c.flag,c.geoId,c.local?'1':'0'].join('|')).join('~')+
+    '::'+
+    S.customKws.map(k=>[k.kw,k.typeLabel].join('|')).join('~');
+  if(_linksCache&&_linksSig===sig) return _linksCache;
   const out=[];let id=0;
   S.countries.forEach(c=>{
     S.customKws.forEach(k=>{
       out.push({id:id++,country:c.country,flag:c.flag,geoId:c.geoId,local:c.local||false,kw:k.kw,typeLabel:k.typeLabel});
     });
   });
+  _linksSig=sig;
+  _linksCache=out;
   return out;
 }
 
@@ -1266,11 +1407,12 @@ function render(){
   renderTypeManager();
   renderCountryFilterPills();
   renderTypePills();
-  renderCountryModal();
+  if(document.getElementById('country-modal').classList.contains('show')) renderCountryModal();
   renderVisaExcludePills();
-  updateStats();
+  updateStats(vis);
   updateTags();
   updateKwTypeSelect();
+  enhanceControls();
   applyTheme();
 }
 
@@ -1368,7 +1510,7 @@ function renderTypeManager(){
 // ── Country filter pills ─────────────────────────────────
 function renderCountryFilterPills(){
   document.getElementById('cf').innerHTML=S.countries.map(c=>
-    `<div class="pill${S.countryFilter.has(c.country)?' on-slt':''}" onclick="toggleCF('${escQ(c.country)}',this)">${c.flag} ${c.country}</div>`
+    `<div class="pill country-pill${S.countryFilter.has(c.country)?' on-slt':''}" onclick="toggleCF('${escQ(c.country)}',this)">${c.flag} ${c.country}</div>`
   ).join('');
 }
 
@@ -1416,8 +1558,7 @@ function updateKwTypeSelect(){
 }
 
 // ── Stats & Tags ─────────────────────────────────────────
-function updateStats(){
-  const vis=visible();
+function updateStats(vis=visible()){
   const selV=vis.filter(l=>S.sel.has(l.id));
   document.getElementById('tv').textContent=vis.length;
   document.getElementById('sc2').textContent=selV.length;
@@ -1469,6 +1610,7 @@ function setTime(el){
   el.classList.add('on');
   document.getElementById('tc-val').value='';
   document.getElementById('tc-preview').textContent='';
+  queuePersist();
   render();
 }
 
@@ -1488,6 +1630,7 @@ function applyCustomTime(){
   S.time=`r${v*u}`;
   document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
   toast('✅ Time filter set');
+  queuePersist();
   render();
 }
 
@@ -1495,18 +1638,21 @@ function toggleWT(el){
   const v=el.dataset.v;
   if(S.wt.has(v)){S.wt.delete(v);el.classList.remove('on-grn');}
   else            {S.wt.add(v);  el.classList.add('on-grn');}
+  queuePersist();
   render();
 }
 
 function toggleEA(){
   S.ea=!S.ea;
   document.getElementById('ea-pill').classList.toggle('on-grn',S.ea);
+  queuePersist();
   render();
 }
 
 function toggleVM(){
   S.vm=!S.vm;
   document.getElementById('vm-pill').classList.toggle('on-amb',S.vm);
+  queuePersist();
   render();
 }
 
@@ -1515,25 +1661,57 @@ function updateDelay(v){
   document.getElementById('delay-label').textContent=v+'ms';
   const pct=((v-200)/(2000-200)*100).toFixed(1);
   document.getElementById('delay-slider').style.setProperty('--pct',pct+'%');
+  queuePersist();
 }
 
 function toggleCF(c,el){
   if(S.countryFilter.has(c)){S.countryFilter.delete(c);el.classList.remove('on-slt');}
   else                      {S.countryFilter.add(c);   el.classList.add('on-slt');}
+  queuePersist();
   render();
 }
 
 function toggleTypeFilter(t){
   if(S.typeFilter.has(t)) S.typeFilter.delete(t);
   else                    S.typeFilter.add(t);
+  queuePersist();
   render();
+}
+
+function clearFilters(){
+  S.time='';
+  S.wt.clear();
+  S.ea=false;
+  S.vm=false;
+  S.countryFilter.clear();
+  S.typeFilter.clear();
+  restoreFilterUI();
+  persist();
+  render();
+  toast('Filters cleared');
 }
 
 function openGifModal(){
   document.getElementById('gif-modal').classList.add('show');
 }
 
+function showGuideVideo(){
+  const wrap=document.getElementById('guide-video-wrap');
+  const video=document.getElementById('guide-video');
+  const source=document.getElementById('guide-video-source');
+  if(wrap) wrap.classList.remove('hidden');
+  if(source&&!source.src){
+    source.src=source.dataset.src;
+    video.load();
+  }
+  if(video) video.play().catch(()=>{});
+  if(wrap) wrap.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+
 function closeGifModal(){
+  const video=document.getElementById('guide-video');
+  if(video) video.pause();
+  document.getElementById('guide-video-wrap')?.classList.add('hidden');
   document.getElementById('gif-modal').classList.remove('show');
 }
 
@@ -1653,7 +1831,7 @@ function removeType(idx){
   S.typeFilter.delete(label);
   persist();
   render();
-  toast(`🗑 Removed category: "${label}"`);
+  toast(`Removed category: "${label}"`);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1664,9 +1842,9 @@ function addKW(){
   const tsel=document.getElementById('kw-type-sel');
   const raw=inp.value.trim();
   const type=tsel.value||(S.kwTypes[0]||'Custom');
-  if(!raw){toast('⚠️ Type a keyword first');return;}
-  if(S.customKws.some(k=>k.kw.toLowerCase()===raw.toLowerCase())){toast('⚠️ Keyword already exists');return;}
-  if(S.kwTypes.length===0){toast('⚠️ Add at least one category first (Step 1 above)');return;}
+  if(!raw){toast('Type a keyword first');return;}
+  if(S.customKws.some(k=>k.kw.toLowerCase()===raw.toLowerCase())){toast('Keyword already exists');return;}
+  if(S.kwTypes.length===0){toast('Add at least one category first (Step 1 above)');return;}
   S.customKws.push({kw:raw,typeLabel:type});
   persist();
   inp.value='';
@@ -1680,7 +1858,7 @@ function removeKW(idx){
   S.customKws.splice(idx,1);
   persist();
   render();
-  toast(`🗑 Removed: "${removed}"`);
+  toast(`Removed: "${removed}"`);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1960,6 +2138,21 @@ function toast(msg){
   el.classList.add('show');
   clearTimeout(el._t);
   el._t=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+function enhanceControls(){
+  document.querySelectorAll('.pill,.card[onclick]').forEach(el=>{
+    el.setAttribute('role','button');
+    el.tabIndex=0;
+    if(el.dataset.keyReady) return;
+    el.dataset.keyReady='1';
+    el.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){
+        e.preventDefault();
+        el.click();
+      }
+    });
+  });
 }
 
 // ═══════════════════════════════════════════════════════════
