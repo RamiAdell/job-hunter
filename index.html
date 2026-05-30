@@ -869,12 +869,24 @@ footer {
           <div class="pill" data-v="1" onclick="toggleWT(this)">On-site</div>
         </div>
       </div>
+      <div class="fp-sec">
+        <div class="fl">🎓 Experience Level</div>
+        <div class="pills" id="ef">
+          <div class="pill" data-v="1" onclick="toggleEL(this)">Internship</div>
+          <div class="pill" data-v="2" onclick="toggleEL(this)">Entry Level</div>
+          <div class="pill" data-v="3" onclick="toggleEL(this)">Associate</div>
+          <div class="pill" data-v="4" onclick="toggleEL(this)">Mid-Senior</div>
+          <div class="pill" data-v="5" onclick="toggleEL(this)">Director</div>
+          <div class="pill" data-v="6" onclick="toggleEL(this)">Executive</div>
+        </div>
+      </div>
     </div>
     <div>
       <div class="fp-sec">
         <div class="fl">✨ Extras</div>
         <div class="pills">
           <div class="pill" id="ea-pill" onclick="toggleEA()">⚡ Easy Apply</div>
+          <div class="pill" id="ua-pill" onclick="toggleUA()">🔥 Under 10 Applicants</div>
           <div class="pill" id="vm-pill" onclick="toggleVM()">🌍 Visa Mode</div>
         </div>
         <!-- Visa Mode info shown only when Visa Mode is on -->
@@ -1165,7 +1177,7 @@ function typeStyle(t){const c=typeColor(t);return `background:${c.bg};border-col
 // STATE
 // ═══════════════════════════════════════════════════════════
 const S={
-  time:'',wt:new Set(),ea:false,vm:false,
+  time:'',wt:new Set(),el:new Set(),ea:false,ua:false,vm:false,
   countryFilter:new Set(),typeFilter:new Set(),
   sel:new Set(),tabDelay:500,
   settings:{title:'',subtitle:''},
@@ -1209,7 +1221,9 @@ function persist(){
     // Filter states
     localStorage.setItem('jh_time',JSON.stringify(S.time));
     localStorage.setItem('jh_wt',JSON.stringify([...S.wt]));
+    localStorage.setItem('jh_el',JSON.stringify([...S.el]));
     localStorage.setItem('jh_ea',JSON.stringify(S.ea));
+    localStorage.setItem('jh_ua',JSON.stringify(S.ua));
     localStorage.setItem('jh_vm',JSON.stringify(S.vm));
     localStorage.setItem('jh_delay',JSON.stringify(S.tabDelay));
   }catch(e){}
@@ -1232,7 +1246,9 @@ function loadState(){
   // Filter states from BAKED
   S.time=BAKED.time||'';
   S.wt=new Set(BAKED.wt||[]);
+  S.el=new Set(BAKED.el||[]);
   S.ea=BAKED.ea||false;
+  S.ua=BAKED.ua||false;
   S.vm=BAKED.vm||false;
   S.tabDelay=BAKED.tabDelay||500;
   try{
@@ -1246,7 +1262,9 @@ function loadState(){
     const lv=localStorage.getItem('jh_visaExclude');
     const ltm=localStorage.getItem('jh_time');
     const lw=localStorage.getItem('jh_wt');
+    const lel=localStorage.getItem('jh_el');
     const lea=localStorage.getItem('jh_ea');
+    const lua=localStorage.getItem('jh_ua');
     const lvm=localStorage.getItem('jh_vm');
     const ldl=localStorage.getItem('jh_delay');
     if(ls) S.settings=JSON.parse(ls);
@@ -1260,7 +1278,9 @@ function loadState(){
     // This prevents an old empty-string entry from wiping out a BAKED custom value
     if(ltm!==null){ const t=JSON.parse(ltm); if(t) S.time=t; }
     if(lw!==null)  S.wt=new Set(JSON.parse(lw));
+    if(lel!==null) S.el=new Set(JSON.parse(lel));
     if(lea!==null) S.ea=JSON.parse(lea);
+    if(lua!==null) S.ua=JSON.parse(lua);
     if(lvm!==null) S.vm=JSON.parse(lvm);
     if(ldl!==null){ const d=JSON.parse(ldl); if(d) S.tabDelay=d; }
   }catch(e){}
@@ -1310,9 +1330,16 @@ function restoreFilterUI(){
   document.querySelectorAll('#wf .pill').forEach(p=>{
     p.classList.toggle('on-grn',S.wt.has(p.dataset.v));
   });
+  // Experience level pills
+  document.querySelectorAll('#ef .pill').forEach(p=>{
+    p.classList.toggle('on',S.el.has(p.dataset.v));
+  });
   // Easy Apply
   const eaPill=document.getElementById('ea-pill');
   if(eaPill) eaPill.classList.toggle('on-grn',S.ea);
+  // Under 10 Applicants
+  const uaPill=document.getElementById('ua-pill');
+  if(uaPill) uaPill.classList.toggle('on-grn',S.ua);
   // Visa Mode
   const vmPill=document.getElementById('vm-pill');
   if(vmPill) vmPill.classList.toggle('on-amb',S.vm);
@@ -1371,7 +1398,9 @@ function buildURL(link){
   p.set('keywords',kw);
   if(S.time) p.set('f_TPR',S.time);
   if(S.ea)   p.set('f_LF','f_AL');
+  if(S.ua)   p.set('f_EA','true');
   if(S.wt.size>0) p.set('f_WT',[...S.wt].join(','));
+  if(S.el.size>0) p.set('f_E',[...S.el].join(','));
   return 'https://www.linkedin.com/jobs/search/?'+p.toString();
 }
 
@@ -1603,7 +1632,9 @@ function updateStats(vis=visible()){
   let n=0;
   if(S.time) n++;
   S.wt.forEach(()=>n++);
+  S.el.forEach(()=>n++);
   if(S.ea) n++;
+  if(S.ua) n++;
   if(S.vm) n++;
   const af=document.getElementById('af-stat');
   af.innerHTML=n>0?`<b>${n}</b> filter${n>1?'s':''} active`:'No filters';
@@ -1611,13 +1642,16 @@ function updateStats(vis=visible()){
 
 const TL={r86400:'Today',r259200:'Last 3 Days',r604800:'This Week',r2592000:'This Month'};
 const WL={'1':'On-site','2':'Remote','3':'Hybrid'};
+const EL={'1':'Internship','2':'Entry Level','3':'Associate','4':'Mid-Senior','5':'Director','6':'Executive'};
 
 function updateTags(){
   const tags=[];
   if(S.time)            tags.push(TL[S.time]||S.time);
   if(S.ea)              tags.push('Easy Apply');
+  if(S.ua)              tags.push('Under 10 Applicants');
   if(S.vm)              tags.push('+ Visa Sponsorship');
   S.wt.forEach(w=>      tags.push(WL[w]));
+  S.el.forEach(e=>      tags.push(EL[e]));
   if(S.countryFilter.size>0) tags.push([...S.countryFilter].join(' · '));
   if(S.typeFilter.size>0)    tags.push('Type: '+[...S.typeFilter].join(' · '));
   document.getElementById('aft').innerHTML=tags.map(t=>`<span class="ft">${t}</span>`).join('');
@@ -1671,6 +1705,13 @@ function toggleEA(){
   render();
 }
 
+function toggleUA(){
+  S.ua=!S.ua;
+  document.getElementById('ua-pill').classList.toggle('on-grn',S.ua);
+  queuePersist();
+  render();
+}
+
 function toggleVM(){
   S.vm=!S.vm;
   document.getElementById('vm-pill').classList.toggle('on-amb',S.vm);
@@ -1703,7 +1744,9 @@ function toggleTypeFilter(t){
 function clearFilters(){
   S.time='';
   S.wt.clear();
+  S.el.clear();
   S.ea=false;
+  S.ua=false;
   S.vm=false;
   S.countryFilter.clear();
   S.typeFilter.clear();
@@ -1711,6 +1754,14 @@ function clearFilters(){
   persist();
   render();
   toast('Filters cleared');
+}
+
+function toggleEL(el){
+  const v=el.dataset.v;
+  if(S.el.has(v)){S.el.delete(v);el.classList.remove('on');}
+  else            {S.el.add(v);  el.classList.add('on');}
+  queuePersist();
+  render();
 }
 
 function openGifModal(){
@@ -2103,7 +2154,9 @@ function saveToFile(){
       // Filter states
       time:S.time,
       wt:[...S.wt],
+      el:[...S.el],
       ea:S.ea,
+      ua:S.ua,
       vm:S.vm,
       tabDelay:S.tabDelay,
     };
