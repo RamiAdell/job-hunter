@@ -27,7 +27,9 @@ Add any country by name, emoji flag, and LinkedIn GeoId. In **Manage Countries**
 ### ⏱ Smart Filters — All Persisted
 - **Time Range** — Any Time, Today, 3 Days, This Week, This Month, or a custom value (e.g. "last 6 hours")
 - **Work Type** — Remote, Hybrid, On-site (multi-select)
+- **Experience Level** — Internship, Entry Level, Associate, Mid-Senior Level, Director, Executive (multi-select)
 - **Easy Apply** — filter to jobs you can apply for without leaving LinkedIn
+- **Under 10 Applicants** — filter for jobs with fewer than 10 applicants
 - **Visa Mode** — appends "visa sponsorship" to searches in countries where you're *not* authorized to work
 - **Tab Speed** — throttle how fast new tabs open so your browser doesn't panic
 
@@ -125,6 +127,13 @@ In **Manage Countries**, the **✓ Authorized** toggle marks countries where you
 
 ![Visa Mode + Authorized Countries](Screenshots/image-5.png)
 
+### Easy Apply & Under 10 Applicants
+Quickly filter search outputs to target the most accessible roles:
+- **⚡ Easy Apply**: Filters LinkedIn searches to show only jobs that support LinkedIn's streamlined application process.
+- **🔥 Under 10 Applicants**: Filters searches to show only jobs with fewer than 10 applicants to maximize your early-applicant advantage.
+
+![Easy Apply & Under 10 Applicants](Screenshots/image-8.png)
+
 ### Script Download Panel (.bat / .sh)
 The action bar now includes a **Script** group with four options: `.bat Selected`, `.bat All`, `.sh Selected`, `.sh All`. The `.sh` option works on both Linux and macOS.
 
@@ -218,7 +227,9 @@ https://www.linkedin.com/jobs/search/?
   &distance=25
   &f_TPR=r604800
   &f_LF=f_AL
+  &f_EA=true
   &f_WT=2,3
+  &f_E=2,3,4
 ```
 
 Parameters used:
@@ -229,7 +240,9 @@ Parameters used:
 | `distance` | Search radius in miles (fixed at 25) |
 | `f_TPR` | Time posted range (e.g. `r604800` = last 7 days) |
 | `f_LF` | `f_AL` = Easy Apply only |
+| `f_EA` | `true` = Under 10 applicants only |
 | `f_WT` | Work type: `1`=On-site, `2`=Remote, `3`=Hybrid |
+| `f_E` | Experience level: `1`=Internship, `2`=Entry Level, `3`=Associate, `4`=Mid-Senior, `5`=Director, `6`=Executive |
 
 ---
 
