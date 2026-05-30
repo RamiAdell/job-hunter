@@ -112,7 +112,14 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 .hl{flex:1;min-width:200px;}
 .hl-title-wrap{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
 .hl h1{font-family:var(--display);font-size:28px;line-height:1.08;font-weight:800;letter-spacing:0;color:var(--brown);outline:none;border-bottom:2px solid transparent;transition:border-color .2s,color .2s;}
-@media(max-width:640px){.hl h1{font-size:24px;}}
+@media(max-width:640px){
+  .hl h1{font-size:24px;}
+  .hi{position:relative;}
+  .hl{padding-right:110px;}
+  .dm-btn{position:absolute;top:0;right:0;}
+  .header-right{width:100%;align-items:flex-start;margin-top:10px;}
+  .hstats{justify-content:flex-start;}
+}
 .hl h1:focus{border-bottom-color:var(--brownL);}
 .hl p{color:var(--t3);font-size:12.5px;outline:none;border-bottom:2px solid transparent;transition:border-color .2s;display:inline-block;}
 .hl p:focus{border-bottom-color:var(--brownL);}
@@ -819,7 +826,7 @@ footer {
 
 <!-- ── MOBILE NOTE ── -->
 <div class="mobile-note" id="mobile-note" style="display:none">
-  📱 <b>Mobile tip:</b> Opening multiple tabs on mobile will launch the LinkedIn app for each link, one at a time. We recommend tapping <strong>Open ↗</strong> on each card individually for the best experience. The "Open All" and batch download features work best on desktop.
+  <b>Mobile tip:</b> Opening multiple tabs on mobile will launch the LinkedIn app for each link, one at a time. We recommend tapping <strong>Open ↗</strong> on each card individually for the best experience. The "Open All" and batch download features work best on desktop.
 </div>
 
 <div class="pw" id="pw">
