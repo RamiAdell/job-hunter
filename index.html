@@ -885,6 +885,7 @@ footer {
       <div class="hstats">
         <div class="sp"><b id="total-count">0</b> searches</div>
         <div class="sp"><b id="country-count">0</b> countries</div>
+        <!-- <div class="sp" id="visitor-count-pill" ><b id="visitor-count">0</b> visitors</div> -->
         <div class="sp" id="af-stat">No filters</div>
       </div>
     </div>
@@ -2333,12 +2334,38 @@ function enhanceControls(){
 }
 
 // ═══════════════════════════════════════════════════════════
+// VISITOR COUNTER API
+// ═══════════════════════════════════════════════════════════
+const COUNTER_API_URL = 'http://93.127.202.235:7418/api/visit';
+
+async function trackVisitor() {
+  try {
+    const res = await fetch(COUNTER_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      const pill = document.getElementById('visitor-count-pill');
+      const countEl = document.getElementById('visitor-count');
+      if (pill && countEl) {
+        countEl.textContent = data.count;
+        pill.style.display = 'inline-block';
+      }
+    }
+  } catch (e) {
+    console.warn('Counter API offline or unconfigured:', e.message);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 loadState();
 applyTheme();
 initEditableHeader();
 restoreFilterUI(); // re-activate filter pills from saved state
+trackVisitor();
 
 // Show mobile note on mobile devices
 if(isMobile){
