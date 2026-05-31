@@ -452,6 +452,7 @@ html[dir="rtl"] .hl p,html[dir="rtl"] #site-sub,body.lang-ar .hl p,body.lang-ar 
 .time-custom select{padding:5px 8px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;}
 .time-custom button{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--s3);color:var(--t2);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;}
 .time-custom button:hover{border-color:var(--brown);color:var(--brown);}
+.time-custom button:disabled{opacity:.35;cursor:not-allowed;border-color:var(--border);color:var(--t4);background:var(--s2);box-shadow:none;}
 
 /* delay slider */
 .delay-row{display:flex;align-items:center;gap:10px;margin-top:2px;flex-wrap:wrap;}
@@ -1150,7 +1151,7 @@ footer {
             <option value="86400" data-i18n="unitDays">days</option>
             <option value="604800" data-i18n="unitWeeks">weeks</option>
           </select>
-          <button onclick="applyCustomTime()" data-i18n="apply">Apply</button>
+          <button id="tc-btn" onclick="applyCustomTime()" data-i18n="apply">Apply</button>
           <span id="tc-preview" style="font-size:10.5px;color:var(--t4);font-family:var(--mono);"></span>
         </div>
       </div>
@@ -1821,7 +1822,7 @@ ar: {
   viewVisualGuide:'عرض الدليل المرئي',
   footerMsg:'شارَك لمساعدة الباحثين الجادّين عن عمل.',
   footerPrayer:'نسأل الله أن يفتح لنا جميعاً أفضل الأبواب.',
-  footerRepo:'مستودع GitHub',
+  footerRepo:'GitHub Repository',
   selectAll:'تحديد الكل',
   clear:'مسح',
   selected:'محدد',
@@ -1984,6 +1985,9 @@ function applyI18n(){
   });
   const metaDesc=document.querySelector('meta[name="description"]');
   if(metaDesc) metaDesc.setAttribute('content',t('metaDescription'));
+
+  // Update custom time preview if active
+  customTimePreview();
 }
 
 function toggleLang(){
@@ -2000,7 +2004,31 @@ function loadLang(){
   }catch(e){}
 }
 
-function filterTimeLabel(k){ return t('tl_'+k)||k; }
+function formatDuration(secs){
+  const ar=LANG==='ar';
+  if(secs<3600){
+    const mins=Math.round(secs/60);
+    return ar ? `${mins} د` : `${mins}min`;
+  }
+  if(secs<86400){
+    const hours=(secs/3600).toFixed(1).replace('.0','');
+    return ar ? `${hours} س` : `${hours}h`;
+  }
+  const days=(secs/86400).toFixed(1).replace('.0','');
+  return ar ? `${days} ي` : `${days}d`;
+}
+
+function filterTimeLabel(k){
+  const translation=I18N[LANG]['tl_'+k]||I18N.en['tl_'+k];
+  if(translation) return translation;
+  if(k&&k.startsWith('r')){
+    const secs=parseInt(k.replace('r',''))||0;
+    if(secs>0){
+      return `${t('lastPrefix')} ${formatDuration(secs)}`;
+    }
+  }
+  return k;
+}
 function filterWorkLabel(k){ return t({1:'wtOnsite',2:'wtRemote',3:'wtHybrid'}[k]||k); }
 function filterExpLabel(k){
   return t({1:'elIntern',2:'elEntry',3:'elAssociate',4:'elMid',5:'elDirector',6:'elExec'}[k]||k);
@@ -2494,12 +2522,22 @@ function setTime(el){
 }
 
 function customTimePreview(){
-  const v=parseInt(document.getElementById('tc-val').value)||0;
-  const u=parseInt(document.getElementById('tc-unit').value);
-  if(!v){document.getElementById('tc-preview').textContent='';return;}
+  const valEl=document.getElementById('tc-val');
+  const unitEl=document.getElementById('tc-unit');
+  const btnEl=document.getElementById('tc-btn');
+  const previewEl=document.getElementById('tc-preview');
+  if(!valEl||!unitEl||!btnEl||!previewEl) return;
+  const v=parseInt(valEl.value)||0;
+  const u=parseInt(unitEl.value);
+  if(!v||v<1){
+    previewEl.textContent='';
+    btnEl.disabled=true;
+    return;
+  }
   const secs=v*u;
-  const label=secs<3600?`${Math.round(secs/60)}min`:secs<86400?`${(secs/3600).toFixed(1)}h`:`${(secs/86400).toFixed(1)}d`;
-  document.getElementById('tc-preview').textContent=`${t('lastPrefix')} ${label}`;
+  const label=formatDuration(secs);
+  previewEl.textContent=`${t('lastPrefix')} ${label}`;
+  btnEl.disabled=(S.time===`r${secs}`);
 }
 
 function applyCustomTime(){
