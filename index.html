@@ -29,7 +29,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
 <style>
 /* ── LIGHT THEME ── */
@@ -47,7 +47,9 @@
   --moss:#4d7c0f;--mossG:rgba(77,124,15,0.11);
   --t1:#111827;--t2:#334155;--t3:#64748b;--t4:#94a3b8;
   --font:'Google Sans',Aptos,'Aptos Display','Segoe UI Variable','Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif;
+  --font-ar:'Tajawal','Google Sans',Tahoma,Arial,sans-serif;
   --mono:var(--font);--sans:var(--font);--display:var(--font);
+  --theme-dur:0.35s;
   --r:10px;--rl:14px;
   --sh:0 1px 2px rgba(15,23,42,0.06),0 8px 28px rgba(15,23,42,0.06);
   --shH:0 6px 18px rgba(15,23,42,0.10),0 18px 38px rgba(15,23,42,0.08);
@@ -84,12 +86,18 @@ body{
   overflow-x:hidden;
   /* leave room for fixed action bar ONLY on desktop */
   padding-bottom:20px;
-  transition:background-color .2s,color .2s;
+  transition:background-color var(--theme-dur) ease,color var(--theme-dur) ease;
 }
+html[dir="rtl"] body,body.lang-ar{font-family:var(--font-ar);font-weight:500;}
+html[dir="rtl"] .how-to-title,body.lang-ar .how-to-title{font-family:var(--font-ar);font-weight:800;}
+html[dir="rtl"] .panel-title,html[dir="rtl"] .hs-title,html[dir="rtl"] .km-title,html[dir="rtl"] .sec-t,body.lang-ar .panel-title,body.lang-ar .hs-title,body.lang-ar .km-title,body.lang-ar .sec-t{font-weight:700;}
+html[dir="rtl"] .pill,html[dir="rtl"] button,html[dir="rtl"] .abtn,html[dir="rtl"] .sm-btn,body.lang-ar .pill,body.lang-ar button,body.lang-ar .abtn,body.lang-ar .sm-btn{font-weight:600;}
 @media(min-width:641px){body{padding-bottom:90px;}}
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
 @media(min-width:641px){.wrap{padding:0 22px;}}
 input,select,button,textarea{font-family:var(--sans);}
+html[dir="rtl"] input,html[dir="rtl"] select,html[dir="rtl"] textarea{font-family:var(--font-ar);font-weight:500;}
+html[dir="rtl"] button{font-family:var(--font-ar);}
 a{color:inherit;}
 .hidden{display:none!important;}
 :focus-visible{outline:2px solid var(--brownL);outline-offset:2px;}
@@ -97,128 +105,222 @@ a{color:inherit;}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important;}
 }
 
-/* ── CUSTOM DARK MODE TOGGLE ── */
-.dm-toggle-wrap {
-  display: inline-block;
-  cursor: pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  flex-shrink: 0;
-  width: 60px;
-  height: 30px;
+/* ── SMOOTH THEME TRANSITIONS ── */
+html.theme-changing header,
+html.theme-changing .quick-nav,
+html.theme-changing .panel,
+html.theme-changing .card,
+html.theme-changing .sp,
+html.theme-changing .ab,
+html.theme-changing .modal,
+html.theme-changing .modal-overlay,
+html.theme-changing .popup-banner,
+html.theme-changing .mobile-note,
+html.theme-changing .pw,
+html.theme-changing .how-to,
+html.theme-changing .mob-actions,
+html.theme-changing .aft,
+html.theme-changing .toast,
+html.theme-changing .open-progress,
+html.theme-changing footer,
+html.theme-changing .onboard,
+html.theme-changing .kw-tag,
+html.theme-changing .tm-tag,
+html.theme-changing .citem,
+html.theme-changing .dl-group,
+html.theme-changing .browser-demo,
+html.theme-changing .guide-controls,
+html.theme-changing .demo-step,
+html.theme-changing .how-disclaimer{
+  transition:background-color var(--theme-dur) ease,color var(--theme-dur) ease,border-color var(--theme-dur) ease,box-shadow var(--theme-dur) ease!important;
+}
+html.theme-changing body{
+  transition:background-color var(--theme-dur) ease,color var(--theme-dur) ease!important;
 }
 
-.toggle-checkbox {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+/* ── CUSTOM TOGGLES (theme + language) ── */
+.header-toggles{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.dm-toggle-wrap{
+  display:inline-block;
+  cursor:pointer;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  flex-shrink:0;
+  width:60px;
+  height:30px;
+  position:relative;
 }
 
-.toggle-slot {
-  position: relative;
-  height: 30px;
-  width: 60px;
-  border: 2px solid var(--border);
-  border-radius: 30px;
-  background-color: var(--surface);
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.06);
-  transition: background-color 250ms, border-color 250ms;
+.toggle-checkbox{
+  position:absolute;
+  opacity:0;
+  cursor:pointer;
+  height:0;
+  width:0;
 }
 
-.toggle-checkbox:checked ~ .toggle-slot {
-  background-color: var(--s2);
-  border-color: var(--borderH);
+.toggle-slot{
+  position:relative;
+  height:30px;
+  width:60px;
+  border:2px solid var(--border);
+  border-radius:30px;
+  background-color:var(--surface);
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+  transition:background-color 250ms,border-color 250ms;
 }
 
-.toggle-button {
-  transform: translate(33px, 3px);
-  position: absolute;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background-color: #ffeccf;
-  box-shadow: inset 0px 0px 0px 2.5px #ffbb52;
-  transition: background-color 250ms, border-color 250ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+.dm-toggle-wrap:not(.lang-toggle-wrap) .toggle-checkbox:checked ~ .toggle-slot{
+  background-color:var(--s2);
+  border-color:var(--borderH);
+}
+.lang-toggle-wrap .toggle-checkbox:checked ~ .toggle-slot{
+  background-color:var(--s2);
+  border-color:var(--borderH);
 }
 
-.toggle-checkbox:checked ~ .toggle-slot .toggle-button {
-  background-color: #485367;
-  box-shadow: inset 0px 0px 0px 2.5px white;
-  transform: translate(3px, 3px);
+.toggle-button{
+  transform:translate(33px,3px);
+  position:absolute;
+  height:20px;
+  width:20px;
+  border-radius:50%;
+  background-color:#ffeccf;
+  box-shadow:inset 0 0 0 2.5px #ffbb52;
+  transition:background-color 250ms,border-color 250ms,transform 500ms cubic-bezier(.26,2,.46,.71);
+}
+.lang-toggle-wrap .toggle-button{
+  background-color:var(--s2);
+  box-shadow:inset 0 0 0 2.5px var(--borderH);
 }
 
-.sun-icon {
-  position: absolute;
-  height: 16px;
-  width: 16px;
-  color: #ffbb52;
+.dm-toggle-wrap:not(.lang-toggle-wrap) .toggle-checkbox:checked ~ .toggle-slot .toggle-button{
+  background-color:#485367;
+  box-shadow:inset 0 0 0 2.5px #fff;
+  transform:translate(3px,3px);
+}
+.lang-toggle-wrap .toggle-checkbox:checked ~ .toggle-slot .toggle-button{
+  background-color:var(--brown);
+  box-shadow:inset 0 0 0 2.5px var(--surface);
+  transform:translate(3px,3px);
 }
 
-.sun-icon-wrapper {
-  position: absolute;
-  height: 16px;
-  width: 16px;
-  opacity: 1;
-  transform: translate(5px, 5px) rotate(15deg);
-  transform-origin: 50% 50%;
-  transition: opacity 150ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+.sun-icon{
+  position:absolute;
+  height:16px;
+  width:16px;
+  color:#ffbb52;
 }
 
-.toggle-checkbox:checked ~ .toggle-slot .sun-icon-wrapper {
-  opacity: 0;
-  transform: translate(9px, 5px) rotate(0deg);
+.sun-icon-wrapper{
+  position:absolute;
+  height:16px;
+  width:16px;
+  opacity:1;
+  transform:translate(5px,5px) rotate(15deg);
+  transform-origin:50% 50%;
+  transition:opacity 150ms,transform 500ms cubic-bezier(.26,2,.46,.71);
 }
 
-.moon-icon {
-  position: absolute;
-  height: 16px;
-  width: 16px;
-  color: white;
+.dm-toggle-wrap:not(.lang-toggle-wrap) .toggle-checkbox:checked ~ .toggle-slot .sun-icon-wrapper{
+  opacity:0;
+  transform:translate(9px,5px) rotate(0deg);
 }
 
-.moon-icon-wrapper {
-  position: absolute;
-  height: 16px;
-  width: 16px;
-  opacity: 0;
-  transform: translate(32px, 5px) rotate(0deg);
-  transform-origin: 50% 50%;
-  transition: opacity 150ms, transform 500ms cubic-bezier(.26,2.5,.46,.71);
+.moon-icon{
+  position:absolute;
+  height:16px;
+  width:16px;
+  color:#fff;
 }
 
-.toggle-checkbox:checked ~ .toggle-slot .moon-icon-wrapper {
-  opacity: 1;
-  transform: translate(36px, 5px) rotate(-15deg);
+.moon-icon-wrapper{
+  position:absolute;
+  height:16px;
+  width:16px;
+  opacity:0;
+  transform:translate(32px,5px) rotate(0deg);
+  transform-origin:50% 50%;
+  transition:opacity 150ms,transform 500ms cubic-bezier(.26,2.5,.46,.71);
 }
 
-/* ── HEADER ── */
+.dm-toggle-wrap:not(.lang-toggle-wrap) .toggle-checkbox:checked ~ .toggle-slot .moon-icon-wrapper{
+  opacity:1;
+  transform:translate(36px,5px) rotate(-15deg);
+}
+
+/* Language toggle — same motion as theme toggle */
+.lang-toggle-wrap .lang-label{
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;line-height:1;width:16px;height:16px;
+  pointer-events:none;user-select:none;
+}
+.lang-en-wrapper,.lang-ar-wrapper{
+  position:absolute;
+  height:16px;
+  width:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;line-height:1;
+  transform-origin:50% 50%;
+  transition:opacity 150ms,transform 500ms cubic-bezier(.26,2,.46,.71);
+}
+.lang-en-wrapper{
+  opacity:1;
+  transform:translate(5px,5px);
+}
+.lang-ar-wrapper{
+  opacity:0;
+  transform:translate(32px,5px);
+}
+.lang-toggle-wrap .toggle-checkbox:checked ~ .toggle-slot .lang-en-wrapper{
+  opacity:0;
+  transform:translate(9px,5px);
+}
+.lang-toggle-wrap .toggle-checkbox:checked ~ .toggle-slot .lang-ar-wrapper{
+  opacity:1;
+  transform:translate(36px,5px);
+}
+
+/* ── HEADER (layout always LTR; only page body flips for Arabic) ── */
 header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:18px;}
-.hi{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+.hi{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  direction:ltr;
+}
 .hl{flex:1;min-width:200px;}
 .hl-title-wrap{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
-.hl h1{font-family:var(--display);font-size:28px;line-height:1.08;font-weight:800;letter-spacing:0;color:var(--brown);outline:none;border-bottom:2px solid transparent;transition:border-color .2s,color .2s;}
+.hl h1,#site-title{font-family:var(--display);font-size:28px;line-height:1.08;font-weight:800;letter-spacing:0;color:var(--brown);outline:none;border-bottom:2px solid transparent;transition:border-color .2s,color .2s;}
+html[dir="rtl"] .hl h1,html[dir="rtl"] #site-title,body.lang-ar .hl h1,body.lang-ar #site-title{font-family:var(--display);font-weight:800;}
 @media(max-width:640px){
   .hl h1{font-size:24px;}
   .hi{position:relative;}
-  .hl{padding-right:110px;}
-  .dm-toggle-wrap{position:absolute;top:0;right:0;}
-  .header-right{width:100%;align-items:flex-start;margin-top:10px;}
-  .hstats{justify-content:flex-start;}
+  .hl{padding-right:138px;}
+  .header-toggles{position:absolute;top:0;right:0;left:auto;}
+  .header-right{width:100%;align-items:flex-end;margin-top:10px;}
+  .hstats{justify-content:flex-end;}
 }
+.hi .hl h1,.hi .hl p{unicode-bidi:plaintext;}
+html[dir="rtl"] .popup-banner-x{left:12px;right:auto;}
+html[dir="rtl"] .modal-hdr{flex-direction:row-reverse;}
+html[dir="rtl"] .modal-foot{flex-direction:row-reverse;}
+html[dir="rtl"] .citem{flex-direction:row-reverse;}
 .hl h1:focus{border-bottom-color:var(--brownL);}
-.hl p{color:var(--t3);font-size:12.5px;outline:none;border-bottom:2px solid transparent;transition:border-color .2s;display:inline-block;}
+.hl p,#site-sub{font-family:var(--display);color:var(--t3);font-size:12.5px;font-weight:500;outline:none;border-bottom:2px solid transparent;transition:border-color .2s;display:inline-block;}
+html[dir="rtl"] .hl p,html[dir="rtl"] #site-sub,body.lang-ar .hl p,body.lang-ar #site-sub{font-family:var(--display);font-weight:500;}
 .hl p:focus{border-bottom-color:var(--brownL);}
 .edit-hint{font-size:10px;color:var(--t4);font-family:var(--mono);margin-top:3px;opacity:0;transition:opacity .2s;}
 .hl:hover .edit-hint{opacity:1;}
 .header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
 .hstats{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
-.sp{background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:4px 12px;font-size:11px;color:var(--t3);font-family:var(--mono);transition:background .3s,border-color .3s;}
+.sp{background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:4px 12px;font-size:11px;color:var(--t3);font-family:var(--mono);transition:background-color var(--theme-dur) ease,border-color var(--theme-dur) ease,color var(--theme-dur) ease;}
 .sp b{color:var(--brown);}
 
 /* ── QUICK NAV ── */
-.quick-nav{position:sticky;top:0;z-index:90;margin:-6px 0 16px;padding:8px 0;background:var(--bg);border-bottom:1px solid transparent;}
+.quick-nav{position:sticky;top:0;z-index:90;margin:-6px 0 16px;padding:8px 0;background:var(--bg);border-bottom:1px solid transparent;transition:background-color var(--theme-dur) ease,border-color var(--theme-dur) ease;}
 .quick-nav-inner{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}
 .quick-nav-inner::-webkit-scrollbar{display:none;}
 .quick-nav a{
@@ -252,6 +354,46 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 .pb-btn.primary:hover{opacity:.85;}
 .pb-btn.ghost{background:var(--s2);border:1px solid var(--border);color:var(--t3);}
 .pb-btn.ghost:hover{border-color:var(--borderH);color:var(--t2);}
+.pb-btn.video{background:var(--amberG);border:1px solid var(--amber);color:var(--amber);}
+.pb-btn.video:hover{background:rgba(183,121,31,0.22);}
+
+/* ── POPUP AWARENESS (persistent) ── */
+.popup-notice{
+  display:none;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  margin-bottom:16px;
+  border-radius:var(--rl);
+  background:linear-gradient(135deg,rgba(183,121,31,0.14),rgba(183,121,31,0.06));
+  border:1.5px solid rgba(183,121,31,0.45);
+  box-shadow:0 0 0 1px rgba(183,121,31,0.08),0 4px 18px rgba(183,121,31,0.12);
+  animation:popup-notice-pulse 2.8s ease-in-out infinite;
+}
+@media(min-width:641px){.popup-notice{display:flex;}}
+.popup-notice-icon{font-size:22px;flex-shrink:0;line-height:1;}
+.popup-notice-body{flex:1;min-width:0;}
+.popup-notice-title{font-size:13px;font-weight:800;color:var(--amber);margin-bottom:3px;line-height:1.35;}
+.popup-notice-desc{font-size:12px;color:var(--t2);line-height:1.55;}
+.popup-notice-desc strong{color:var(--t1);}
+.popup-notice-btn{
+  flex-shrink:0;
+  padding:8px 14px;
+  border-radius:8px;
+  border:1px solid var(--amber);
+  background:var(--amber);
+  color:#1a1208;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  transition:all .15s;
+  white-space:nowrap;
+}
+.popup-notice-btn:hover{background:var(--brownL);border-color:var(--brownL);color:#07111f;transform:translateY(-1px);}
+@keyframes popup-notice-pulse{
+  0%,100%{box-shadow:0 0 0 1px rgba(183,121,31,0.08),0 4px 18px rgba(183,121,31,0.12);}
+  50%{box-shadow:0 0 0 3px rgba(183,121,31,0.18),0 6px 22px rgba(183,121,31,0.18);}
+}
 
 /* ── MOBILE WARNING ── */
 .mobile-note{
@@ -284,7 +426,7 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 .country-pill.on-slt:hover{background:var(--brownL);border-color:var(--brownL);color:#07111f;}
 
 /* ── PANELS ── */
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;margin-bottom:16px;box-shadow:var(--sh);transition:background .2s,border-color .2s,box-shadow .2s;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);padding:16px 18px;margin-bottom:16px;box-shadow:var(--sh);transition:background-color var(--theme-dur) ease,border-color var(--theme-dur) ease,box-shadow var(--theme-dur) ease,color var(--theme-dur) ease;}
 @media(min-width:641px){.panel{padding:18px 20px;}}
 .panel-grid{display:grid;grid-template-columns:1fr;gap:16px;}
 @media(min-width:641px){.panel-grid{grid-template-columns:1fr 1fr;gap:18px;}}
@@ -341,7 +483,7 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 /* ── MODAL ── */
 .modal-overlay{display:none;position:fixed;inset:0;background:var(--overlay);z-index:500;align-items:center;justify-content:center;padding:16px;}
 .modal-overlay.show{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;width:100%;max-width:600px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 12px 60px rgba(0,0,0,0.25);overflow:hidden;transition:background .3s;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:18px;width:100%;max-width:600px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 12px 60px rgba(0,0,0,0.25);overflow:hidden;transition:background-color var(--theme-dur) ease,border-color var(--theme-dur) ease,color var(--theme-dur) ease;}
 .modal-hdr{padding:16px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .modal-hdr h2{font-size:16px;font-weight:700;color:var(--t1);}
 .modal-hdr p{font-size:11.5px;color:var(--t3);margin-top:2px;}
@@ -445,7 +587,7 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
 /* ── CARDS ── */
 .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:10px;}
 @media(max-width:400px){.cg{grid-template-columns:1fr;}}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;transition:border-color .15s,background .15s,transform .15s,box-shadow .15s;cursor:pointer;position:relative;overflow:hidden;box-shadow:var(--sh);}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;transition:border-color var(--theme-dur) ease,background-color var(--theme-dur) ease,color var(--theme-dur) ease,transform .15s,box-shadow var(--theme-dur) ease;cursor:pointer;position:relative;overflow:hidden;box-shadow:var(--sh);}
 .card:hover{border-color:var(--borderH);background:var(--s2);transform:translateY(-1px);box-shadow:var(--shH);}
 .card.sel{border-color:var(--brown);background:var(--brownG);}
 .card.sel::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--brown),var(--brownL));border-radius:var(--r) 0 0 var(--r);}
@@ -504,12 +646,40 @@ header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:1
   position:fixed;bottom:0;left:0;right:0;
   background:var(--ab-bg);
   backdrop-filter:blur(18px);border-top:1px solid var(--border);
-  padding:10px 18px;z-index:100;
+  padding:0;
+  z-index:100;
   box-shadow:0 -2px 12px rgba(110,79,56,0.08);
-  transition:background .3s;
+  transition:background-color var(--theme-dur) ease,border-color var(--theme-dur) ease,color var(--theme-dur) ease;
 }
 @media(min-width:641px){.ab{display:block;}}
-.ab-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.ab-notice{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  padding:8px 18px;
+  background:linear-gradient(90deg,rgba(183,121,31,0.16),rgba(183,121,31,0.06));
+  border-bottom:1px solid rgba(183,121,31,0.35);
+  font-size:11.5px;
+  color:var(--t2);
+  line-height:1.45;
+}
+.ab-notice strong{color:var(--amber);font-weight:800;}
+.ab-notice-btn{
+  padding:5px 11px;
+  border-radius:7px;
+  border:1px solid var(--amber);
+  background:var(--amberG);
+  color:var(--amber);
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  transition:all .15s;
+  white-space:nowrap;
+}
+.ab-notice-btn:hover{background:var(--amber);color:#1a1208;}
+.ab-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 18px;}
 .abl{display:flex;align-items:center;gap:8px;}
 .sm-btn{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t3);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;}
 .sm-btn:hover{border-color:var(--brownL);color:var(--t1);}
@@ -733,12 +903,12 @@ footer {
 .demo-pop{margin-left:auto;padding:6px 10px;border-radius:999px;background:var(--amberG);border:1px solid rgba(183,121,31,.34);color:var(--amber);font-size:11px;font-weight:800;}
 .browser-demo-body{padding:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 .demo-step{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:14px;min-height:116px;}
-.demo-step-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brown);color:#07111f;font-size:12px;font-weight:800;margin-bottom:10px;}
+.demo-step-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brown);color:#e2e2e2;font-size:12px;font-weight:800;margin-bottom:10px;}
 .demo-step-title{font-size:13px;font-weight:800;color:var(--t1);margin-bottom:5px;}
 .demo-step-copy{font-size:12px;color:var(--t3);line-height:1.55;}
 .guide-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 16px;background:var(--s2);border:1px solid var(--border);border-radius:var(--r);}
 .guide-control-copy{font-size:12px;color:var(--t3);line-height:1.55;max-width:680px;}
-.guide-demo-btn{padding:8px 14px;border-radius:8px;border:1px solid var(--brown);background:var(--brown);color:#07111f;font-size:12.5px;font-weight:800;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.guide-demo-btn{padding:8px 14px;border-radius:8px;border:1px solid var(--brown);background:var(--brown);color:#f3f3f3;font-size:12.5px;font-weight:800;cursor:pointer;transition:all .15s;white-space:nowrap;}
 .guide-demo-btn:hover{background:var(--brownL);border-color:var(--brownL);}
 .guide-video-wrap{width:100%;display:flex;align-items:center;justify-content:center;padding:8px;}
 .guide-video{width:100%;max-height:74vh;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--sh);background:#000;outline:none;}
@@ -753,46 +923,46 @@ footer {
   <div class="modal">
     <div class="modal-hdr">
       <div>
-        <h2>🌍 Countries</h2>
-        <p>Set countries to search in mark where you're <strong>authorized to work</strong> (no visa needed)</p>
+        <h2 data-i18n="modalCountriesTitle">🌍 Countries</h2>
+        <p data-i18n-html="modalCountriesSub">Set countries to search in mark where you're <strong>authorized to work</strong> (no visa needed)</p>
       </div>
       <button class="modal-x" onclick="closeCountryModal()">✕</button>
     </div>
     <div class="modal-body">
       <div id="clist-wrap" class="clist"></div>
       <div class="add-form">
-        <h3>ADD NEW COUNTRY</h3>
+        <h3 data-i18n="addCountryHdr">ADD NEW COUNTRY</h3>
         <div class="form-row">
           <div class="form-group" style="max-width:72px">
-            <label>Flag</label>
+            <label data-i18n="flagLabel">Flag</label>
             <input type="text" id="nf-flag" placeholder="🇺🇸" maxlength="4">
-            <span class="hint">Emoji</span>
+            <span class="hint" data-i18n="emojiHint">Emoji</span>
           </div>
           <div class="form-group" style="flex:2">
-            <label>Country Name</label>
-            <input type="text" id="nf-name" placeholder="e.g. France" maxlength="60">
+            <label data-i18n="countryNameLabel">Country Name</label>
+            <input type="text" id="nf-name" data-i18n-placeholder="countryNamePh" placeholder="e.g. France" maxlength="60">
           </div>
           <div class="form-group" style="flex:1.5">
-            <label>GeoId <span style="color:var(--clay)">*required</span></label>
-            <input type="text" id="nf-geo" placeholder="e.g. 105015875" maxlength="20" pattern="[0-9]+">
-            <span id="geo-err" class="field-err hidden">Numeric GeoId required</span>
+            <label data-i18n-html="geoIdLabel">GeoId <span style="color:var(--clay)">*required</span></label>
+            <input type="text" id="nf-geo" data-i18n-placeholder="geoIdPh" placeholder="e.g. 105015875" maxlength="20" pattern="[0-9]+">
+            <span id="geo-err" class="field-err hidden" data-i18n="geoIdErr">Numeric GeoId required</span>
           </div>
         </div>
         <div style="font-size:11px;color:var(--t3);margin-bottom:8px;">
-          <span class="geoid-help" onclick="toggleGeoHelp()">❓ How to find a LinkedIn GeoId?</span>
-          <div id="geo-help-box" class="geo-help-box">
+          <span class="geoid-help" onclick="toggleGeoHelp()" data-i18n="geoHelpLink">❓ How to find a LinkedIn GeoId?</span>
+          <div id="geo-help-box" class="geo-help-box" data-i18n="geoHelpBox" data-i18n-html>
             <strong>Method 1:</strong> Visit <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">linkedin.com/jobs/search/</code>, filter by location (type the country name). Check the URL it will contain <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">geoId=XXXXXXX</code>. Copy that number.<br><br>
             <strong>Method 2:</strong> Common GeoIds 🇺🇸 US: 103644278 · 🇬🇧 UK: 101165590 · 🇩🇪 DE: 101282230 · 🇫🇷 FR: 105015875 · 🇳🇱 NL: 102890719 · 🇨🇦 CA: 101174742 · 🇦🇺 AU: 101452733 · 🇸🇬 SG: 102454443 · 🇯🇵 JP: 101355337 · 🇸🇦 SA: 102571527 · 🇦🇪 AE: 104305776 · 🇪🇸 ES: 105646813 · 🇵🇱 PL: 105072130 · 🇵🇹 PT: 100364837 · 🇪🇬 EG: 106155005
           </div>
         </div>
         <label class="local-check">
-          <input type="checkbox" id="nf-local"> I'm authorized to work here (no visa sponsorship needed)
+          <input type="checkbox" id="nf-local"> <span data-i18n="localCheck">I'm authorized to work here (no visa sponsorship needed)</span>
         </label>
       </div>
     </div>
     <div class="modal-foot" style="display:flex;gap:8px;justify-content:flex-end;">
-      <button class="abtn sec" onclick="closeCountryModal()">Done</button>
-      <button class="add-confirm" onclick="addCountry()">+ Add Country</button>
+      <button class="abtn sec" onclick="closeCountryModal()" data-i18n="done">Done</button>
+      <button class="add-confirm" onclick="addCountry()" data-i18n="addCountry">+ Add Country</button>
     </div>
   </div>
 </div>
@@ -802,8 +972,8 @@ footer {
   <div class="modal" style="max-width: 1100px; width: 95%;">
     <div class="modal-hdr">
       <div>
-        <h2>Pop-up Permission Guide</h2>
-        <p>Follow these steps in your browser address bar to allow opening multiple tabs</p>
+        <h2 data-i18n="gifModalTitle">Pop-up Permission Guide</h2>
+        <p data-i18n="gifModalSub">Follow these steps in your browser address bar to allow opening multiple tabs</p>
       </div>
       <button class="modal-x" onclick="closeGifModal()">✕</button>
     </div>
@@ -815,34 +985,34 @@ footer {
             <span class="demo-dot"></span>
             <span class="demo-dot"></span>
             <div class="demo-url">job-hunter.html</div>
-            <div class="demo-pop">Pop-up blocked</div>
+            <div class="demo-pop" data-i18n="demoPopBlocked">Pop-up blocked</div>
           </div>
           <div class="browser-demo-body">
             <div class="demo-step">
               <div class="demo-step-num">1</div>
-              <div class="demo-step-title">Open the browser notice</div>
-              <div class="demo-step-copy">Click the pop-up blocked icon in the address bar after trying Open All.</div>
+              <div class="demo-step-title" data-i18n="demoStep1Title">Open the browser notice</div>
+              <div class="demo-step-copy" data-i18n="demoStep1Copy">Click the pop-up blocked icon in the address bar after trying Open All.</div>
             </div>
             <div class="demo-step">
               <div class="demo-step-num">2</div>
-              <div class="demo-step-title">Allow this page</div>
-              <div class="demo-step-copy">Choose the option to always allow pop-ups and redirects from this file.</div>
+              <div class="demo-step-title" data-i18n="demoStep2Title">Allow this page</div>
+              <div class="demo-step-copy" data-i18n="demoStep2Copy">Choose the option to always allow pop-ups and redirects from this file.</div>
             </div>
             <div class="demo-step">
               <div class="demo-step-num">3</div>
-              <div class="demo-step-title">Try again</div>
-              <div class="demo-step-copy">Close the notice, then use Open Selected or Open All again.</div>
+              <div class="demo-step-title" data-i18n="demoStep3Title">Try again</div>
+              <div class="demo-step-copy" data-i18n="demoStep3Copy">Close the notice, then use Open Selected or Open All again.</div>
             </div>
           </div>
         </div>
         <div class="guide-controls">
-          <div class="guide-control-copy">Prefer to watch the original walkthrough? Open the video demo here.</div>
-          <button class="guide-demo-btn" onclick="showGuideVideo()">Show video demo</button>
+          <div class="guide-control-copy" data-i18n="guideVideoCopy">Prefer to watch the original walkthrough? Open the video demo here.</div>
+          <button class="guide-demo-btn" onclick="showGuideVideo()" data-i18n="showVideoDemo">Show video demo</button>
         </div>
         <div class="guide-video-wrap hidden" id="guide-video-wrap" aria-label="Pop-up permission video guide">
           <video id="guide-video" class="guide-video" controls playsinline preload="none">
             <source id="guide-video-source" data-src="demo.mp4" type="video/mp4">
-            <p class="guide-video-fallback">Your browser cannot play this video. Keep demo.mp4 next to index.html and try again.</p>
+            <p class="guide-video-fallback" data-i18n="guideVideoFallback">Your browser cannot play this video. Keep demo.mp4 next to index.html and try again.</p>
           </video>
         </div>
       </div>
@@ -864,154 +1034,173 @@ footer {
   <div class="hi">
     <div class="hl" id="header-hl">
       <div class="hl-title-wrap">
-        <h1 id="site-title" contenteditable="true" spellcheck="false" title="Click to edit title"></h1>
+        <h1 id="site-title" contenteditable="true" spellcheck="false" data-i18n-title="editTitleTip" title="Click to edit title"></h1>
       </div>
-      <p id="site-sub" contenteditable="true" spellcheck="false" title="Click to edit subtitle"></p>
-      <div class="edit-hint">✏️ Click title or subtitle to edit · changes auto-save</div>
+      <p id="site-sub" contenteditable="true" spellcheck="false" data-i18n-title="editSubtitleTip" title="Click to edit subtitle"></p>
+      <div class="edit-hint" data-i18n="editHint">✏️ Click title or subtitle to edit · changes auto-save</div>
     </div>
     <div class="header-right">
-      <label class="dm-toggle-wrap" title="Toggle Dark/Light Mode">
-        <input class="toggle-checkbox" type="checkbox" id="dm-toggle" onclick="toggleDark()">
-        <div class="toggle-slot">
-          <div class="sun-icon-wrapper">
-            <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+      <div class="header-toggles">
+        <label class="dm-toggle-wrap lang-toggle-wrap" data-i18n-title="langToggleTitle" title="Toggle language">
+          <input class="toggle-checkbox" type="checkbox" id="lang-toggle" onclick="toggleLang()">
+          <div class="toggle-slot">
+            <div class="lang-en-wrapper"><span class="lang-label" aria-hidden="true">EN</span></div>
+            <div class="toggle-button"></div>
+            <div class="lang-ar-wrapper"><span class="lang-label" aria-hidden="true">AR</span></div>
           </div>
-          <div class="toggle-button"></div>
-          <div class="moon-icon-wrapper">
-            <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
+        </label>
+        <label class="dm-toggle-wrap" data-i18n-title="themeToggleTitle" title="Toggle Dark/Light Mode">
+          <input class="toggle-checkbox" type="checkbox" id="dm-toggle" onclick="toggleDark()">
+          <div class="toggle-slot">
+            <div class="sun-icon-wrapper">
+              <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+            </div>
+            <div class="toggle-button"></div>
+            <div class="moon-icon-wrapper">
+              <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
+            </div>
           </div>
-        </div>
-      </label>
+        </label>
+      </div>
       <div class="hstats">
-        <div class="sp"><b id="total-count">0</b> searches</div>
-        <div class="sp"><b id="country-count">0</b> countries</div>
-        <!-- <div class="sp" id="visitor-count-pill" ><b id="visitor-count">0</b> visitors</div> -->
+        <div class="sp"><b id="total-count">0</b> <span data-i18n="statSearches">searches</span></div>
+        <div class="sp"><b id="country-count">0</b> <span data-i18n="statCountries">countries</span></div>
         <div class="sp" id="af-stat">No filters</div>
       </div>
     </div>
   </div>
 </header>
 
-<nav class="quick-nav" aria-label="Page sections">
+<nav class="quick-nav" aria-label="Page sections" data-i18n-aria="navAria">
   <div class="quick-nav-inner">
-    <a href="#filters">Filters</a>
-    <a href="#keywords">Keywords</a>
-    <a href="#results">Searches</a>
-    <a href="#guide">Guide</a>
+    <a href="#filters" data-i18n="navFilters">Filters</a>
+    <a href="#keywords" data-i18n="navKeywords">Keywords</a>
+    <a href="#results" data-i18n="navSearches">Searches</a>
+    <a href="#guide" data-i18n="navGuide">Guide</a>
   </div>
 </nav>
+
+<!-- ── POPUP BLOCKER AWARENESS (always visible on desktop) ── -->
+<div class="popup-notice" id="popup-notice">
+  <div class="popup-notice-icon" aria-hidden="true">🚫</div>
+  <div class="popup-notice-body">
+    <div class="popup-notice-title" data-i18n="popupNoticeTitle">Browsers block pop-ups by default</div>
+    <div class="popup-notice-desc" data-i18n-html="popupNoticeDesc"><strong>Open All ↗</strong> and <strong>Open Selected ↗</strong> need pop-ups allowed first — otherwise only one tab may open. Watch the short video to fix it in seconds.</div>
+  </div>
+  <button class="popup-notice-btn" onclick="openGifModal()" data-i18n="watchPopupDemo">▶ Watch video guide</button>
+</div>
 
 <!-- ── POPUP PERMISSION BANNER ── -->
 <div class="popup-banner" id="popup-banner" style="display:none">
   <div class="popup-banner-icon">🔓</div>
   <div class="popup-banner-body">
-    <h4>Allow pop-ups to open multiple tabs at once</h4>
-    <p>Job Hunter opens each search in a new tab. Your browser blocks this by default here's how to allow it:</p>
+    <h4 data-i18n="popupTitle">Allow pop-ups to open multiple tabs at once</h4>
+    <p data-i18n="popupDesc">Job Hunter opens each search in a new tab. Your browser blocks this by default here's how to allow it:</p>
     <div class="popup-banner-steps">
-      <div class="pbs"><div class="pbs-num">1</div> Click the <strong>blocked pop-up icon</strong> in your address bar (usually a small icon on the right)</div>
-      <div class="pbs"><div class="pbs-num">2</div> Choose <strong>"Always allow pop-ups from this site"</strong></div>
-      <div class="pbs"><div class="pbs-num">3</div> Click <strong>Done</strong> then try opening tabs again</div>
+      <div class="pbs"><div class="pbs-num">1</div><span data-i18n-html="popupStep1">Click the <strong>blocked pop-up icon</strong> in your address bar (usually a small icon on the right)</span></div>
+      <div class="pbs"><div class="pbs-num">2</div><span data-i18n-html="popupStep2">Choose <strong>"Always allow pop-ups from this site"</strong></span></div>
+      <div class="pbs"><div class="pbs-num">3</div><span data-i18n-html="popupStep3">Click <strong>Done</strong> then try opening tabs again</span></div>
     </div>
     <div class="pb-confirm" style="margin-top:12px;">
-      <button class="pb-btn primary" onclick="dismissPopupBanner()">✓ Got it, I've allowed them</button>
-      <button class="pb-btn ghost" onclick="dismissPopupBanner()">Skip for now</button>
+      <button class="pb-btn video" onclick="openGifModal()" data-i18n="watchPopupDemo">▶ Watch video guide</button>
+      <button class="pb-btn primary" onclick="dismissPopupBanner()" data-i18n="popupGotIt">✓ Got it, I've allowed them</button>
+      <button class="pb-btn ghost" onclick="dismissPopupBanner()" data-i18n="popupSkip">Skip for now</button>
     </div>
   </div>
   <button class="popup-banner-x" onclick="dismissPopupBanner()">✕</button>
 </div>
 
 <!-- ── MOBILE NOTE ── -->
-<div class="mobile-note" id="mobile-note" style="display:none">
+<div class="mobile-note" id="mobile-note" style="display:none" data-i18n-html="mobileNote">
   <b>Mobile tip:</b> Opening multiple tabs on mobile will launch the LinkedIn app for each link, one at a time. We recommend tapping <strong>Open ↗</strong> on each card individually for the best experience. The "Open All" and batch download features work best on desktop.
 </div>
 
 <div class="pw" id="pw">
   <span>⚠️</span>
-  <span>Some tabs may still be blocked. Click the popup icon in your address bar → Allow. Or use <b>.bat</b> below.</span>
+  <span data-i18n-html="popupWarn">Some tabs may still be blocked. Click the popup icon in your address bar → Allow. Or use <b>.bat</b> below.</span>
 </div>
 
 <!-- ── FILTER PANEL ── -->
 <section class="panel filter-panel" id="filters" aria-labelledby="filters-title">
   <div class="panel-head">
     <div>
-      <div class="panel-title" id="filters-title">Filters</div>
-      <div class="panel-sub">Tune the search set before opening tabs. Active choices update the cards below.</div>
+      <div class="panel-title" id="filters-title" data-i18n="filtersTitle">Filters</div>
+      <div class="panel-sub" data-i18n="filtersSub">Tune the search set before opening tabs. Active choices update the cards below.</div>
     </div>
     <div class="panel-actions">
-      <button class="mini-action" onclick="clearFilters()">Clear filters</button>
+      <button class="mini-action" onclick="clearFilters()" data-i18n="clearFilters">Clear filters</button>
     </div>
   </div>
   <div class="panel-grid">
     <div>
       <div class="fp-sec">
-        <div class="fl">⏱ Time Range</div>
+        <div class="fl" data-i18n="timeRange">⏱ Time Range</div>
         <div class="pills" id="tf">
-          <div class="pill on" data-v="" onclick="setTime(this)">Any Time</div>
-          <div class="pill" data-v="r86400" onclick="setTime(this)">Today</div>
-          <div class="pill" data-v="r259200" onclick="setTime(this)">3 Days</div>
-          <div class="pill" data-v="r604800" onclick="setTime(this)">This Week</div>
-          <div class="pill" data-v="r2592000" onclick="setTime(this)">This Month</div>
+          <div class="pill on" data-v="" onclick="setTime(this)" data-i18n="timeAny">Any Time</div>
+          <div class="pill" data-v="r86400" onclick="setTime(this)" data-i18n="timeToday">Today</div>
+          <div class="pill" data-v="r259200" onclick="setTime(this)" data-i18n="time3Days">3 Days</div>
+          <div class="pill" data-v="r604800" onclick="setTime(this)" data-i18n="timeWeek">This Week</div>
+          <div class="pill" data-v="r2592000" onclick="setTime(this)" data-i18n="timeMonth">This Month</div>
         </div>
         <div class="time-custom">
-          <input type="number" id="tc-val" placeholder="e.g. 2" min="1" max="999" oninput="customTimePreview()">
+          <input type="number" id="tc-val" data-i18n-placeholder="timeCustomPh" placeholder="e.g. 2" min="1" max="999" oninput="customTimePreview()">
           <select id="tc-unit" onchange="customTimePreview()">
-            <option value="60">minutes</option>
-            <option value="3600" selected>hours</option>
-            <option value="86400">days</option>
-            <option value="604800">weeks</option>
+            <option value="60" data-i18n="unitMinutes">minutes</option>
+            <option value="3600" selected data-i18n="unitHours">hours</option>
+            <option value="86400" data-i18n="unitDays">days</option>
+            <option value="604800" data-i18n="unitWeeks">weeks</option>
           </select>
-          <button onclick="applyCustomTime()">Apply</button>
+          <button onclick="applyCustomTime()" data-i18n="apply">Apply</button>
           <span id="tc-preview" style="font-size:10.5px;color:var(--t4);font-family:var(--mono);"></span>
         </div>
       </div>
       <div class="fp-sec">
-        <div class="fl">Work Type</div>
+        <div class="fl" data-i18n="workType">Work Type</div>
         <div class="pills" id="wf">
-          <div class="pill" data-v="2" onclick="toggleWT(this)">Remote</div>
-          <div class="pill" data-v="3" onclick="toggleWT(this)">Hybrid</div>
-          <div class="pill" data-v="1" onclick="toggleWT(this)">On-site</div>
+          <div class="pill" data-v="2" onclick="toggleWT(this)" data-i18n="wtRemote">Remote</div>
+          <div class="pill" data-v="3" onclick="toggleWT(this)" data-i18n="wtHybrid">Hybrid</div>
+          <div class="pill" data-v="1" onclick="toggleWT(this)" data-i18n="wtOnsite">On-site</div>
         </div>
       </div>
       <div class="fp-sec">
-        <div class="fl">Experience Level</div>
+        <div class="fl" data-i18n="expLevel">Experience Level</div>
         <div class="pills" id="ef">
-          <div class="pill" data-v="1" onclick="toggleEL(this)">Internship</div>
-          <div class="pill" data-v="2" onclick="toggleEL(this)">Entry Level</div>
-          <div class="pill" data-v="3" onclick="toggleEL(this)">Associate</div>
-          <div class="pill" data-v="4" onclick="toggleEL(this)">Mid-Senior</div>
-          <div class="pill" data-v="5" onclick="toggleEL(this)">Director</div>
-          <div class="pill" data-v="6" onclick="toggleEL(this)">Executive</div>
+          <div class="pill" data-v="1" onclick="toggleEL(this)" data-i18n="elIntern">Internship</div>
+          <div class="pill" data-v="2" onclick="toggleEL(this)" data-i18n="elEntry">Entry Level</div>
+          <div class="pill" data-v="3" onclick="toggleEL(this)" data-i18n="elAssociate">Associate</div>
+          <div class="pill" data-v="4" onclick="toggleEL(this)" data-i18n="elMid">Mid-Senior</div>
+          <div class="pill" data-v="5" onclick="toggleEL(this)" data-i18n="elDirector">Director</div>
+          <div class="pill" data-v="6" onclick="toggleEL(this)" data-i18n="elExec">Executive</div>
         </div>
       </div>
     </div>
     <div>
       <div class="fp-sec">
-        <div class="fl">✨ Extras</div>
+        <div class="fl" data-i18n="extras">✨ Extras</div>
         <div class="pills">
-          <div class="pill" id="ea-pill" onclick="toggleEA()">⚡ Easy Apply</div>
-          <div class="pill" id="ua-pill" onclick="toggleUA()">🔥 Under 10 Applicants</div>
-          <div class="pill" id="vm-pill" onclick="toggleVM()">🌍 Visa Mode</div>
+          <div class="pill" id="ea-pill" onclick="toggleEA()" data-i18n="easyApply">⚡ Easy Apply</div>
+          <div class="pill" id="ua-pill" onclick="toggleUA()" data-i18n="under10">🔥 Under 10 Applicants</div>
+          <div class="pill" id="vm-pill" onclick="toggleVM()" data-i18n="visaMode">🌍 Visa Mode</div>
         </div>
-        <!-- Visa Mode info shown only when Visa Mode is on -->
-        <div class="visa-mode-info" id="visa-mode-info" style="display:none;">
+        <div class="visa-mode-info" id="visa-mode-info" style="display:none;" data-i18n-html="visaModeInfo">
           🌍 <b>Visa Mode is ON</b> "visa sponsorship" is appended to searches in countries where you're <em>not</em> authorized to work. Countries you're authorized in are searched normally. Manage your authorization in <strong>🌍 Countries</strong>.
         </div>
       </div>
       <div class="fp-sec">
-        <div class="fl">Tab Opening Speed</div>
+        <div class="fl" data-i18n="tabSpeed">Tab Opening Speed</div>
         <div class="delay-row">
           <input type="range" id="delay-slider" min="200" max="2000" step="100" value="500" oninput="updateDelay(this.value)">
           <span class="delay-label" id="delay-label">500ms</span>
-          <span style="font-size:10.5px;color:var(--t4)">← faster / safer →</span>
+          <span style="font-size:10.5px;color:var(--t4)" data-i18n="delayHint">← faster / safer →</span>
         </div>
       </div>
       <div class="fp-sec">
-        <div class="fl">Filter by Country</div>
+        <div class="fl" data-i18n="filterCountry">Filter by Country</div>
         <div class="pills" id="cf"></div>
-        <button class="cm-btn" onclick="openCountryModal()">🌍 Countries</button>
+        <button class="cm-btn" onclick="openCountryModal()" data-i18n="countriesBtn">🌍 Countries</button>
       </div>
       <div class="fp-sec">
-        <div class="fl">Filter by Keyword Type</div>
+        <div class="fl" data-i18n="filterKwType">Filter by Keyword Type</div>
         <div class="pills" id="kfp"></div>
       </div>
     </div>
@@ -1023,21 +1212,21 @@ footer {
   <div class="panel-head">
     <div>
       <div class="km-title" id="keywords-title">
-        Keywords
+        <span data-i18n="keywordsTitle">Keywords</span>
         <span id="km-title-sub">applied to all countries</span>
       </div>
-      <div class="panel-sub">Create reusable search terms, then group them by type for faster filtering.</div>
+      <div class="panel-sub" data-i18n="keywordsPanelSub">Create reusable search terms, then group them by type for faster filtering.</div>
     </div>
   </div>
 
   <!-- Type Manager -->
   <div class="fp-sec">
-    <div class="fl">Step 1 Keyword Categories (Types)</div>
+    <div class="fl" data-i18n="step1Types">Step 1 Keyword Categories (Types)</div>
     <div class="tm-list" id="tm-list"></div>
     <div class="tm-add-row">
-      <input type="text" id="tm-input" placeholder="New category, e.g. Backend" maxlength="40"
+      <input type="text" id="tm-input" data-i18n-placeholder="newCategoryPh" placeholder="New category, e.g. Backend" maxlength="40"
         oninput="checkTypeCase()" onkeydown="if(event.key==='Enter')addType()">
-      <button onclick="addType()">+ Add Type</button>
+      <button onclick="addType()" data-i18n="addType">+ Add Type</button>
     </div>
     <div class="case-warn" id="case-warn"></div>
   </div>
@@ -1046,23 +1235,23 @@ footer {
 
   <!-- Keyword list -->
   <div class="fp-sec">
-    <div class="fl">Step 2 All Keywords</div>
+    <div class="fl" data-i18n="step2Keywords">Step 2 All Keywords</div>
     <div id="km-list-wrap"></div>
   </div>
   <div class="km-add">
-    <input type="text" id="kw-input" placeholder="Add keyword: e.g. React Developer, Data Analyst..." maxlength="80"
+    <input type="text" id="kw-input" data-i18n-placeholder="addKeywordPh" placeholder="Add keyword: e.g. React Developer, Data Analyst..." maxlength="80"
       onkeydown="if(event.key==='Enter')addKW()">
     <select id="kw-type-sel" style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;"></select>
-    <button onclick="addKW()">+ Add Keyword</button>
+    <button onclick="addKW()" data-i18n="addKeyword">+ Add Keyword</button>
   </div>
-  <div class="km-note" id="km-note">Custom keywords & types are saved in your browser. Click <b>Save and Download</b> to bake them into the HTML permanently.</div>
+  <div class="km-note" id="km-note" data-i18n-html="kmNote">Custom keywords & types are saved in your browser. Click <b>Save and Download</b> to bake them into the HTML permanently.</div>
 </section>
 
 <!-- ── MOBILE ACTION AREA ── -->
 <div class="mob-actions">
-  <div class="mob-actions-title">Actions</div>
+  <div class="mob-actions-title" data-i18n="actions">Actions</div>
   <div class="mob-btns">
-    <button class="mob-btn save" style="width:100%" onclick="saveToFile()">Save and Download</button>
+    <button class="mob-btn save" style="width:100%" onclick="saveToFile()" data-i18n="saveDownload">Save and Download</button>
   </div>
 </div>
 
@@ -1070,59 +1259,59 @@ footer {
 <div class="aft" id="aft"></div>
 
 <!-- ── RESULTS ── -->
-<div class="sec-t" id="results">Your Searches</div>
+<div class="sec-t" id="results" data-i18n="yourSearches">Your Searches</div>
 <div id="lc"></div>
 <div class="empty hidden" id="es">
   <div class="empty-i">🔍</div>
-  <p style="color:var(--t3);font-size:13px;">No searches match your filters.<br>Try adjusting country or keyword filters.</p>
+  <p style="color:var(--t3);font-size:13px;" data-i18n-html="emptySearches">No searches match your filters.<br>Try adjusting country or keyword filters.</p>
 </div>
 
 <!-- ── HOW TO USE ── -->
 <div class="how-to" id="guide">
-  <div class="how-to-title">How to use Job Hunter</div>
-  <div class="how-to-sub">A quick walkthrough to get you finding jobs in minutes</div>
+  <div class="how-to-title" data-i18n="howToTitle">How to use Job Hunter</div>
+  <div class="how-to-sub" data-i18n="howToSub">A quick walkthrough to get you finding jobs in minutes</div>
   <div class="how-steps">
 
     <div class="how-step">
       <div class="hs-left"><div class="hs-num">1</div><div class="hs-line"></div></div>
       <div class="hs-body">
-        <div class="hs-title">Add countries you want to search in</div>
-        <div class="hs-desc">Click <strong>🌍 Countries</strong> in the filter panel. Each country needs a LinkedIn GeoId a unique number that tells LinkedIn which region to search. You can find it by searching on LinkedIn and checking the URL for <span class="hs-tag">geoId=…</span>. Mark your home country as <strong>Local</strong> so the tool knows where you already live.</div>
+        <div class="hs-title" data-i18n="guide1Title">Add countries you want to search in</div>
+        <div class="hs-desc" data-i18n-html="guide1Desc">Click <strong>🌍 Countries</strong> in the filter panel. Each country needs a LinkedIn GeoId a unique number that tells LinkedIn which region to search. You can find it by searching on LinkedIn and checking the URL for <span class="hs-tag">geoId=…</span>. Mark your home country as <strong>Local</strong> so the tool knows where you already live.</div>
       </div>
     </div>
 
     <div class="how-step">
       <div class="hs-left"><div class="hs-num">2</div><div class="hs-line"></div></div>
       <div class="hs-body">
-        <div class="hs-title">Create keyword categories (types)</div>
-        <div class="hs-desc">In the Keywords panel, first add <strong>categories</strong> to organize your searches  for example <span class="hs-tag">Backend</span> , <span class="hs-tag">Frontend</span> , <span class="hs-tag">DevOps</span>. These become color-coded filter pills so you can quickly focus on one area at a time.</div>
+        <div class="hs-title" data-i18n="guide2Title">Create keyword categories (types)</div>
+        <div class="hs-desc" data-i18n-html="guide2Desc">In the Keywords panel, first add <strong>categories</strong> to organize your searches  for example <span class="hs-tag">Backend</span> , <span class="hs-tag">Frontend</span> , <span class="hs-tag">DevOps</span>. These become color-coded filter pills so you can quickly focus on one area at a time.</div>
       </div>
     </div>
 
     <div class="how-step">
       <div class="hs-left"><div class="hs-num">3</div><div class="hs-line"></div></div>
       <div class="hs-body">
-        <div class="hs-title">Add job title keywords</div>
-        <div class="hs-desc">Then add actual job titles or search phrases e.g. <span class="hs-tag">Python Developer</span> , <span class="hs-tag">Data Engineer</span>. Assign each to a category. Each keyword × each country = one search card. So 5 keywords × 7 countries = 35 ready-to-open searches.</div>
+        <div class="hs-title" data-i18n="guide3Title">Add job title keywords</div>
+        <div class="hs-desc" data-i18n-html="guide3Desc">Then add actual job titles or search phrases e.g. <span class="hs-tag">Python Developer</span> , <span class="hs-tag">Data Engineer</span>. Assign each to a category. Each keyword × each country = one search card. So 5 keywords × 7 countries = 35 ready-to-open searches.</div>
       </div>
     </div>
 
     <div class="how-step">
       <div class="hs-left"><div class="hs-num">4</div><div class="hs-line"></div></div>
       <div class="hs-body">
-        <div class="hs-title">Use filters to narrow results</div>
-        <div class="hs-desc">Use the filter panel to narrow by time range, work type (remote, hybrid, on-site), or Easy Apply. Filter by country or keyword type to focus on specific cards. Active filters are shown as tags below the panel.</div>
+        <div class="hs-title" data-i18n="guide4Title">Use filters to narrow results</div>
+        <div class="hs-desc" data-i18n="guide4Desc">Use the filter panel to narrow by time range, work type (remote, hybrid, on-site), or Easy Apply. Filter by country or keyword type to focus on specific cards. Active filters are shown as tags below the panel.</div>
       </div>
     </div>
 
     <div class="how-step">
       <div class="hs-left"><div class="hs-num">5</div><div class="hs-line"></div></div>
       <div class="hs-body">
-        <div class="hs-title">Understand Visa Sponsorship mode</div>
-        <div class="hs-desc">Toggle <strong>🌍 Visa Mode</strong> to append "visa sponsorship" to your searches this surfaces jobs that explicitly mention visa support. In <strong>🌍 Countries</strong>, mark each country where you're <strong>authorized to work</strong> (your home country or any country where you hold a work permit). Those countries will search <em>without</em> "visa sponsorship" appended.</div>
+        <div class="hs-title" data-i18n="guide5Title">Understand Visa Sponsorship mode</div>
+        <div class="hs-desc" data-i18n-html="guide5Desc">Toggle <strong>🌍 Visa Mode</strong> to append "visa sponsorship" to your searches this surfaces jobs that explicitly mention visa support. In <strong>🌍 Countries</strong>, mark each country where you're <strong>authorized to work</strong> (your home country or any country where you hold a work permit). Those countries will search <em>without</em> "visa sponsorship" appended.</div>
         <div class="hs-callout">
           <span>💡</span>
-          <span>Example: You're Egyptian, applying to Germany and UK. In 🌍 Countries, mark 🇪🇬 Egypt as <em>Authorized</em>. Then enable Visa Mode. Egypt will search normally Germany and UK will search for visa-sponsored roles.</span>
+          <span data-i18n="guide5Callout" data-i18n-html>Example: You're Egyptian, applying to Germany and UK. In 🌍 Countries, mark 🇪🇬 Egypt as <em>Authorized</em>. Then enable Visa Mode. Egypt will search normally Germany and UK will search for visa-sponsored roles.</span>
         </div>
       </div>
     </div>
@@ -1130,15 +1319,15 @@ footer {
     <div class="how-step">
       <div class="hs-left"><div class="hs-num">6</div><div class="hs-line"></div></div>
       <div class="hs-body">
-        <div class="hs-title">Open searches desktop vs mobile</div>
-        <div class="hs-desc">On <strong>desktop</strong>: select cards and click <span class="hs-tag">Open Selected ↗</span> , or <span class="hs-tag">Open All ↗</span> to open everything at once. Your browser may block pop-ups the first time allow them when prompted (the banner at the top guides you). On <strong>mobile</strong>: every link opens in the LinkedIn app. Clicking <span class="hs-tag">Open All ↗</span> will launch the app <em>once per search</em> which can be overwhelming.</div>
+        <div class="hs-title" data-i18n="guide6Title">Open searches desktop vs mobile</div>
+        <div class="hs-desc" data-i18n-html="guide6Desc">On <strong>desktop</strong>: select cards and click <span class="hs-tag">Open Selected ↗</span> , or <span class="hs-tag">Open All ↗</span> to open everything at once. Your browser may block pop-ups the first time allow them when prompted (the banner at the top guides you). On <strong>mobile</strong>: every link opens in the LinkedIn app. Clicking <span class="hs-tag">Open All ↗</span> will launch the app <em>once per search</em> which can be overwhelming.</div>
         <div class="hs-callout blue">
           <span></span>
-          <span>Desktop tip: use the Tab Speed slider to control how fast tabs open. On mobile, tap <span class="hs-tag">Open ↗</span> on individual cards rather than using <span class="hs-tag">Open All ↗</span> it's a much smoother experience.</span>
+          <span data-i18n-html="guide6CalloutBlue">Desktop tip: use the Tab Speed slider to control how fast tabs open. On mobile, tap <span class="hs-tag">Open ↗</span> on individual cards rather than using <span class="hs-tag">Open All ↗</span> it's a much smoother experience.</span>
         </div>
         <div class="hs-callout" style="margin-top:6px;">
           <span></span>
-          <span><strong>Mobile notice:</strong> There is no <span class="hs-tag">Open All ↗</span> or <span class="hs-tag">Open Selected ↗</span> on mobile, as every link opens in the LinkedIn app one by one. Tap each <span class="hs-tag">Open ↗</span> button to open them at your own pace.</span>
+          <span data-i18n-html="guide6CalloutMobile"><strong>Mobile notice:</strong> There is no <span class="hs-tag">Open All ↗</span> or <span class="hs-tag">Open Selected ↗</span> on mobile, as every link opens in the LinkedIn app one by one. Tap each <span class="hs-tag">Open ↗</span> button to open them at your own pace.</span>
         </div>
       </div>
     </div>
@@ -1146,11 +1335,11 @@ footer {
     <div class="how-step">
       <div class="hs-left"><div class="hs-num">7</div><div class="hs-line"></div></div>
       <div class="hs-body">
-        <div class="hs-title">Save your setup</div>
-        <div class="hs-desc">Your keywords and countries auto-save in your browser. But if you want a shareable, portable version, click <span class="hs-tag">Save and Download</span> it downloads a copy of this HTML with all your settings baked in. Open that file in any browser and everything will be there.</div>
+        <div class="hs-title" data-i18n="guide7Title">Save your setup</div>
+        <div class="hs-desc" data-i18n-html="guide7Desc">Your keywords and countries auto-save in your browser. But if you want a shareable, portable version, click <span class="hs-tag">Save and Download</span> it downloads a copy of this HTML with all your settings baked in. Open that file in any browser and everything will be there.</div>
         <div class="hs-callout green">
           <span></span>
-          <span>The <strong>.bat</strong> (Windows) and <strong>.sh</strong> (Linux/macOS) downloads create scripts that open all links one by one in your browser great when pop-ups are blocked. Run <code style="background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10px;">chmod +x linkedin_search.sh</code> first on Linux/Mac.</span>
+          <span data-i18n-html="guide7Callout">The <strong>.bat</strong> (Windows) and <strong>.sh</strong> (Linux/macOS) downloads create scripts that open all links one by one in your browser great when pop-ups are blocked. Run <code style="background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10px;">chmod +x linkedin_search.sh</code> first on Linux/Mac.</span>
         </div>
       </div>
     </div>
@@ -1159,25 +1348,25 @@ footer {
 
   <div class="how-disclaimer">
     <div class="hd-content">
-      <div class="hd-title">Notice: Pop-up Blocker Info</div>
-      <div class="hd-desc">
+      <div class="hd-title" data-i18n="hdTitle">Notice: Pop-up Blocker Info</div>
+      <div class="hd-desc" data-i18n="hdDesc">
         If pages do not open automatically, your browser is blocking pop-ups. 
         Look for a "Pop-up blocked" icon in the address bar at the top of your browser window. 
         Click that icon, select the option to always allow pop-ups from this site, and click Done. 
         Once allowed, trying again will open all your links correctly.
       </div>
     </div>
-    <button class="hd-btn" onclick="openGifModal()">View Visual Guide</button>
+    <button class="hd-btn" onclick="openGifModal()" data-i18n="viewVisualGuide">View Visual Guide</button>
   </div>
 </div>
 
 <footer>
   <div class="footer-content">
-    <div class="footer-msg">Shared to help serious job seekers.</div>
-    <div class="footer-prayer">May Allah open the best doors for all of us.</div>
+    <div class="footer-msg" data-i18n="footerMsg">Shared to help serious job seekers.</div>
+    <div class="footer-prayer" data-i18n="footerPrayer">May Allah open the best doors for all of us.</div>
     <a href="https://github.com/RamiAdell/job-hunter" target="_blank" rel="noopener noreferrer" class="footer-repo-link">
       <svg height="14" width="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.35 3.1 1.07.01.67.01 1.25.01 1.48 0 .21-.15.46-.55.38A8.013 8.013 0 0 1 0 8c0-4.42 3.58-8 8-8z"/></svg>
-      <span>GitHub Repository</span>
+      <span data-i18n="footerRepo">GitHub Repository</span>
     </a>
   </div>
 </footer>
@@ -1186,38 +1375,39 @@ footer {
 
 <!-- ── ACTION BAR (desktop only) ── -->
 <div class="ab">
+
   <div class="ab-in">
     <div class="abl">
-      <button class="sm-btn" onclick="selAll()">Select All</button>
-      <button class="sm-btn" onclick="clearSel()">Clear</button>
-      <div class="sel-info">Selected: <b id="sc2">0</b> / <span id="tv">0</span></div>
+      <button class="sm-btn" onclick="selAll()" data-i18n="selectAll">Select All</button>
+      <button class="sm-btn" onclick="clearSel()" data-i18n="clear">Clear</button>
+      <div class="sel-info"><span data-i18n="selected">Selected</span>: <b id="sc2">0</b> / <span id="tv">0</span></div>
     </div>
     <div class="abr">
       <!-- Script download group: 4 options in one compact unit -->
-      <div class="dl-group" title="Download script to open all links">
-        <div class="dl-group-label">Script</div>
+      <div class="dl-group" data-i18n-title="dlGroupTitle" title="Download script to open all links">
+        <div class="dl-group-label" data-i18n="scriptLabel">Script</div>
         <div class="dl-opts">
-          <button class="dl-opt win" id="bat-sel-btn" disabled onclick="dlBat('sel')" title="Windows .bat selected only">
+          <button class="dl-opt win" id="bat-sel-btn" disabled onclick="dlBat('sel')" data-i18n-title="dlBatSelTitle" title="Windows .bat selected only">
             <span class="dl-os">.bat</span>
-            <span class="dl-scope">Selected</span>
+            <span class="dl-scope" data-i18n="scopeSelected">Selected</span>
           </button>
-          <button class="dl-opt win" onclick="dlBat('all')" title="Windows .bat all visible">
+          <button class="dl-opt win" onclick="dlBat('all')" data-i18n-title="dlBatAllTitle" title="Windows .bat all visible">
             <span class="dl-os">.bat</span>
-            <span class="dl-scope">All</span>
+            <span class="dl-scope" data-i18n="scopeAll">All</span>
           </button>
-          <button class="dl-opt lnx" id="sh-sel-btn" disabled onclick="dlSh('sel')" title="Linux/macOS .sh selected only">
+          <button class="dl-opt lnx" id="sh-sel-btn" disabled onclick="dlSh('sel')" data-i18n-title="dlShSelTitle" title="Linux/macOS .sh selected only">
             <span class="dl-os">.sh</span>
-            <span class="dl-scope">Selected</span>
+            <span class="dl-scope" data-i18n="scopeSelected">Selected</span>
           </button>
-          <button class="dl-opt lnx" onclick="dlSh('all')" title="Linux/macOS .sh all visible">
+          <button class="dl-opt lnx" onclick="dlSh('all')" data-i18n-title="dlShAllTitle" title="Linux/macOS .sh all visible">
             <span class="dl-os">.sh</span>
-            <span class="dl-scope">All</span>
+            <span class="dl-scope" data-i18n="scopeAll">All</span>
           </button>
         </div>
       </div>
-      <button class="abtn pri" id="op-sel" disabled onclick="doOpen('sel')">Open Selected ↗</button>
-      <button class="abtn pri2" onclick="doOpen('all')">Open All ↗</button>
-      <button class="abtn save" onclick="saveToFile()">Save and Download</button>
+      <button class="abtn pri" id="op-sel" disabled onclick="doOpen('sel')" data-i18n="openSelected">Open Selected ↗</button>
+      <button class="abtn pri2" onclick="doOpen('all')" data-i18n="openAll">Open All ↗</button>
+      <button class="abtn save" onclick="saveToFile()" data-i18n="saveDownload">Save and Download</button>
     </div>
   </div>
 </div>
@@ -1294,18 +1484,551 @@ const isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||window.inn
 const THEME_PREF_VERSION='dark-default-v2';
 
 // ═══════════════════════════════════════════════════════════
-// DARK MODE
+// INTERNATIONALIZATION (EN / AR)
 // ═══════════════════════════════════════════════════════════
+let LANG = 'en';
+
+const I18N = {
+en: {
+  langToggleTitle:'Toggle language (English / Arabic)',
+  themeToggleTitle:'Toggle Dark/Light Mode',
+  editHint:'✏️ Click title or subtitle to edit · changes auto-save',
+  statSearches:'searches',
+  statCountries:'countries',
+  noFilters:'No filters',
+  filtersActive:'{n} filter active',
+  filtersActivePlural:'filters active',
+  navAria:'Page sections',
+  navFilters:'Filters',
+  navKeywords:'Keywords',
+  navSearches:'Searches',
+  navGuide:'Guide',
+  popupTitle:'Allow pop-ups to open multiple tabs at once',
+  popupDesc:'Job Hunter opens each search in a new tab. Your browser blocks this by default — here\'s how to allow it:',
+  popupStep1:'Click the <strong>blocked pop-up icon</strong> in your address bar (usually a small icon on the right)',
+  popupStep2:'Choose <strong>"Always allow pop-ups from this site"</strong>',
+  popupStep3:'Click <strong>Done</strong> then try opening tabs again',
+  popupGotIt:'✓ Got it, I\'ve allowed them',
+  popupSkip:'Skip for now',
+  popupNoticeTitle:'Browsers block pop-ups by default',
+  popupNoticeDesc:'<strong>Open All ↗</strong> and <strong>Open Selected ↗</strong> need pop-ups allowed first — otherwise only one tab may open. Watch the short video to fix it in seconds.',
+  watchPopupDemo:'▶ Watch video guide',
+  abPopupNotice:'🚫 <strong>Pop-ups blocked?</strong> Allow them for this page or <strong>Open All ↗</strong> / <strong>Open Selected ↗</strong> won\'t work.',
+  fixPopups:'Fix in video ↗',
+  mobileNote:'<b>Mobile tip:</b> Opening multiple tabs on mobile will launch the LinkedIn app for each link, one at a time. We recommend tapping <strong>Open ↗</strong> on each card individually for the best experience. The "Open All" and batch download features work best on desktop.',
+  popupWarn:'Some tabs may still be blocked. Click the popup icon in your address bar → Allow. Or use <b>.bat</b> below.',
+  filtersTitle:'Filters',
+  filtersSub:'Tune the search set before opening tabs. Active choices update the cards below.',
+  clearFilters:'Clear filters',
+  timeRange:'⏱ Time Range',
+  timeAny:'Any Time',
+  timeToday:'Today',
+  time3Days:'3 Days',
+  timeWeek:'This Week',
+  timeMonth:'This Month',
+  timeCustomPh:'e.g. 2',
+  unitMinutes:'minutes',
+  unitHours:'hours',
+  unitDays:'days',
+  unitWeeks:'weeks',
+  apply:'Apply',
+  workType:'Work Type',
+  wtRemote:'Remote',
+  wtHybrid:'Hybrid',
+  wtOnsite:'On-site',
+  expLevel:'Experience Level',
+  elIntern:'Internship',
+  elEntry:'Entry Level',
+  elAssociate:'Associate',
+  elMid:'Mid-Senior',
+  elDirector:'Director',
+  elExec:'Executive',
+  extras:'✨ Extras',
+  easyApply:'⚡ Easy Apply',
+  under10:'🔥 Under 10 Applicants',
+  visaMode:'🌍 Visa Mode',
+  visaModeInfo:'🌍 <b>Visa Mode is ON</b> — "visa sponsorship" is appended to searches in countries where you\'re <em>not</em> authorized to work. Countries you\'re authorized in are searched normally. Manage your authorization in <strong>🌍 Countries</strong>.',
+  tabSpeed:'Tab Opening Speed',
+  delayHint:'← faster / safer →',
+  filterCountry:'Filter by Country',
+  countriesBtn:'🌍 Countries',
+  filterKwType:'Filter by Keyword Type',
+  keywordsTitle:'Keywords',
+  keywordsSub:'applied to all countries',
+  keywordsPanelSub:'Create reusable search terms, then group them by type for faster filtering.',
+  step1Types:'Step 1 — Keyword Categories (Types)',
+  newCategoryPh:'New category, e.g. Backend',
+  addType:'+ Add Type',
+  step2Keywords:'Step 2 — All Keywords',
+  addKeywordPh:'Add keyword: e.g. React Developer, Data Analyst...',
+  addKeyword:'+ Add Keyword',
+  kmNote:'Custom keywords & types are saved in your browser. Click <b>Save and Download</b> to bake them into the HTML permanently.',
+  actions:'Actions',
+  saveDownload:'Save and Download',
+  yourSearches:'Your Searches',
+  emptySearches:'No searches match your filters.<br>Try adjusting country or keyword filters.',
+  howToTitle:'How to use Job Hunter',
+  howToSub:'A quick walkthrough to get you finding jobs in minutes',
+  guide1Title:'Add countries you want to search in',
+  guide1Desc:'Click <strong>🌍 Countries</strong> in the filter panel. Each country needs a LinkedIn GeoId — a unique number that tells LinkedIn which region to search. You can find it by searching on LinkedIn and checking the URL for <span class="hs-tag">geoId=…</span>. Mark your home country as <strong>Local</strong> so the tool knows where you already live.',
+  guide2Title:'Create keyword categories (types)',
+  guide2Desc:'In the Keywords panel, first add <strong>categories</strong> to organize your searches — for example <span class="hs-tag">Backend</span>, <span class="hs-tag">Frontend</span>, <span class="hs-tag">DevOps</span>. These become color-coded filter pills so you can quickly focus on one area at a time.',
+  guide3Title:'Add job title keywords',
+  guide3Desc:'Then add actual job titles or search phrases — e.g. <span class="hs-tag">Python Developer</span>, <span class="hs-tag">Data Engineer</span>. Assign each to a category. Each keyword × each country = one search card. So 5 keywords × 7 countries = 35 ready-to-open searches.',
+  guide4Title:'Use filters to narrow results',
+  guide4Desc:'Use the filter panel to narrow by time range, work type (remote, hybrid, on-site), or Easy Apply. Filter by country or keyword type to focus on specific cards. Active filters are shown as tags below the panel.',
+  guide5Title:'Understand Visa Sponsorship mode',
+  guide5Desc:'Toggle <strong>🌍 Visa Mode</strong> to append "visa sponsorship" to your searches — this surfaces jobs that explicitly mention visa support. In <strong>🌍 Countries</strong>, mark each country where you\'re <strong>authorized to work</strong> (your home country or any country where you hold a work permit). Those countries will search <em>without</em> "visa sponsorship" appended.',
+  guide5Callout:'Example: You\'re Egyptian, applying to Germany and UK. In 🌍 Countries, mark 🇪🇬 Egypt as <em>Authorized</em>. Then enable Visa Mode. Egypt will search normally — Germany and UK will search for visa-sponsored roles.',
+  guide6Title:'Open searches — desktop vs mobile',
+  guide6Desc:'On <strong>desktop</strong>: select cards and click <span class="hs-tag">Open Selected ↗</span>, or <span class="hs-tag">Open All ↗</span> to open everything at once. Your browser may block pop-ups the first time — allow them when prompted (the banner at the top guides you). On <strong>mobile</strong>: every link opens in the LinkedIn app. Clicking <span class="hs-tag">Open All ↗</span> will launch the app <em>once per search</em> — which can be overwhelming.',
+  guide6CalloutBlue:'Desktop tip: use the Tab Speed slider to control how fast tabs open. On mobile, tap <span class="hs-tag">Open ↗</span> on individual cards rather than using <span class="hs-tag">Open All ↗</span> — it\'s a much smoother experience.',
+  guide6CalloutMobile:'<strong>Mobile notice:</strong> There is no <span class="hs-tag">Open All ↗</span> or <span class="hs-tag">Open Selected ↗</span> on mobile, as every link opens in the LinkedIn app one by one. Tap each <span class="hs-tag">Open ↗</span> button to open them at your own pace.',
+  guide7Title:'Save your setup',
+  guide7Desc:'Your keywords and countries auto-save in your browser. But if you want a shareable, portable version, click <span class="hs-tag">Save and Download</span> — it downloads a copy of this HTML with all your settings baked in. Open that file in any browser and everything will be there.',
+  guide7Callout:'The <strong>.bat</strong> (Windows) and <strong>.sh</strong> (Linux/macOS) downloads create scripts that open all links one by one in your browser — great when pop-ups are blocked. Run <code style="background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10px;">chmod +x linkedin_search.sh</code> first on Linux/Mac.',
+  hdTitle:'Notice: Pop-up Blocker Info',
+  hdDesc:'If pages do not open automatically, your browser is blocking pop-ups. Look for a "Pop-up blocked" icon in the address bar at the top of your browser window. Click that icon, select the option to always allow pop-ups from this site, and click Done. Once allowed, trying again will open all your links correctly.',
+  viewVisualGuide:'View Visual Guide',
+  footerMsg:'Shared to help serious job seekers.',
+  footerPrayer:'May Allah open the best doors for all of us.',
+  footerRepo:'GitHub Repository',
+  selectAll:'Select All',
+  clear:'Clear',
+  selected:'Selected',
+  scriptLabel:'Script',
+  scopeSelected:'Selected',
+  scopeAll:'All',
+  openSelected:'Open Selected ↗',
+  openAll:'Open All ↗',
+  openingTab:'Opening tab {n} of {total}...',
+  modalCountriesTitle:'🌍 Countries',
+  modalCountriesSub:'Set countries to search in — mark where you\'re <strong>authorized to work</strong> (no visa needed)',
+  addCountryHdr:'ADD NEW COUNTRY',
+  flagLabel:'Flag',
+  emojiHint:'Emoji',
+  countryNameLabel:'Country Name',
+  countryNamePh:'e.g. France',
+  geoIdLabel:'GeoId <span style="color:var(--clay)">*required</span>',
+  geoIdPh:'e.g. 105015875',
+  geoIdErr:'Numeric GeoId required',
+  geoHelpLink:'❓ How to find a LinkedIn GeoId?',
+  geoHelpBox:'<strong>Method 1:</strong> Visit <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">linkedin.com/jobs/search/</code>, filter by location (type the country name). Check the URL — it will contain <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">geoId=XXXXXXX</code>. Copy that number.<br><br><strong>Method 2:</strong> Common GeoIds — 🇺🇸 US: 103644278 · 🇬🇧 UK: 101165590 · 🇩🇪 DE: 101282230 · 🇫🇷 FR: 105015875 · 🇳🇱 NL: 102890719 · 🇨🇦 CA: 101174742 · 🇦🇺 AU: 101452733 · 🇸🇬 SG: 102454443 · 🇯🇵 JP: 101355337 · 🇸🇦 SA: 102571527 · 🇦🇪 AE: 104305776 · 🇪🇸 ES: 105646813 · 🇵🇱 PL: 105072130 · 🇵🇹 PT: 100364837 · 🇪🇬 EG: 106155005',
+  editTitleTip:'Click to edit title',
+  editSubtitleTip:'Click to edit subtitle',
+  guideVideoFallback:'Your browser cannot play this video. Keep demo.mp4 next to index.html and try again.',
+  dlGroupTitle:'Download script to open all links',
+  dlBatSelTitle:'Windows .bat — selected only',
+  dlBatAllTitle:'Windows .bat — all visible',
+  dlShSelTitle:'Linux/macOS .sh — selected only',
+  dlShAllTitle:'Linux/macOS .sh — all visible',
+  geoIdPrefix:'GeoId:',
+  visaBadge:'+visa',
+  visaBadgeTitle:'Visa sponsorship appended',
+  remove:'Remove',
+  toggleAuthTitle:'Toggle authorization for {country}',
+  removeCountryTitle:'Remove {country}',
+  localCheck:'I\'m authorized to work here (no visa sponsorship needed)',
+  done:'Done',
+  addCountry:'+ Add Country',
+  gifModalTitle:'Pop-up Permission Guide',
+  gifModalSub:'Follow these steps in your browser address bar to allow opening multiple tabs',
+  demoPopBlocked:'Pop-up blocked',
+  demoStep1Title:'Open the browser notice',
+  demoStep1Copy:'Click the pop-up blocked icon in the address bar after trying Open All.',
+  demoStep2Title:'Allow this page',
+  demoStep2Copy:'Choose the option to always allow pop-ups and redirects from this file.',
+  demoStep3Title:'Try again',
+  demoStep3Copy:'Close the notice, then use Open Selected or Open All again.',
+  guideVideoCopy:'Prefer to watch the original walkthrough? Open the video demo here.',
+  showVideoDemo:'Show video demo',
+  defaultTitle:'Job Hunter',
+  defaultSubtitle:'LinkedIn Opportunity Radar',
+  metaDescription:'A powerful bulk LinkedIn search tool to streamline your job hunting. Auto-generate and open highly-filtered searches across multiple keywords and countries in one click.',
+  tl_r86400:'Today',
+  tl_r259200:'Last 3 Days',
+  tl_r604800:'This Week',
+  tl_r2592000:'This Month',
+  tagEasyApply:'Easy Apply',
+  tagUnder10:'Under 10 Applicants',
+  tagVisa:'+ Visa Sponsorship',
+  tagType:'Type',
+  lastPrefix:'= Last',
+  openOne:'Open ↗',
+  copyUrl:'Copy URL',
+  copied:'✓ Copied!',
+  localTag:'local',
+  noVisaMode:'no visa mode',
+  searchCount:'{n} search',
+  searchCountPlural:'{n} searches',
+  openCountryAll:'Open All {flag} ↗',
+  onboardTitle:'🚀 Welcome! Set up your Job Hunter',
+  onboardDesc:'Generate LinkedIn job search URLs for any role and country — fully customized to your search.',
+  onboardStep1:'Add countries to search in',
+  onboardStep2:'Add a keyword category first',
+  onboardStep3:'Add job title keywords',
+  countriesAdded:'{n} countries added',
+  countryAdded:'{n} country added',
+  categoriesReady:'{n} categories ready',
+  categoryReady:'{n} category ready',
+  keywordsAdded:'{n} keywords added',
+  keywordAdded:'{n} keyword added',
+  addCountriesBtn:'🌍 Add Countries',
+  addCategoryBtn:'🏷 Add a Category',
+  addKeywordsBtn:'✏️ Add Keywords',
+  noCategoriesYet:'No categories yet — add one above to get started',
+  addCategoryFirst:'add category first',
+  kwNudgeNoType:'<strong>Start here:</strong> First create a keyword category (like "Backend" or "Data"), then add job titles to it.',
+  kwNudgeEmpty:'No keywords yet. Type a job title below and select a category, then click <strong>+ Add Keyword</strong>.',
+  kwStep1:'Add a category above',
+  kwStep2:'Then add keywords here',
+  kwStepReady:'Categories ready',
+  kwStepAdd:'Type a keyword below and click + Add',
+  kmTitleSub:'{countries} countries · {total} total searches',
+  noCountriesModal:'No countries added yet. Add one below to start.',
+  authOn:'✓ Authorized (no visa)',
+  authOff:'+ Mark as authorized',
+  toastEnterNumber:'⚠️ Enter a number first',
+  toastTimeSet:'✅ Time filter set',
+  toastFiltersCleared:'Filters cleared',
+  toastCountryRequired:'⚠️ Country name is required',
+  toastCountryExists:'⚠️ Country already exists',
+  toastCountryAdded:'✅ Added: {flag} {name}{extra}',
+  toastCountryAddedAuth:' (authorized — no visa needed)',
+  toastCountryRemoved:'Removed: {flag} {country}',
+  toastAuthOn:'✅ {flag} {country} marked as authorized (no visa search)',
+  toastAuthOff:'{flag} {country} authorization removed',
+  toastTypeCase:'⚠️ Similar type "{match}" already exists (different case). Using both creates separate filter pills.',
+  toastTypeName:'⚠️ Type a category name first',
+  toastTypeExists:'⚠️ "{name}" already exists',
+  toastTypeAdded:'✅ Added category: "{name}"',
+  toastTypeRemoved:'Removed category: "{label}"',
+  toastKwFirst:'Type a keyword first',
+  toastKwExists:'Keyword already exists',
+  toastKwNeedCat:'Add at least one category first (Step 1 above)',
+  toastKwAdded:'✅ Added "{kw}" → {type}',
+  toastKwRemoved:'Removed: "{kw}"',
+  toastOpenMobile:'Opening {n} links one by one — check your LinkedIn app between each',
+  toastOpened:'✅ Opened {n} tab',
+  toastOpenedPlural:'✅ Opened {n} tabs',
+  toastBat:'.bat downloaded — {n} links',
+  toastSh:'.sh downloaded — {n} links (chmod +x the file to run)',
+  toastSaveMarker:'⚠️ Could not locate save marker. Please use the original file.',
+  toastSaved:'💾 Saved! All your keywords & countries are baked in.',
+  toastSaveFail:'⚠️ Could not save: {msg}',
+  openSelectedCount:'Open Selected ({n}) ↗'
+},
+ar: {
+  langToggleTitle:'تبديل اللغة (إنجليزي / عربي)',
+  themeToggleTitle:'تبديل الوضع الداكن / الفاتح',
+  editHint:'✏️ انقر على العنوان أو الوصف للتعديل · يُحفظ تلقائياً',
+  statSearches:'بحث',
+  statCountries:'دولة',
+  noFilters:'بدون فلاتر',
+  filtersActive:'فلتر واحد مفعّل',
+  filtersActivePlural:'فلاتر مفعّلة',
+  navAria:'أقسام الصفحة',
+  navFilters:'الفلاتر',
+  navKeywords:'الكلمات المفتاحية',
+  navSearches:'عمليات البحث',
+  navGuide:'الدليل',
+  popupTitle:'اسمح بالنوافذ المنبثقة لفتح عدة تبويبات',
+  popupDesc:'يفتح Job Hunter كل بحث في تبويب جديد. المتصفح يحجب ذلك افتراضياً — إليك طريقة السماح:',
+  popupStep1:'انقر على <strong>أيقونة النوافذ المحجوبة</strong> في شريط العنوان (عادة على اليمين)',
+  popupStep2:'اختر <strong>«السماح دائماً بالنوافذ المنبثقة من هذا الموقع»</strong>',
+  popupStep3:'انقر <strong>تم</strong> ثم جرّب فتح التبويبات مرة أخرى',
+  popupGotIt:'✓ تم، سمحت بها',
+  popupSkip:'تخطّي الآن',
+  popupNoticeTitle:'المتصفح يحجب النوافذ المنبثقة افتراضياً',
+  popupNoticeDesc:'<strong>فتح الكل ↗</strong> و<strong>فتح المحدد ↗</strong> يحتاجان السماح بالنوافذ أولاً — وإلا قد يُفتح تبويب واحد فقط. شاهد الفيديو القصير للحل.',
+  watchPopupDemo:'▶ شاهد دليل الفيديو',
+  abPopupNotice:'🚫 <strong>النوافذ محجوبة؟</strong> اسمح بها لهذه الصفحة وإلا <strong>فتح الكل ↗</strong> / <strong>فتح المحدد ↗</strong> لن يعملا.',
+  fixPopups:'الحل بالفيديو ↗',
+  mobileNote:'<b>نصيحة للجوال:</b> فتح عدة تبويبات على الجوال يفتح تطبيق LinkedIn لكل رابط. ننصح بالضغط على <strong>فتح ↗</strong> لكل بطاقة على حدة. ميزات «فتح الكل» والتنزيل الجماعي أفضل على الحاسوب.',
+  popupWarn:'قد تبقى بعض التبويبات محجوبة. انقر أيقونة النوافذ في شريط العنوان ← اسمح. أو استخدم <b>.bat</b> أدناه.',
+  filtersTitle:'الفلاتر',
+  filtersSub:'اضبط مجموعة البحث قبل فتح التبويبات. الخيارات النشطة تُحدّث البطاقات أدناه.',
+  clearFilters:'مسح الفلاتر',
+  timeRange:'⏱ المدة الزمنية',
+  timeAny:'أي وقت',
+  timeToday:'اليوم',
+  time3Days:'٣ أيام',
+  timeWeek:'هذا الأسبوع',
+  timeMonth:'هذا الشهر',
+  timeCustomPh:'مثال: ٢',
+  unitMinutes:'دقائق',
+  unitHours:'ساعات',
+  unitDays:'أيام',
+  unitWeeks:'أسابيع',
+  apply:'تطبيق',
+  workType:'نوع العمل',
+  wtRemote:'عن بُعد',
+  wtHybrid:'هجين',
+  wtOnsite:'في الموقع',
+  expLevel:'مستوى الخبرة',
+  elIntern:'تدريب',
+  elEntry:'مبتدئ',
+  elAssociate:'مساعد',
+  elMid:'متوسط–كبير',
+  elDirector:'مدير',
+  elExec:'تنفيذي',
+  extras:'✨ إضافات',
+  easyApply:'⚡ تقديم سريع',
+  under10:'🔥 أقل من ١٠ متقدمين',
+  visaMode:'🌍 وضع التأشيرة',
+  visaModeInfo:'🌍 <b>وضع التأشيرة مفعّل</b> — تُضاف «visa sponsorship» للبحث في الدول التي <em>لا يمكنك العمل فيها</em>. الدول التي يمكنك العمل فيها تُبحث بشكل عادي. أدر الحالة من <strong>🌍 الدول</strong>.',
+  tabSpeed:'سرعة فتح التبويبات',
+  delayHint:'أسرع ← · → أكثر أماناً',
+  filterCountry:'تصفية حسب الدولة',
+  countriesBtn:'🌍 الدول',
+  filterKwType:'تصفية حسب نوع الكلمة',
+  keywordsTitle:'الكلمات المفتاحية',
+  keywordsSub:'تُطبَّق على كل الدول',
+  keywordsPanelSub:'أنشئ عبارات بحث قابلة لإعادة الاستخدام، ثم جمّعها حسب النوع للتصفية الأسرع.',
+  step1Types:'الخطوة ١ — فئات الكلمات (الأنواع)',
+  newCategoryPh:'فئة جديدة، مثال: Backend',
+  addType:'+ إضافة نوع',
+  step2Keywords:'الخطوة ٢ — كل الكلمات',
+  addKeywordPh:'أضف كلمة: مثال React Developer...',
+  addKeyword:'+ إضافة كلمة',
+  kmNote:'الكلمات والأنواع تُحفظ في متصفحك. انقر <b>حفظ وتنزيل</b> لدمجها في ملف HTML نهائياً.',
+  actions:'إجراءات',
+  saveDownload:'حفظ وتنزيل',
+  yourSearches:'عمليات البحث',
+  emptySearches:'لا توجد عمليات بحث تطابق الفلاتر.<br>جرّب تعديل فلتر الدولة أو الكلمة.',
+  howToTitle:'كيفية استخدام Job Hunter',
+  howToSub:'دليل سريع للعثور على وظائف في دقائق',
+  guide1Title:'أضف الدول التي تريد البحث فيها',
+  guide1Desc:'انقر <strong>🌍 الدول</strong> في لوحة الفلاتر. كل دولة تحتاج GeoId من LinkedIn — رقم يحدد المنطقة. ابحث على LinkedIn وتحقق من الرابط <span class="hs-tag">geoId=…</span>. علّم بلدك كـ <strong>محلي</strong>.',
+  guide2Title:'أنشئ فئات للكلمات (أنواع)',
+  guide2Desc:'في لوحة الكلمات، أضف <strong>فئات</strong> لتنظيم البحث — مثل <span class="hs-tag">Backend</span> و<span class="hs-tag">Frontend</span>. تصبح أزرار تصفية ملونة.',
+  guide3Title:'أضف عناوين الوظائف',
+  guide3Desc:'أضف عناوين أو عبارات — مثل <span class="hs-tag">Python Developer</span>. كل كلمة × كل دولة = بطاقة بحث. ٥ كلمات × ٧ دول = ٣٥ بحثاً جاهزاً.',
+  guide4Title:'استخدم الفلاتر لتضييق النتائج',
+  guide4Desc:'اضبط المدة، نوع العمل (عن بُعد، هجين، في الموقع)، أو التقديم السريع. الفلاتر النشطة تظهر كوسوم أدناه.',
+  guide5Title:'افهم وضع كفالة التأشيرة',
+  guide5Desc:'فعّل <strong>🌍 وضع التأشيرة</strong> لإضافة «visa sponsorship» لعمليات البحث — لعرض الوظائف التي تذكر دعم التأشيرة. في <strong>🌍 الدول</strong>، حدّد كل دولة أنت <strong>مؤهل للعمل فيها</strong> (بلدك أو أي دولة لديك تصريح عمل فيها). هذه الدول سيتم البحث فيها بدون إضافة «visa sponsorship».',
+  guide5Callout:'مثال: مصري تتقدم لألمانيا وبريطانيا. علّم 🇪🇬 مصر كـ <em>يمكنك العمل فيها</em>. فعّل وضع التأشيرة. مصر عادي — ألمانيا وبريطانيا بكفالة.',
+  guide6Title:'فتح البحث — حاسوب وجوال',
+  guide6Desc:'على <strong>الحاسوب</strong>: حدد البطاقات و<span class="hs-tag">فتح المحدد ↗</span> أو <span class="hs-tag">فتح الكل ↗</span>. قد يحجب المتصفح النوافذ أول مرة. على <strong>الجوال</strong>: كل رابط يفتح تطبيق LinkedIn.',
+  guide6CalloutBlue:'نصيحة للحاسوب: استخدم شريط سرعة فتح التبويبات. على الجوال، اضغط <span class="hs-tag">فتح ↗</span> على كل بطاقة بدلاً من <span class="hs-tag">فتح الكل ↗</span> — تجربة أنعم بكثير.',
+  guide6CalloutMobile:'<strong>تنبيه للجوال:</strong> لا يوجد <span class="hs-tag">فتح الكل ↗</span> أو <span class="hs-tag">فتح المحدد ↗</span> على الجوال، لأن كل رابط يفتح تطبيق LinkedIn واحداً تلو الآخر. اضغط <span class="hs-tag">فتح ↗</span> على كل بطاقة بوتيرتك.',
+  guide7Title:'احفظ إعداداتك',
+  guide7Desc:'كلماتك ودولك تُحفظ تلقائياً في المتصفح. لنسخة قابلة للمشاركة، انقر <span class="hs-tag">حفظ وتنزيل</span> — ينزّل نسخة من هذا الملف بكل إعداداتك. افتحها في أي متصفح وستجد كل شيء كما تركته.',
+  guide7Callout:'تنزيلات <strong>.bat</strong> (Windows) و<strong>.sh</strong> (Linux/macOS) تنشئ سكربتات تفتح الروابط واحداً واحداً في متصفحك — ممتازة عند حجب النوافذ. على Linux/Mac نفّذ أولاً: <code style="background:var(--s3);padding:1px 5px;border-radius:3px;font-size:10px;">chmod +x linkedin_search.sh</code>',
+  hdTitle:'تنبيه: حاجب النوافذ المنبثقة',
+  hdDesc:'إن لم تُفتح الصفحات، المتصفح يحجب النوافذ. ابحث عن «Pop-up blocked» في شريط العنوان، اسمح دائماً، ثم أعد المحاولة.',
+  viewVisualGuide:'عرض الدليل المرئي',
+  footerMsg:'شارَك لمساعدة الباحثين الجادّين عن عمل.',
+  footerPrayer:'نسأل الله أن يفتح لنا جميعاً أفضل الأبواب.',
+  footerRepo:'مستودع GitHub',
+  selectAll:'تحديد الكل',
+  clear:'مسح',
+  selected:'محدد',
+  scriptLabel:'سكربت',
+  scopeSelected:'محدد',
+  scopeAll:'الكل',
+  openSelected:'فتح المحدد ↗',
+  openAll:'فتح الكل ↗',
+  openingTab:'فتح تبويب {n} من {total}...',
+  modalCountriesTitle:'🌍 الدول',
+  modalCountriesSub:'حدد دول البحث — علّم الدول التي <strong>يمكنك العمل فيها</strong> (بدون تأشيرة)',
+  addCountryHdr:'إضافة دولة جديدة',
+  flagLabel:'العلم',
+  emojiHint:'إيموجي',
+  countryNameLabel:'اسم الدولة',
+  countryNamePh:'مثال: فرنسا',
+  geoIdLabel:'GeoId <span style="color:var(--clay)">*مطلوب</span>',
+  geoIdPh:'مثال: 105015875',
+  geoIdErr:'مطلوب رقم GeoId',
+  geoHelpLink:'❓ كيف أجد GeoId على LinkedIn؟',
+  geoHelpBox:'<strong>الطريقة ١:</strong> افتح <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">linkedin.com/jobs/search/</code>، صفِّ حسب الموقع (اكتب اسم الدولة). تحقق من الرابط — سيجد <code style="background:rgba(79,120,158,.1);padding:1px 4px;border-radius:3px">geoId=XXXXXXX</code>. انسخ الرقم.<br><br><strong>الطريقة ٢:</strong> GeoIds شائعة — 🇺🇸 أمريكا: 103644278 · 🇬🇧 بريطانيا: 101165590 · 🇩🇪 ألمانيا: 101282230 · 🇫🇷 فرنسا: 105015875 · 🇳🇱 هولندا: 102890719 · 🇨🇦 كندا: 101174742 · 🇦🇺 أستراليا: 101452733 · 🇸🇬 سنغافورة: 102454443 · 🇯🇵 اليابان: 101355337 · 🇸🇦 السعودية: 102571527 · 🇦🇪 الإمارات: 104305776 · 🇪🇸 إسبانيا: 105646813 · 🇵🇱 بولندا: 105072130 · 🇵🇹 البرتغال: 100364837 · 🇪🇬 مصر: 106155005',
+  editTitleTip:'انقر لتعديل العنوان',
+  editSubtitleTip:'انقر لتعديل الوصف',
+  guideVideoFallback:'متصفحك لا يشغّل الفيديو. ضع demo.mp4 بجانب index.html وحاول مجدداً.',
+  dlGroupTitle:'تنزيل سكربت لفتح كل الروابط',
+  dlBatSelTitle:'Windows .bat — المحدد فقط',
+  dlBatAllTitle:'Windows .bat — الكل الظاهر',
+  dlShSelTitle:'Linux/macOS .sh — المحدد فقط',
+  dlShAllTitle:'Linux/macOS .sh — الكل الظاهر',
+  geoIdPrefix:'GeoId:',
+  visaBadge:'+تأشيرة',
+  visaBadgeTitle:'أُضيفت كفالة التأشيرة للبحث',
+  remove:'إزالة',
+  toggleAuthTitle:'تبديل التفويض لـ {country}',
+  removeCountryTitle:'حذف {country}',
+  localCheck:'مؤهل للعمل هنا (لا حاجة لكفالة تأشيرة)',
+  done:'تم',
+  addCountry:'+ إضافة دولة',
+  gifModalTitle:'دليل السماح بالنوافذ',
+  gifModalSub:'اتبع هذه الخطوات في شريط عنوان المتصفح',
+  demoPopBlocked:'نافذة محجوبة',
+  demoStep1Title:'افتح إشعار المتصفح',
+  demoStep1Copy:'انقر أيقونة النافذة المحجوبة بعد تجربة فتح الكل.',
+  demoStep2Title:'اسمح لهذه الصفحة',
+  demoStep2Copy:'اختر السماح دائماً بالنوافذ من هذا الملف.',
+  demoStep3Title:'أعد المحاولة',
+  demoStep3Copy:'أغلق الإشعار ثم استخدم فتح المحدد أو فتح الكل.',
+  guideVideoCopy:'تفضّل الفيديو؟ افتح العرض هنا.',
+  showVideoDemo:'عرض الفيديو',
+  defaultTitle:'صياد الوظائف',
+  defaultSubtitle:'رادار فرص LinkedIn',
+  metaDescription:'أداة بحث جماعي قوية على LinkedIn لتسهيل البحث عن عمل. أنشئ وافتح عمليات بحث مخصصة عبر كلمات مفتاحية ودول بضغطة واحدة.',
+  tl_r86400:'اليوم',
+  tl_r259200:'آخر ٣ أيام',
+  tl_r604800:'هذا الأسبوع',
+  tl_r2592000:'هذا الشهر',
+  tagEasyApply:'تقديم سريع',
+  tagUnder10:'أقل من ١٠ متقدمين',
+  tagVisa:'+ كفالة تأشيرة',
+  tagType:'النوع',
+  lastPrefix:'= آخر',
+  openOne:'فتح ↗',
+  copyUrl:'نسخ الرابط',
+  copied:'✓ تم النسخ!',
+  localTag:'محلي',
+  noVisaMode:'بدون وضع تأشيرة',
+  searchCount:'{n} بحث',
+  searchCountPlural:'{n} عمليات بحث',
+  openCountryAll:'فتح الكل {flag} ↗',
+  onboardTitle:'🚀 مرحباً! جهّز Job Hunter',
+  onboardDesc:'أنشئ روابط بحث LinkedIn لأي دور وأي دولة — مخصصة لبحثك.',
+  onboardStep1:'أضف دول البحث',
+  onboardStep2:'أضف فئة كلمات أولاً',
+  onboardStep3:'أضف عناوين الوظائف',
+  countriesAdded:'{n} دول مضافة',
+  countryAdded:'دولة واحدة مضافة',
+  categoriesReady:'{n} فئات جاهزة',
+  categoryReady:'فئة واحدة جاهزة',
+  keywordsAdded:'{n} كلمات مضافة',
+  keywordAdded:'كلمة واحدة مضافة',
+  addCountriesBtn:'🌍 إضافة دول',
+  addCategoryBtn:'🏷 إضافة فئة',
+  addKeywordsBtn:'✏️ إضافة كلمات',
+  noCategoriesYet:'لا فئات بعد — أضف واحدة أعلاه',
+  addCategoryFirst:'أضف فئة أولاً',
+  kwNudgeNoType:'<strong>ابدأ هنا:</strong> أنشئ فئة (مثل Backend أو Data)، ثم أضف المسميات.',
+  kwNudgeEmpty:'لا كلمات بعد. اكتب مسمى واختر فئة، ثم <strong>+ إضافة كلمة</strong>.',
+  kwStep1:'أضف فئة أعلاه',
+  kwStep2:'ثم أضف الكلمات هنا',
+  kwStepReady:'الفئات جاهزة',
+  kwStepAdd:'اكتب كلمة واضغط +',
+  kmTitleSub:'{countries} دول · {total} بحث إجمالي',
+  noCountriesModal:'لا دول بعد. أضف واحدة أدناه.',
+  authOn:'✓ يمكنك العمل هنا (بدون تأشيرة)',
+  authOff:'+ تعيين كدولة يمكنك العمل فيها',
+  toastEnterNumber:'⚠️ أدخل رقماً أولاً',
+  toastTimeSet:'✅ تم ضبط فلتر الوقت',
+  toastFiltersCleared:'تم مسح الفلاتر',
+  toastCountryRequired:'⚠️ اسم الدولة مطلوب',
+  toastCountryExists:'⚠️ الدولة موجودة مسبقاً',
+  toastCountryAdded:'✅ أُضيفت: {flag} {name}{extra}',
+  toastCountryAddedAuth:' (يمكنك العمل — بدون تأشيرة)',
+  toastCountryRemoved:'حُذفت: {flag} {country}',
+  toastAuthOn:'✅ {flag} {country} مُعلَّمة كدولة يمكنك العمل فيها',
+  toastAuthOff:'أُزيل تفويض {flag} {country}',
+  toastTypeCase:'⚠️ نوع مشابه «{match}» موجود (حالة مختلفة).',
+  toastTypeName:'⚠️ اكتب اسم الفئة أولاً',
+  toastTypeExists:'⚠️ «{name}» موجود مسبقاً',
+  toastTypeAdded:'✅ أُضيفت الفئة: «{name}»',
+  toastTypeRemoved:'حُذفت الفئة: «{label}»',
+  toastKwFirst:'اكتب كلمة أولاً',
+  toastKwExists:'الكلمة موجودة',
+  toastKwNeedCat:'أضف فئة واحدة على الأقل (الخطوة ١)',
+  toastKwAdded:'✅ أُضيفت «{kw}» → {type}',
+  toastKwRemoved:'حُذفت: «{kw}»',
+  toastOpenMobile:'فتح {n} روابط — تحقق من تطبيق LinkedIn بين كل واحد',
+  toastOpened:'✅ فُتح تبويب واحد',
+  toastOpenedPlural:'✅ فُتحت {n} تبويبات',
+  toastBat:'تم تنزيل .bat — {n} رابط',
+  toastSh:'تم تنزيل .sh — {n} رابط (chmod +x للتشغيل)',
+  toastSaveMarker:'⚠️ لم يُعثر على علامة الحفظ.',
+  toastSaved:'💾 تم الحفظ! كل إعداداتك مدمجة.',
+  toastSaveFail:'⚠️ تعذّر الحفظ: {msg}',
+  openSelectedCount:'فتح المحدد ({n}) ↗'
+}
+};
+
+function t(key, vars){
+  let s=(I18N[LANG]&&I18N[LANG][key])||(I18N.en[key])||key;
+  if(vars) Object.keys(vars).forEach(k=>{ s=s.split('{'+k+'}').join(vars[k]); });
+  return s;
+}
+
+function applyI18n(){
+  const ar=LANG==='ar';
+  document.documentElement.lang=ar?'ar':'en';
+  document.documentElement.dir=ar?'rtl':'ltr';
+  document.body.classList.toggle('lang-ar',ar);
+  const langToggle=document.getElementById('lang-toggle');
+  if(langToggle) langToggle.checked=ar;
+  document.querySelectorAll('[data-i18n], [data-i18n-html]').forEach(el=>{
+    if(el.id==='op-sel') return;
+    const key=el.getAttribute('data-i18n')||el.getAttribute('data-i18n-html');
+    if(!key) return;
+    const val=t(key);
+    if(el.hasAttribute('data-i18n-html')) el.innerHTML=val;
+    else el.textContent=val;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    el.placeholder=t(el.getAttribute('data-i18n-placeholder'));
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el=>{
+    el.title=t(el.getAttribute('data-i18n-title'));
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{
+    el.setAttribute('aria-label',t(el.getAttribute('data-i18n-aria')));
+  });
+  document.querySelectorAll('option[data-i18n]').forEach(opt=>{
+    opt.textContent=t(opt.getAttribute('data-i18n'));
+  });
+  const metaDesc=document.querySelector('meta[name="description"]');
+  if(metaDesc) metaDesc.setAttribute('content',t('metaDescription'));
+}
+
+function toggleLang(){
+  LANG=LANG==='en'?'ar':'en';
+  try{ localStorage.setItem('jh_lang',LANG); }catch(e){}
+  applyI18n();
+  render();
+}
+
+function loadLang(){
+  try{
+    const l=localStorage.getItem('jh_lang');
+    if(l==='ar'||l==='en') LANG=l;
+  }catch(e){}
+}
+
+function filterTimeLabel(k){ return t('tl_'+k)||k; }
+function filterWorkLabel(k){ return t({1:'wtOnsite',2:'wtRemote',3:'wtHybrid'}[k]||k); }
+function filterExpLabel(k){
+  return t({1:'elIntern',2:'elEntry',3:'elAssociate',4:'elMid',5:'elDirector',6:'elExec'}[k]||k);
+}
+
+let _themeTransitionTimer=null;
+function beginThemeTransition(){
+  document.documentElement.classList.add('theme-changing');
+  clearTimeout(_themeTransitionTimer);
+}
+function endThemeTransition(){
+  clearTimeout(_themeTransitionTimer);
+  _themeTransitionTimer=setTimeout(()=>{
+    document.documentElement.classList.remove('theme-changing');
+  },380);
+}
 function applyTheme(){
+  beginThemeTransition();
   document.documentElement.setAttribute('data-theme',S.darkMode?'dark':'light');
-  const toggle = document.getElementById('dm-toggle');
-  if(toggle) toggle.checked = S.darkMode;
+  const toggle=document.getElementById('dm-toggle');
+  if(toggle) toggle.checked=S.darkMode;
+  endThemeTransition();
 }
 function toggleDark(){
   S.darkMode=!S.darkMode;
   applyTheme();
   persist();
-  render(); // re-render so inline category/keyword colors switch palette immediately
+  render();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1318,6 +2041,7 @@ function persist(){
     localStorage.setItem('jh_kwTypes',JSON.stringify(S.kwTypes));
     localStorage.setItem('jh_customKws',JSON.stringify(S.customKws));
     localStorage.setItem('jh_darkMode',JSON.stringify(S.darkMode));
+    localStorage.setItem('jh_lang',LANG);
     localStorage.setItem('jh_themePrefVersion',THEME_PREF_VERSION);
     localStorage.setItem('jh_popupDismissed',JSON.stringify(S.popupBannerDismissed));
     localStorage.setItem('jh_visaExclude',JSON.stringify(S.visaExclude));
@@ -1526,9 +2250,9 @@ function render(){
   const lc=document.getElementById('lc');
   const es=document.getElementById('es');
 
-  document.getElementById('site-title').textContent=S.settings.title||'Job Hunter';
-  document.getElementById('site-sub').textContent=S.settings.subtitle||'LinkedIn Opportunity Radar';
-  document.title=S.settings.title||'Job Hunter';
+  document.getElementById('site-title').textContent=S.settings.title||BAKED.settings.title||'Job Hunter';
+  document.getElementById('site-sub').textContent=S.settings.subtitle||BAKED.settings.subtitle||'LinkedIn Opportunity Radar';
+  document.title=S.settings.title||BAKED.settings.title||'Job Hunter';
 
   if(S.countries.length===0||S.customKws.length===0){
     lc.innerHTML=renderOnboard();
@@ -1548,9 +2272,9 @@ function render(){
         <div class="ch">
           <span class="ch-flag">${d.flag}</span>
           <span class="ch-name">${c}</span>
-          <span class="ch-cnt">${d.items.length} search${d.items.length>1?'es':''}</span>
-          ${S.vm&&S.visaExclude.includes(c)?`<span style="font-size:10px;color:var(--t4);font-family:var(--mono);padding:2px 7px;background:var(--s3);border-radius:20px;">no visa mode</span>`:''}
-          <button class="ch-btn" onclick="${isMobile?`doOpenMobileGroup('${escQ(c)}')`:`openCountryGroup('${escQ(c)}')`}">Open All ${d.flag} ↗</button>
+          <span class="ch-cnt">${t(d.items.length>1?'searchCountPlural':'searchCount',{n:d.items.length})}</span>
+          ${S.vm&&S.visaExclude.includes(c)?`<span style="font-size:10px;color:var(--t4);font-family:var(--mono);padding:2px 7px;background:var(--s3);border-radius:20px;">${t('noVisaMode')}</span>`:''}
+          <button class="ch-btn" onclick="${isMobile?`doOpenMobileGroup('${escQ(c)}')`:`openCountryGroup('${escQ(c)}')`}">${t('openCountryAll',{flag:d.flag})}</button>
         </div>
         <div class="cg">${d.items.map(l=>card(l)).join('')}</div>
       </div>
@@ -1568,49 +2292,51 @@ function render(){
   updateKwTypeSelect();
   enhanceControls();
   applyTheme();
+  applyI18n();
 }
 
 function renderOnboard(){
   const noCountry=S.countries.length===0;
   const noKw=S.customKws.length===0;
   const noType=S.kwTypes.length===0;
+  const nC=S.countries.length,nT=S.kwTypes.length,nK=S.customKws.length;
   return `
     <div class="onboard">
-      <h3>🚀 Welcome! Set up your Job Hunter</h3>
-      <p>Generate LinkedIn job search URLs for any role and country fully customized to your search.</p>
+      <h3>${t('onboardTitle')}</h3>
+      <p>${t('onboardDesc')}</p>
       <div class="onboard-steps">
         ${noCountry
-          ?`<div class="ost"><div class="ost-num">1</div> Add countries to search in</div>`
-          :`<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.countries.length} countr${S.countries.length>1?'ies':'y'} added</div>`}
+          ?`<div class="ost"><div class="ost-num">1</div> ${t('onboardStep1')}</div>`
+          :`<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${t(nC>1?'countriesAdded':'countryAdded',{n:nC})}</div>`}
         ${noType
-          ?`<div class="ost"><div class="ost-num">2</div> Add a keyword category first</div>`
-          :`<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.kwTypes.length} categor${S.kwTypes.length>1?'ies':'y'} ready</div>`}
+          ?`<div class="ost"><div class="ost-num">2</div> ${t('onboardStep2')}</div>`
+          :`<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${t(nT>1?'categoriesReady':'categoryReady',{n:nT})}</div>`}
         ${noKw
-          ?`<div class="ost"><div class="ost-num">3</div> Add job title keywords</div>`
-          :`<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${S.customKws.length} keyword${S.customKws.length>1?'s':''} added</div>`}
+          ?`<div class="ost"><div class="ost-num">3</div> ${t('onboardStep3')}</div>`
+          :`<div class="ost" style="border-color:var(--sage);color:var(--sage)"><div class="ost-num" style="background:var(--sage)">✓</div> ${t(nK>1?'keywordsAdded':'keywordAdded',{n:nK})}</div>`}
       </div>
-      ${noCountry?`<button class="ob-btn" onclick="openCountryModal()">🌍 Add Countries</button>`:''}
-      ${(!noCountry&&noType)?`<button class="ob-btn" onclick="document.getElementById('tm-input').focus()">🏷 Add a Category</button>`:''}
-      ${(!noType&&noKw)?`<button class="ob-btn" onclick="document.getElementById('kw-input').focus()">✏️ Add Keywords</button>`:''}
+      ${noCountry?`<button class="ob-btn" onclick="openCountryModal()">${t('addCountriesBtn')}</button>`:''}
+      ${(!noCountry&&noType)?`<button class="ob-btn" onclick="document.getElementById('tm-input').focus()">${t('addCategoryBtn')}</button>`:''}
+      ${(!noType&&noKw)?`<button class="ob-btn" onclick="document.getElementById('kw-input').focus()">${t('addKeywordsBtn')}</button>`:''}
     </div>`;
 }
 
 function card(l){
   const url=buildURL(l);
   const short=url.length>90?url.slice(0,90)+'…':url;
-  const visaNote=S.vm&&!S.visaExclude.includes(l.country)?'<span style="font-size:9.5px;color:var(--amber);font-family:var(--mono);margin-left:auto;flex-shrink:0;" title="Visa sponsorship appended">+visa</span>':'';
+  const visaNote=S.vm&&!S.visaExclude.includes(l.country)?`<span style="font-size:9.5px;color:var(--amber);font-family:var(--mono);margin-inline-start:auto;flex-shrink:0;" title="${t('visaBadgeTitle')}">${t('visaBadge')}</span>`:'';
   return `
     <div class="card${S.sel.has(l.id)?' sel':''}"${isMobile?'':` onclick="toggleSel(${l.id})"`} id="card-${l.id}">
       <div class="ct">
         <div class="chk"></div>
         <span class="kbadge" style="${typeStyle(l.typeLabel)}">${l.kw}</span>
-        ${l.local?'<span class="local-tag">local</span>':''}
+        ${l.local?`<span class="local-tag">${t('localTag')}</span>`:''}
         ${visaNote}
       </div>
       <div class="curl" title="${url}">${short}</div>
       <div class="ca" onclick="event.stopPropagation()">
-        <button class="cbtn" onclick="${isMobile?`window.location.href='${url.replace(/'/g,"\\'")}'`:`openOne(${l.id})`}">Open ↗</button>
-        <button class="cbtn cp" id="cp-${l.id}" onclick="copyU(${l.id})">Copy URL</button>
+        <button class="cbtn" onclick="${isMobile?`window.location.href='${url.replace(/'/g,"\\'")}'`:`openOne(${l.id})`}">${t('openOne')}</button>
+        <button class="cbtn cp" id="cp-${l.id}" onclick="copyU(${l.id})">${t('copyUrl')}</button>
       </div>
     </div>`;
 }
@@ -1622,12 +2348,10 @@ function renderKwManager(){
     const noType=S.kwTypes.length===0;
     wrap.innerHTML=`
       <div class="kw-nudge">
-        <p>${noType
-          ?'<strong>Start here:</strong> First create a keyword category (like "Backend" or "Data"), then add job titles to it.'
-          :'No keywords yet. Type a job title below and select a category, then click <strong>+ Add Keyword</strong>.'}</p>
+        <p>${noType?t('kwNudgeNoType'):t('kwNudgeEmpty')}</p>
         <div class="kw-nudge-steps">
-          ${noType?`<div class="kns"><div class="kns-n">1</div> Add a category above</div><div class="kns"><div class="kns-n">2</div> Then add keywords here</div>`
-                  :`<div class="kns"><div class="kns-n">✓</div> Categories ready</div><div class="kns"><div class="kns-n">→</div> Type a keyword below and click + Add</div>`}
+          ${noType?`<div class="kns"><div class="kns-n">1</div> ${t('kwStep1')}</div><div class="kns"><div class="kns-n">2</div> ${t('kwStep2')}</div>`
+                  :`<div class="kns"><div class="kns-n">✓</div> ${t('kwStepReady')}</div><div class="kns"><div class="kns-n">→</div> ${t('kwStepAdd')}</div>`}
         </div>
       </div>`;
     return;
@@ -1637,26 +2361,26 @@ function renderKwManager(){
   list.innerHTML=S.customKws.map((k,i)=>{
     const style=typeStyle(k.typeLabel);
     return `<div class="kw-tag" style="${style}" title="${k.typeLabel}">
-      ${k.kw}<button class="kw-del" title="Remove" onclick="removeKW(${i})">✕</button>
+      ${k.kw}<button class="kw-del" title="${t('remove')}" onclick="removeKW(${i})">✕</button>
     </div>`;
   }).join('');
   wrap.innerHTML='';
   wrap.appendChild(list);
   document.getElementById('km-title-sub').textContent=
-    `${S.countries.length} countr${S.countries.length!==1?'ies':'y'} · ${getAllLinks().length} total searches`;
+    t('kmTitleSub',{countries:S.countries.length,total:getAllLinks().length});
 }
 
 // ── Type Manager ─────────────────────────────────────────
 function renderTypeManager(){
   const list=document.getElementById('tm-list');
   if(!S.kwTypes.length){
-    list.innerHTML='<span style="font-size:12px;color:var(--t4);font-style:italic;">No categories yet add one above to get started</span>';
+    list.innerHTML=`<span style="font-size:12px;color:var(--t4);font-style:italic;">${t('noCategoriesYet')}</span>`;
     return;
   }
-  list.innerHTML=S.kwTypes.map((t,i)=>{
-    const c=typeColor(t);
+  list.innerHTML=S.kwTypes.map((typeName,i)=>{
+    const c=typeColor(typeName);
     return `<div class="tm-tag" style="background:${c.bg};border-color:${c.border};color:${c.text}">
-      ${t}<button class="tm-del" onclick="removeType(${i})" title="Remove '${t}'">✕</button>
+      ${typeName}<button class="tm-del" onclick="removeType(${i})" title="${t('remove')}">✕</button>
     </div>`;
   }).join('');
 }
@@ -1684,20 +2408,20 @@ function renderVisaExcludePills(){
 // ── Country Modal ────────────────────────────────────────
 function renderCountryModal(){
   document.getElementById('clist-wrap').innerHTML=S.countries.length===0
-    ?'<div style="text-align:center;padding:16px;color:var(--t4);font-size:12.5px;">No countries added yet. Add one below to start.</div>'
+    ?`<div style="text-align:center;padding:16px;color:var(--t4);font-size:12.5px;">${t('noCountriesModal')}</div>`
     :S.countries.map((c,i)=>{
-      const authLabel=c.local?'✓ Authorized (no visa)':'+ Mark as authorized';
+      const authLabel=c.local?t('authOn'):t('authOff');
       return `
       <div class="citem">
         <span class="citem-flag">${c.flag||'🌐'}</span>
         <div class="citem-info">
           <div class="citem-name">${c.country}</div>
-          <div class="citem-geo">GeoId: ${c.geoId}</div>
+          <div class="citem-geo">${t('geoIdPrefix')} ${c.geoId}</div>
         </div>
-        <button class="auth-toggle${c.local?' on':''}" onclick="toggleCountryAuth(${i})" title="Toggle authorization for ${c.country}">
+        <button class="auth-toggle${c.local?' on':''}" onclick="toggleCountryAuth(${i})" title="${t('toggleAuthTitle',{country:c.country})}">
           <span class="at-dot"></span>${authLabel}
         </button>
-        <button class="del-btn" onclick="removeCountry(${i})" title="Remove ${c.country}">✕</button>
+        <button class="del-btn" onclick="removeCountry(${i})" title="${t('removeCountryTitle',{country:c.country})}">✕</button>
       </div>`;
     }).join('');
 }
@@ -1708,7 +2432,7 @@ function updateKwTypeSelect(){
   const prev=sel.value;
   sel.innerHTML=S.kwTypes.length
     ?S.kwTypes.map(t=>`<option value="${t}"${t===prev?' selected':''}>${t}</option>`).join('')
-    :'<option value="">add category first</option>';
+    :`<option value="">${t('addCategoryFirst')}</option>`;
 }
 
 // ── Stats & Tags ─────────────────────────────────────────
@@ -1728,7 +2452,7 @@ function updateStats(vis=visible()){
   const os=document.getElementById('op-sel');
   const bs=document.getElementById('bat-sel-btn');
   const ss=document.getElementById('sh-sel-btn');
-  if(os){os.disabled=!has;os.textContent=has?`Open Selected (${selV.length}) ↗`:'Open Selected ↗';}
+  if(os){os.disabled=!has;os.textContent=has?t('openSelectedCount',{n:selV.length}):t('openSelected');}
   if(bs) bs.disabled=!has;
   if(ss) ss.disabled=!has;
 
@@ -1740,23 +2464,19 @@ function updateStats(vis=visible()){
   if(S.ua) n++;
   if(S.vm) n++;
   const af=document.getElementById('af-stat');
-  af.innerHTML=n>0?`<b>${n}</b> filter${n>1?'s':''} active`:'No filters';
+  af.innerHTML=n>0?`<b>${n}</b> ${t(n>1?'filtersActivePlural':'filtersActive',{n})}`:t('noFilters');
 }
-
-const TL={r86400:'Today',r259200:'Last 3 Days',r604800:'This Week',r2592000:'This Month'};
-const WL={'1':'On-site','2':'Remote','3':'Hybrid'};
-const EL={'1':'Internship','2':'Entry Level','3':'Associate','4':'Mid-Senior','5':'Director','6':'Executive'};
 
 function updateTags(){
   const tags=[];
-  if(S.time)            tags.push(TL[S.time]||S.time);
-  if(S.ea)              tags.push('Easy Apply');
-  if(S.ua)              tags.push('Under 10 Applicants');
-  if(S.vm)              tags.push('+ Visa Sponsorship');
-  S.wt.forEach(w=>      tags.push(WL[w]));
-  S.el.forEach(e=>      tags.push(EL[e]));
+  if(S.time)            tags.push(filterTimeLabel(S.time)||S.time);
+  if(S.ea)              tags.push(t('tagEasyApply'));
+  if(S.ua)              tags.push(t('tagUnder10'));
+  if(S.vm)              tags.push(t('tagVisa'));
+  S.wt.forEach(w=>      tags.push(filterWorkLabel(w)));
+  S.el.forEach(e=>      tags.push(filterExpLabel(e)));
   if(S.countryFilter.size>0) tags.push([...S.countryFilter].join(' · '));
-  if(S.typeFilter.size>0)    tags.push('Type: '+[...S.typeFilter].join(' · '));
+  if(S.typeFilter.size>0)    tags.push(t('tagType')+': '+[...S.typeFilter].join(' · '));
   document.getElementById('aft').innerHTML=tags.map(t=>`<span class="ft">${t}</span>`).join('');
 }
 
@@ -1779,16 +2499,16 @@ function customTimePreview(){
   if(!v){document.getElementById('tc-preview').textContent='';return;}
   const secs=v*u;
   const label=secs<3600?`${Math.round(secs/60)}min`:secs<86400?`${(secs/3600).toFixed(1)}h`:`${(secs/86400).toFixed(1)}d`;
-  document.getElementById('tc-preview').textContent=`= Last ${label}`;
+  document.getElementById('tc-preview').textContent=`${t('lastPrefix')} ${label}`;
 }
 
 function applyCustomTime(){
   const v=parseInt(document.getElementById('tc-val').value)||0;
   const u=parseInt(document.getElementById('tc-unit').value);
-  if(!v||v<1){toast('⚠️ Enter a number first');return;}
+  if(!v||v<1){toast(t('toastEnterNumber'));return;}
   S.time=`r${v*u}`;
   document.querySelectorAll('#tf .pill').forEach(p=>p.classList.remove('on'));
-  toast('✅ Time filter set');
+  toast(t('toastTimeSet'));
   queuePersist();
   render();
 }
@@ -1856,7 +2576,7 @@ function clearFilters(){
   restoreFilterUI();
   persist();
   render();
-  toast('Filters cleared');
+  toast(t('toastFiltersCleared'));
 }
 
 function toggleEL(el){
@@ -1916,12 +2636,12 @@ function addCountry(){
   const local=document.getElementById('nf-local').checked;
   const errEl=document.getElementById('geo-err');
 
-  if(!name){toast('⚠️ Country name is required');return;}
+  if(!name){toast(t('toastCountryRequired'));return;}
   if(!geo){errEl.classList.remove('hidden');document.getElementById('nf-geo').classList.add('err');return;}
   errEl.classList.add('hidden');
   document.getElementById('nf-geo').classList.remove('err');
 
-  if(S.countries.some(c=>c.country.toLowerCase()===name.toLowerCase())){toast('⚠️ Country already exists');return;}
+  if(S.countries.some(c=>c.country.toLowerCase()===name.toLowerCase())){toast(t('toastCountryExists'));return;}
   S.countries.push({country:name,flag,geoId:geo,local});
   // Auto-exclude authorized countries from visa mode
   if(local&&!S.visaExclude.includes(name)) S.visaExclude.push(name);
@@ -1931,7 +2651,7 @@ function addCountry(){
   document.getElementById('nf-name').value='';
   document.getElementById('nf-geo').value='';
   document.getElementById('nf-local').checked=false;
-  toast(`✅ Added: ${flag} ${name}${local?' (authorized no visa needed)':''}`);
+  toast(t('toastCountryAdded',{flag,name,extra:local?t('toastCountryAddedAuth'):''}));
   updateStats();
   renderCountryFilterPills();
 }
@@ -1944,7 +2664,7 @@ function removeCountry(idx){
   S.countries.splice(idx,1);
   persist();
   renderCountryModal();
-  toast(`Removed: ${c.flag} ${c.country}`);
+  toast(t('toastCountryRemoved',{flag:c.flag,country:c.country}));
   updateStats();
   renderCountryFilterPills();
 }
@@ -1960,7 +2680,7 @@ function toggleCountryAuth(idx){
   }
   persist();
   renderCountryModal();
-  toast(c.local?` ${c.flag} ${c.country} marked as authorized (no visa search)`:` ${c.flag} ${c.country} authorization removed`);
+  toast(c.local?t('toastAuthOn',{flag:c.flag,country:c.country}):t('toastAuthOff',{flag:c.flag,country:c.country}));
 }
 
 function toggleGeoHelp(){
@@ -1976,7 +2696,7 @@ function checkTypeCase(){
   if(!raw){warn.classList.remove('show');return;}
   const match=S.kwTypes.find(t=>t.toLowerCase()===raw.toLowerCase()&&t!==raw);
   if(match){
-    warn.textContent=`⚠ Similar type "${match}" already exists (different case). Using both creates separate filter pills.`;
+    warn.textContent=t('toastTypeCase',{match});
     warn.classList.add('show');
   } else {
     warn.classList.remove('show');
@@ -1985,14 +2705,14 @@ function checkTypeCase(){
 
 function addType(){
   const raw=document.getElementById('tm-input').value.trim();
-  if(!raw){toast('⚠️ Type a category name first');return;}
-  if(S.kwTypes.includes(raw)){toast(`⚠️ "${raw}" already exists`);return;}
+  if(!raw){toast(t('toastTypeName'));return;}
+  if(S.kwTypes.includes(raw)){toast(t('toastTypeExists',{name:raw}));return;}
   S.kwTypes.push(raw);
   document.getElementById('tm-input').value='';
   document.getElementById('case-warn').classList.remove('show');
   persist();
   render();
-  toast(`✅ Added category: "${raw}"`);
+  toast(t('toastTypeAdded',{name:raw}));
 }
 
 function removeType(idx){
@@ -2007,7 +2727,7 @@ function removeType(idx){
   S.typeFilter.delete(label);
   persist();
   render();
-  toast(`Removed category: "${label}"`);
+  toast(t('toastTypeRemoved',{label}));
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -2018,14 +2738,14 @@ function addKW(){
   const tsel=document.getElementById('kw-type-sel');
   const raw=inp.value.trim();
   const type=tsel.value||(S.kwTypes[0]||'Custom');
-  if(!raw){toast('Type a keyword first');return;}
-  if(S.customKws.some(k=>k.kw.toLowerCase()===raw.toLowerCase())){toast('Keyword already exists');return;}
-  if(S.kwTypes.length===0){toast('Add at least one category first (Step 1 above)');return;}
+  if(!raw){toast(t('toastKwFirst'));return;}
+  if(S.customKws.some(k=>k.kw.toLowerCase()===raw.toLowerCase())){toast(t('toastKwExists'));return;}
+  if(S.kwTypes.length===0){toast(t('toastKwNeedCat'));return;}
   S.customKws.push({kw:raw,typeLabel:type});
   persist();
   inp.value='';
   render();
-  toast(`✅ Added "${raw}" → ${type}`);
+  toast(t('toastKwAdded',{kw:raw,type}));
 }
 
 function removeKW(idx){
@@ -2034,7 +2754,7 @@ function removeKW(idx){
   S.customKws.splice(idx,1);
   persist();
   render();
-  toast(`Removed: "${removed}"`);
+  toast(t('toastKwRemoved',{kw:removed}));
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -2074,7 +2794,7 @@ function doOpenMobile(which){
   const arr=which==='sel'?vis.filter(l=>S.sel.has(l.id)):vis;
   if(!arr.length) return;
   if(arr.length>1){
-    toast(`Opening ${arr.length} links one by one check your LinkedIn app between each`);
+    toast(t('toastOpenMobile',{n:arr.length}));
     let i=0;
     function openNext(){
       if(i>=arr.length) return;
@@ -2119,12 +2839,12 @@ function startOpenQueue(items){
 function nextTab(){
   if(_openIdx>=_openTotal){
     setTimeout(()=>document.getElementById('op').classList.remove('show'),1200);
-    toast(`✅ Opened ${_openTotal} tab${_openTotal>1?'s':''}`);
+    toast(t(_openTotal>1?'toastOpenedPlural':'toastOpened',{n:_openTotal}));
     return;
   }
   const item=_openQueue[_openIdx];
   const n=_openIdx+1;
-  document.getElementById('op-text').textContent=`Opening tab ${n} of ${_openTotal}: ${item.label}`;
+  document.getElementById('op-text').textContent=`${t('openingTab',{n,total:_openTotal})}: ${item.label}`;
   document.getElementById('op-bar').style.width=Math.round((n/_openTotal)*100)+'%';
   const a=document.createElement('a');
   a.href=item.url;a.target='_blank';a.rel='noopener noreferrer';
@@ -2134,7 +2854,7 @@ function nextTab(){
     _openTimer=setTimeout(nextTab,S.tabDelay);
   } else {
     setTimeout(()=>document.getElementById('op').classList.remove('show'),1200);
-    toast(`✅ Opened ${_openTotal} tab${_openTotal>1?'s':''}`);
+    toast(t(_openTotal>1?'toastOpenedPlural':'toastOpened',{n:_openTotal}));
   }
 }
 
@@ -2146,9 +2866,9 @@ function copyU(id){
   if(!l) return;
   navigator.clipboard.writeText(buildURL(l)).then(()=>{
     const btn=document.getElementById(`cp-${id}`);
-    btn.textContent='✓ Copied!';
+    btn.textContent=t('copied');
     btn.style.cssText='color:var(--sage);border-color:var(--sage)';
-    setTimeout(()=>{btn.textContent='Copy URL';btn.style.cssText='';},1600);
+    setTimeout(()=>{btn.textContent=t('copyUrl');btn.style.cssText='';},1600);
   });
 }
 
@@ -2185,7 +2905,7 @@ function dlBat(which){
   a.href=URL.createObjectURL(blob);
   a.download='linkedin_search.bat';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
-  toast(`.bat downloaded — ${arr.length} links`);
+  toast(t('toastBat',{n:arr.length}));
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -2236,7 +2956,7 @@ function dlSh(which){
   document.body.appendChild(a);a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);
   document.body.removeChild(a);
-  toast(`.sh downloaded ${arr.length} links (chmod +x the file to run)`);
+  toast(t('toastSh',{n:arr.length}));
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -2267,7 +2987,7 @@ function saveToFile(){
     // Replace the baked block use the specific marker pattern
     const updated=src.replace(/\/\/ BAKED_START[\s\S]*?\/\/ BAKED_END/,newBaked);
     if(updated===src){
-      toast('⚠️ Could not locate save marker. Please use the original file.');
+      toast(t('toastSaveMarker'));
       return;
     }
     const blob=new Blob(['<!DOCTYPE html>\n'+updated.replace(/^<!DOCTYPE[^>]*>\n?/i,'')],{type:'text/html;charset=utf-8'});
@@ -2277,9 +2997,9 @@ function saveToFile(){
     document.body.appendChild(a);a.click();
     setTimeout(()=>URL.revokeObjectURL(a.href),1000);
     document.body.removeChild(a);
-    toast('💾 Saved! All your keywords & countries are baked in.');
+    toast(t('toastSaved'));
   }catch(e){
-    toast('⚠️ Could not save: '+e.message);
+    toast(t('toastSaveFail',{msg:e.message}));
   }
 }
 
@@ -2290,13 +3010,13 @@ function initEditableHeader(){
   const title=document.getElementById('site-title');
   const sub=document.getElementById('site-sub');
   title.addEventListener('blur',()=>{
-    S.settings.title=title.textContent.trim()||'Job Hunter';
+    S.settings.title=title.textContent.trim()||BAKED.settings.title||'Job Hunter';
     title.textContent=S.settings.title;
     document.title=S.settings.title;
     persist();
   });
   sub.addEventListener('blur',()=>{
-    S.settings.subtitle=sub.textContent.trim()||'LinkedIn Opportunity Radar';
+    S.settings.subtitle=sub.textContent.trim()||BAKED.settings.subtitle||'LinkedIn Opportunity Radar';
     sub.textContent=S.settings.subtitle;
     persist();
   });
@@ -2362,7 +3082,9 @@ async function trackVisitor() {
 // INIT
 // ═══════════════════════════════════════════════════════════
 loadState();
+loadLang();
 applyTheme();
+applyI18n();
 initEditableHeader();
 restoreFilterUI(); // re-activate filter pills from saved state
 trackVisitor();
