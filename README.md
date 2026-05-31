@@ -167,7 +167,9 @@ When you open many tabs at once, browsers block them by default. A banner at the
 
 Watch the video guide below to see how to allow popups:
 
-<video src="demo.mp4" width="600" style="max-width: 100%;" autoplay loop muted playsinline></video>
+https://github.com/user-attachments/assets/3edefdbc-9245-4c9d-b8c6-4ed61dc22b6c
+
+
 
 ### If popups are a pain: use a script file
 Click the **Script** group in the action bar:
