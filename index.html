@@ -96,6 +96,21 @@ html[dir="rtl"] .pill,html[dir="rtl"] button,html[dir="rtl"] .abtn,html[dir="rtl
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
 @media(min-width:641px){.wrap{padding:0 22px;}}
 input,select,button,textarea{font-family:var(--sans);}
+select {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAyNCAyNCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjN2Y4ZGEzJyBzdHJva2Utd2lkdGg9JzIuNScgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJyBzdHJva2UtbGluZWpvaW49J3JvdW5kJz48cG9seWxpbmUgcG9pbnRzPSc2IDkgMTIgMTUgMTggOSc+PC9wb2x5bGluZT48L3N2Zz4=") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 8px center !important;
+  background-size: 12px !important;
+  padding-right: 28px !important;
+}
+html[dir="rtl"] select, body.lang-ar select {
+  background-position: left 8px center !important;
+  padding-right: 8px !important;
+  padding-left: 28px !important;
+}
 html[dir="rtl"] input,html[dir="rtl"] select,html[dir="rtl"] textarea{font-family:var(--font-ar);font-weight:500;}
 html[dir="rtl"] button{font-family:var(--font-ar);}
 a{color:inherit;}
@@ -322,7 +337,7 @@ html[dir="rtl"] .hl p,html[dir="rtl"] #site-sub,body.lang-ar .hl p,body.lang-ar 
 
 /* ── QUICK NAV ── */
 .quick-nav{position:sticky;top:0;z-index:90;margin:-6px 0 16px;padding:8px 0;background:var(--bg);border-bottom:1px solid transparent;transition:background-color var(--theme-dur) ease,border-color var(--theme-dur) ease;}
-.quick-nav-inner{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;}
+.quick-nav-inner{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;padding-top: 3px;}
 .quick-nav-inner::-webkit-scrollbar{display:none;}
 .quick-nav a{
   display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:6px 12px;
@@ -450,7 +465,7 @@ html[dir="rtl"] .hl p,html[dir="rtl"] #site-sub,body.lang-ar .hl p,body.lang-ar 
 .time-custom{display:flex;align-items:center;gap:6px;margin-top:7px;flex-wrap:wrap;}
 .time-custom input[type=number]{width:68px;padding:5px 9px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t1);font-size:12px;font-family:var(--mono);outline:none;transition:border-color .15s;}
 .time-custom input:focus{border-color:var(--brownL);}
-.time-custom select{padding:5px 8px;border-radius:7px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;}
+.time-custom select{padding:5px 8px;border-radius:7px;border:1px solid var(--border);background-color:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;}
 .time-custom button{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--s3);color:var(--t2);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;}
 .time-custom button:hover{border-color:var(--brown);color:var(--brown);}
 .time-custom button:disabled{opacity:.35;cursor:not-allowed;border-color:var(--border);color:var(--t4);background:var(--s2);box-shadow:none;}
@@ -596,7 +611,7 @@ html[dir="rtl"] .hl p,html[dir="rtl"] #site-sub,body.lang-ar .hl p,body.lang-ar 
 .km-add input[type=text]{flex:1;min-width:140px;padding:7px 12px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t1);font-size:12.5px;outline:none;transition:border-color .15s;}
 .km-add input:focus{border-color:var(--brownL);}
 .km-add input::placeholder{color:var(--t4);}
-.km-add select{padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;max-width:140px;}
+.km-add select{padding:7px 10px;border-radius:8px;border:1px solid var(--border);background-color:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;max-width:140px;}
 .km-add button{padding:7px 15px;border-radius:8px;border:1px solid var(--border);background:var(--brown);color:#fff;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
 .km-add button:hover{background:var(--brownL);}
 .km-note{font-size:11px;color:var(--t4);margin-top:8px;font-style:italic;}
@@ -1301,7 +1316,7 @@ footer {
   <div class="km-add">
     <input type="text" id="kw-input" data-i18n-placeholder="addKeywordPh" placeholder="Add keyword: e.g. React Developer, Data Analyst..." maxlength="80"
       onkeydown="if(event.key==='Enter')addKW()">
-    <select id="kw-type-sel" style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;"></select>
+    <select id="kw-type-sel" style="padding:7px 10px;border-radius:8px;border:1px solid var(--border);background-color:var(--s2);color:var(--t2);font-size:12px;outline:none;cursor:pointer;"></select>
     <button onclick="addKW()" data-i18n="addKeyword">+ Add Keyword</button>
   </div>
   <div class="km-note" id="km-note" data-i18n-html="kmNote">Custom keywords & types are saved in your browser. Click <b>Save and Download</b> to bake them into the HTML permanently.</div>
@@ -1815,7 +1830,7 @@ ar: {
   time3Days:'٣ أيام',
   timeWeek:'هذا الأسبوع',
   timeMonth:'هذا الشهر',
-  timeCustomPh:'مثال: ٢',
+  timeCustomPh:'e.g. 2',
   unitMinutes:'دقائق',
   unitHours:'ساعات',
   unitDays:'أيام',
